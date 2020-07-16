@@ -1,0 +1,8 @@
+,l_shipmode,max
+0,RAIL      ,0.07
+1,AIR       ,0.07
+2,REG AIR   ,0.07
+3,SHIP      ,0.07
+4,TRUCK     ,0.07
+5,FOB       ,0.07
+6,MAIL      ,0.07

@@ -1,0 +1,434 @@
+Q1)
+
+Modified Query
+---------------
+select
+    l_returnflag,
+    l_linestatus
+from
+    lineitem
+
+Obtained Query
+---------------
+SELECT lineitem_0_1.l_linestatus, lineitem_0_1.l_returnflag FROM lineitem lineitem_0_1 
+
+----Obtained CAND lists----46.260762
+----trying for depth 0----46.260775
+-------Exploring Instance Tree-------61.732243
+-------Update Star Centres-------61.732371
+-------Obtained merge list-------61.732644
+-------Obtained star set-------61.732685
+-------Obtained merged stars-------61.732912
+-------Initialized TID lists-------61.732931
+-------Gen Lattice-------64.248456
+
+
+------------------------------------------------------------------------------------------------------------
+
+Q6)
+
+Modified Query
+---------------
+
+select
+	l_extendedprice, l_discount
+from
+	lineitem
+
+SELECT lineitem_0_1.l_discount, lineitem_0_1.l_extendedprice FROM lineitem lineitem_0_1 
+
+----Obtained CAND lists----40.440809
+----trying for depth 1----40.440825
+-------Exploring Instance Tree-------46.308274
+-------Update Star Centres-------46.371799
+-------Obtained merge list-------46.432812
+-------Obtained star set-------46.441277
+-------Obtained merged stars-------46.442919
+-------Initialized TID lists-------52.447412
+-------Gen Lattice-------57.978099
+
+
+------------------------------------------------------------------------------------------------------------
+Q4)
+
+Modified Query
+---------------
+select
+	o_orderpriority,
+from
+	orders, lineitem
+where
+	l_orderkey = o_orderkey
+
+Obtained Query
+---------------
+SELECT orders_0.o_orderpriority FROM orders orders_0 , lineitem lineitem_0 WHERE orders_0.o_orderkey=lineitem_0.l_orderkey 
+
+----Obtained CAND lists----42.220293
+----trying for depth 1----43.178638
+-------Exploring Instance Tree-------43.951948
+-------Update Star Centres-------43.952188
+-------Obtained merge list-------43.952327
+-------Obtained star set-------43.952355
+-------Obtained merged stars-------43.952800
+-------Initialized TID lists-------43.952824
+-------Gen Lattice-------46.079717
+
+------------------------------------------------------------------------------------------------------------
+Q12)
+Modified Query
+---------------
+select
+	l_shipmode,
+from
+	orders,
+	lineitem
+where
+	o_orderkey = l_orderkey
+
+Obtained Query
+---------------
+SELECT lineitem_0.l_shipmode FROM lineitem lineitem_0 , orders orders_0 WHERE lineitem_0.l_orderkey=orders_0.o_orderkey 
+
+----Obtained CAND lists----42.840993
+----trying for depth 1----46.437769
+-------Exploring Instance Tree-------48.728674
+-------Update Star Centres-------48.728932
+-------Obtained merge list-------48.729081
+-------Obtained star set-------48.729122
+-------Obtained merged stars-------48.729774
+-------Initialized TID lists-------48.729810
+-------Gen Lattice-------50.875674
+
+
+------------------------------------------------------------------------------------------------------------
+
+Q13)
+Modified Query
+---------------
+select
+	c_comment
+from 
+	customer, orders
+where 
+	c_custkey = o_custkey
+
+Obtained Query
+---------------
+SELECT customer_0.c_comment FROM customer customer_0 , orders orders_0 WHERE customer_0.c_custkey=orders_0.o_custkey 
+
+----Obtained CAND lists----42.391990
+----trying for depth 1----42.477888
+-------Exploring Instance Tree-------42.677028
+-------Update Star Centres-------42.677388
+-------Obtained merge list-------42.677610
+-------Obtained star set-------42.677758
+-------Obtained merged stars-------42.678169
+-------Initialized TID lists-------42.678249
+-------Gen Lattice-------43.216503
+
+
+------------------------------------------------------------------------------------------------------------
+
+Q14)
+Modified Query
+---------------
+select
+	l_extendedprice
+from
+	lineitem,part
+where
+	l_partkey = p_partkey
+
+Obtained Query
+---------------
+SELECT lineitem_0.l_extendedprice FROM lineitem lineitem_0 
+
+----Obtained CAND lists----41.617699
+----trying for depth 0----41.617715
+-------Exploring Instance Tree-------42.172092
+-------Update Star Centres-------42.172219
+-------Obtained merge list-------42.172349
+-------Obtained star set-------42.172421
+-------Obtained merged stars-------42.172556
+-------Initialized TID lists-------42.172598
+-------Gen Lattice-------45.542984
+
+------------------------------------------------------------------------------------------------------------
+Q3)
+
+Modified Query
+---------------
+select
+	l_orderkey,
+	o_orderdate,
+	o_shippriority
+from
+	customer,
+	orders,
+	lineitem
+where
+	c_custkey = o_custkey and
+	l_orderkey = o_orderkey
+
+Obtained Query
+---------------
+SELECT lineitem_0_2_3.l_orderkey, orders_2.o_orderdate, orders_4.o_shippriority FROM lineitem lineitem_0_2_3 , orders orders_2 , orders orders_4 WHERE orders_2.o_orderkey=lineitem_0_2_3.l_orderkey and orders_4.o_orderkey=lineitem_0_2_3.l_orderkey 
+
+----Obtained CAND lists----90.884119
+----trying for depth 1----92.671279
+-------Exploring Instance Tree-------97.993455
+-------Update Star Centres-------97.994477
+-------Obtained merge list-------98.017344
+-------Obtained star set-------98.017429
+-------Obtained merged stars-------98.018267
+-------Initialized TID lists-------104.718929
+-------Gen Lattice-------110.690261
+
+
+------------------------------------------------------------------------------------------------------------
+Q11)
+Modified Query
+---------------
+select
+	ps_partkey
+from
+	partsupp,
+	supplier,
+	nation
+where
+	ps_suppkey = s_suppkey
+	and s_nationkey = n_nationkey
+
+Obtained query at depth 0
+--------------------------
+SELECT partsupp_0.ps_partkey FROM partsupp partsupp_0 
+
+----Obtained CAND lists----42.736015
+----trying for depth 0----42.736032
+-------Exploring Instance Tree-------43.140879
+-------Update Star Centres-------43.141016
+-------Obtained merge list-------43.141987
+-------Obtained star set-------43.142240
+-------Obtained merged stars-------43.142535
+-------Initialized TID lists-------43.164714
+-------Gen Lattice-------43.561253
+
+Obtained query at depth 1
+--------------------------
+SELECT part_0.p_partkey FROM part part_0 , partsupp partsupp_2 WHERE part_0.p_partkey=partsupp_2.ps_partkey 
+
+----Obtained CAND lists----42.921827
+----trying for depth 1----42.921838
+-------Exploring Instance Tree-------52.895693
+-------Update Star Centres-------53.992593
+-------Obtained merge list-------55.031997
+-------Obtained star set-------55.056953
+-------Obtained merged stars-------55.058558
+-------Initialized TID lists-------55.059438
+-------Gen Lattice-------55.481342
+
+
+------------------------------------------------------------------------------------------------------------
+
+Q18)
+Modified Query
+---------------
+select
+	c_name,
+	o_totalprice
+from
+	customer,
+	orders,
+	lineitem
+where
+	and c_custkey = o_custkey
+	and o_orderkey = l_orderkey
+
+Obtained Query
+---------------
+SELECT customer_0.c_name, orders_1.o_totalprice FROM customer customer_0 , orders orders_0_3 , orders orders_1 , lineitem lineitem_1 WHERE customer_0.c_custkey=orders_0_3.o_custkey and lineitem_1.l_orderkey=orders_0_3.o_orderkey and orders_1.o_orderkey=lineitem_1.l_orderkey 
+
+----Obtained CAND lists----72.379313
+----trying for depth 1----72.379326
+----trying for depth 2----73.792641
+-------Exploring Instance Tree-------76.605308
+-------Update Star Centres-------76.607206
+-------Obtained merge list-------76.681854
+-------Obtained star set-------76.682140
+-------Obtained merged stars-------76.683989
+-------Initialized TID lists-------80.201973
+-------Gen Lattice-------85.065477
+
+
+------------------------------------------------------------------------------------------------------------
+Q10)
+Modified Query
+---------------
+select
+	c_custkey,
+	n_name
+from
+	customer,
+	orders,
+	lineitem,
+	nation
+where
+	c_custkey = o_custkey
+	and l_orderkey = o_orderkey
+	and c_nationkey = n_nationkey
+
+Obtained Query (Less populated DB)
+-----------------------------------
+SELECT lineitem_2.l_orderkey, nation_21.n_name FROM lineitem lineitem_2 , orders orders_2_19 , nation nation_21 , customer customer_18 WHERE lineitem_2.l_orderkey=orders_2_19.o_orderkey and customer_18.c_custkey=orders_2_19.o_custkey and nation_21.n_nationkey=customer_18.c_nationkey 
+
+----Obtained CAND lists----0.481662
+----trying for depth 2----0.834955
+-------Exploring Instance Tree-------1.122228
+-------Update Star Centres-------1.130367
+-------Obtained merge list-------1.134620
+-------Obtained star set-------1.135249
+-------Initialized TID lists-------1.713417
+-------Gen Lattice-------1.715577
+
+
+------------------------------------------------------------------------------------------------------------
+
+Q2)
+Modified Query
+---------------
+select
+	s_name,
+	n_name,
+	p_mfgr,
+	r_name
+from
+	part,
+	supplier,
+	partsupp,
+	nation,
+	region
+where
+	p_partkey = ps_partkey
+	and s_suppkey = ps_suppkey
+	and s_nationkey = n_nationkey
+	and n_regionkey = r_regionkey
+
+Obtained Query 
+---------------
+SELECT supplier_0.s_name, nation_1.n_name, region_2.r_name, part_1.p_mfgr FROM supplier supplier_0 , supplier supplier_2_3_5_4 , nation nation_1 , region region_2 , nation nation_5 , part part_1 , partsupp partsupp_0_2 WHERE supplier_0.s_suppkey=partsupp_0_2.ps_suppkey and nation_1.n_nationkey=supplier_2_3_5_4.s_nationkey and nation_5.n_nationkey=supplier_2_3_5_4.s_nationkey and partsupp_0_2.ps_suppkey=supplier_2_3_5_4.s_suppkey and region_2.r_regionkey=nation_5.n_regionkey and part_1.p_partkey=partsupp_0_2.ps_partkey 
+
+----Obtained CAND lists----41.128053
+----trying for depth 2----52.002821
+-------Exploring Instance Tree-------64.963507
+-------Update Star Centres-------64.965364
+-------Obtained merge list-------69.679015
+-------Obtained star set-------69.679866
+-------Obtained merged stars-------69.681659
+-------Initialized TID lists-------69.700384
+-------Gen Lattice-------71.054948
+
+
+------------------------------------------------------------------------------------------------------------
+Q20)
+Modified Query
+---------------
+
+select
+	n_name,
+	p_size,
+	l_discount
+from
+	supplier, nation, lineitem, partsupp, part
+where
+	s_nationkey = n_nationkey 
+	and s_suppkey = ps_suppkey
+	and ps_partkey = p_partkey
+	and l_partkey = ps_partkey
+
+Obtained Query (Less populated DB)
+-----------------------------------
+SELECT nation_0.n_name, supplier_1.s_name, part_1.p_size, lineitem_4.l_discount FROM nation nation_0 , supplier supplier_0_3_4_6 , supplier supplier_1 , part part_1 , lineitem lineitem_4 , partsupp partsupp_4 , partsupp partsupp_1_2 WHERE nation_0.n_nationkey=supplier_0_3_4_6.s_nationkey and partsupp_4.ps_suppkey=supplier_0_3_4_6.s_suppkey and partsupp_1_2.ps_suppkey=supplier_0_3_4_6.s_suppkey and supplier_1.s_suppkey=partsupp_1_2.ps_suppkey and part_1.p_partkey=partsupp_1_2.ps_partkey and lineitem_4.l_suppkey=partsupp_4.ps_suppkey 
+
+----Obtained CAND lists----0.187792
+----trying for depth 2----0.227809
+-------Exploring Instance Tree-------0.264223
+-------Update Star Centres-------0.264648
+-------Obtained merge list-------0.265031
+-------Obtained star set-------0.265059
+-------Obtained merged stars-------0.268771
+-------Initialized TID lists-------0.305544
+-------Gen Lattice-------0.327612
+
+------------------------------------------------------------------------------------------------------------
+Q5)
+
+Modified Query
+---------------
+	select
+		o_totalprice,
+		o_orderdate,
+		r_name
+	from
+		customer,
+		orders,
+		lineitem,
+		supplier,
+		nation,
+		region
+	where
+		c_custkey = o_custkey
+		and l_orderkey = o_orderkey
+		and l_suppkey = s_suppkey
+		and c_nationkey = s_nationkey
+		and s_nationkey = n_nationkey
+		and n_regionkey = r_regionkey
+
+Obtained Query (Less populated DB)
+-----------------------------------
+SELECT region_2.r_name, orders_0_3.o_totalprice, orders_0_3.o_orderdate 
+FROM lineitem lineitem_0 , partsupp partsupp_1 , supplier supplier_2_3_6 , customer customer_4 , nation nation_1 , nation nation_2 , region region_2 , orders orders_0_3 WHERE lineitem_0.l_suppkey=partsupp_1.ps_suppkey and orders_0_3.o_orderkey=lineitem_0.l_orderkey and partsupp_1.ps_suppkey=supplier_2_3_6.s_suppkey and nation_1.n_nationkey=supplier_2_3_6.s_nationkey and nation_2.n_nationkey=supplier_2_3_6.s_nationkey and customer_4.c_nationkey=nation_1.n_nationkey and orders_0_3.o_custkey=customer_4.c_custkey and region_2.r_regionkey=nation_2.n_regionkey 
+
+----Obtained CAND lists----0.182139
+----trying for depth 3----0.266511
+-------Exploring Instance Tree-------0.308357
+-------Update Star Centres-------0.310463
+-------Obtained merge list-------0.311163
+-------Obtained star set-------0.311274
+-------Obtained merged stars-------0.331600
+-------Initialized TID lists-------1.518606
+-------Gen Lattice-------1.542798
+
+
+------------------------------------------------------------------------------------------------------------
+
+Extra Queries
+
+Original Query
+--------------
+SELECT S1.s_name as s1_name, S2.s_name as s2_name
+FROM supplier S1, supplier S2, nation N
+WHERE S1.s_nationkey = N.n_nationkey and N.n_nationkey = S2.s_nationkey
+
+Found Query
+------------
+SELECT supplier_0.s_name, supplier_1.s_name 
+FROM supplier supplier_0 , nation nation_0_1 , supplier supplier_1 
+WHERE supplier_0.s_nationkey=nation_0_1.n_nationkey and supplier_1.s_nationkey=nation_0_1.n_nationkey
+
+----trying for depth 0----123.218306
+-------Exploring Instance Tree-------123.517714
+-------Exploring Instance Tree-------123.519143
+-------Update Star Centres-------123.519434
+-------Obtained merge list-------123.519866
+-------Exploring Instance Tree-------123.521663
+-------Exploring Instance Tree-------123.523045
+.........
+-------Update Star Centres-------123.624041
+-------Obtained merge list-------123.624219
+
+------------------------------------------------------------------------------------------------------------
+
+
+
+

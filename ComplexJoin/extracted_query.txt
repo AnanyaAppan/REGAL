@@ -1,0 +1,1 @@
+SELECT lineitem_0_1.l_shipmode AS lineitem_0_1_l_shipmode , lineitem_0_1.l_discount AS lineitem_0_1_l_discount FROM LINEITEM lineitem_0_1

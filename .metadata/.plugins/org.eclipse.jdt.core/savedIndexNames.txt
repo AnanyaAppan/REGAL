@@ -1,0 +1,18 @@
+INDEX VERSION 1.131+/home/ananya/Documents/IISc/RQE/code/Regal-master/.metadata/.plugins/org.eclipse.jdt.core
+4043262822.index
+2627193153.index
+3420070719.index
+3771648428.index
+3419929315.index
+1457601489.index
+1928421390.index
+4187775683.index
+2087266282.index
+1238890782.index
+1045624586.index
+3495791331.index
+803979595.index
+1587442116.index
+1345606907.index
+3400882625.index
+2160534245.index

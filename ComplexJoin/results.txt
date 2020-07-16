@@ -1,0 +1,442 @@
+Original Query :
+SELECT n_name from NATION N, REGION R WHERE N.n_regionkey = R.r_regionkey
+
+Found Query :
+SELECT nation_0.n_name FROM nation nation_0
+
+--------------Pre processing over--------------0.370034
+----Obtained CAND lists----0.415778
+----trying for depth 0----0.415838
+-------Exploring Instance Tree-------0.469613
+-------Update Star Centres-------0.469682
+-------Obtained merge list-------0.469786
+-------Exploring Instance Tree-------0.470326
+-------Update Star Centres-------0.470386
+-------Obtained merge list-------0.470478
+-------Exploring Instance Tree-------0.470996
+-------Update Star Centres-------0.471056
+-------Obtained merge list-------0.471148
+-------Exploring Instance Tree-------0.471581
+-------Update Star Centres-------0.471645
+-------Obtained merge list-------0.471730
+-------Exploring Instance Tree-------0.472134
+-------Update Star Centres-------0.472196
+-------Obtained merge list-------0.472280
+                      n_name
+0  ALGERIA                  
+1  ARGENTINA                
+2  BRAZIL                   
+3  CANADA                   
+4  EGYPT                    
+                      n_name
+0  ALGERIA                  
+1  ARGENTINA                
+2  BRAZIL                   
+3  CANADA                   
+4  EGYPT                    
+SELECT nation_0.n_name FROM nation nation_0
+--------------Post processing over--------------0.583299
+
+-----------------------------------------------------------------------------------------------------
+
+Original Query :
+SELECT * FROM NATION
+
+Found Query :
+SELECT nation_0_1_2_3_4.n_regionkey, nation_0_1_2_3_4.n_comment, nation_0_1_2_3_4.nation_fk1, nation_0_1_2_3_4.n_name, nation_0_1_2_3_4.n_nationkey 
+FROM nation nation_0_1_2_3_4
+
+--------------Pre processing over--------------0.366451
+----Obtained CAND lists----0.427003
+----trying for depth 0----0.427188
+-------Exploring Instance Tree-------0.736780
+-------Exploring Instance Tree-------0.737244
+...................
+-------Update Star Centres-------2.193858
+-------Obtained merge list-------2.194185
+   n_nationkey                     n_name  n_regionkey                                          n_comment  nation_fk1
+0            0  ALGERIA                              0   haggle. carefully final deposits detect slyly...           0
+1            1  ARGENTINA                            1  al foxes promise slyly according to the regula...           1
+2            2  BRAZIL                               1  y alongside of the pending deposits. carefully...           2
+3            3  CANADA                               1  eas hang ironic, silent packages. slyly regula...           3
+4            4  EGYPT                                4  y above the carefully unusual theodolites. fin...           4
+   n_regionkey                                          n_comment  nation_fk1                     n_name  n_nationkey
+0            0   haggle. carefully final deposits detect slyly...           0  ALGERIA                              0
+1            1  al foxes promise slyly according to the regula...           1  ARGENTINA                            1
+2            1  y alongside of the pending deposits. carefully...           2  BRAZIL                               2
+3            1  eas hang ironic, silent packages. slyly regula...           3  CANADA                               3
+4            4  y above the carefully unusual theodolites. fin...           4  EGYPT                                4
+SELECT nation_0_1_2_3_4.n_regionkey, nation_0_1_2_3_4.n_comment, nation_0_1_2_3_4.nation_fk1, nation_0_1_2_3_4.n_name, nation_0_1_2_3_4.n_nationkey FROM nation nation_0_1_2_3_4
+--------------Post processing over--------------2.339442
+
+
+-----------------------------------------------------------------------------------------------------
+
+Original Query :
+select s_acctbal, s_name, p_partkey, p_mfgr
+from part, supplier, partsupp
+where p_partkey = ps_partkey and s_suppkey = ps_suppkey
+
+Found Query :
+SELECT supplier_0.s_acctbal, supplier_1.s_name, part_0.p_partkey, part_1.p_mfgr 
+FROM supplier supplier_0 , partsupp partsupp_0_1_2_3 , supplier supplier_1 , part part_0 , part part_1 
+WHERE supplier_0.s_suppkey=partsupp_0_1_2_3.ps_suppkey and supplier_1.s_suppkey=partsupp_0_1_2_3.ps_suppkey and part_0.p_partkey=partsupp_0_1_2_3.ps_partkey and part_1.p_partkey=partsupp_0_1_2_3.ps_partkey
+
+--------------Pre processing over--------------0.358458
+----Obtained CAND lists----0.418145
+----trying for depth 0----0.418259
+-------Exploring Instance Tree-------0.483987
+-------Exploring Instance Tree-------0.484496
+-------Exploring Instance Tree-------0.484959
+...............
+----trying for depth 1----1.149817
+-------Exploring Instance Tree-------1.183948
+-------Exploring Instance Tree-------1.184235
+-------Exploring Instance Tree-------1.184496
+...............
+-------Obtained merge list-------1.655226
+   s_acctbal                     s_name  p_partkey                     p_mfgr
+0    4032.68  Supplier#000000002                 1  Manufacturer#1           
+1    4192.40  Supplier#000000003                 1  Manufacturer#1           
+2    -283.84  Supplier#000000005                 1  Manufacturer#1           
+3    5755.94  Supplier#000000001                 1  Manufacturer#1           
+4    4641.08  Supplier#000000004                 2  Manufacturer#1           
+   s_acctbal                     s_name  p_partkey                     p_mfgr
+0    4032.68  Supplier#000000002                 1  Manufacturer#1           
+1    4192.40  Supplier#000000003                 1  Manufacturer#1           
+2    -283.84  Supplier#000000005                 1  Manufacturer#1           
+3    5755.94  Supplier#000000001                 1  Manufacturer#1           
+4    4641.08  Supplier#000000004                 2  Manufacturer#1           
+SELECT supplier_0.s_acctbal, supplier_1.s_name, part_0.p_partkey, part_1.p_mfgr FROM supplier supplier_0 , partsupp partsupp_0_1_2_3 , supplier supplier_1 , part part_0 , part part_1 WHERE supplier_0.s_suppkey=partsupp_0_1_2_3.ps_suppkey and supplier_1.s_suppkey=partsupp_0_1_2_3.ps_suppkey and part_0.p_partkey=partsupp_0_1_2_3.ps_partkey and part_1.p_partkey=partsupp_0_1_2_3.ps_partkey
+--------------Post processing over--------------1.693837
+
+
+--------------------------------------------------------------------------------------------------------
+
+Original Query :
+select l_orderkey, o_orderdate, o_shippriority
+from customer, orders, lineitem
+where c_custkey = o_custkey and l_orderkey = o_orderkey
+
+Found Query :
+SELECT lineitem_0.l_orderkey, orders_0_1_2.o_shippriority, orders_0_1_2.o_orderdate 
+FROM lineitem lineitem_0 , orders orders_0_1_2 
+WHERE lineitem_0.l_orderkey=orders_0_1_2.o_orderkey
+
+--------------Pre processing over--------------0.594711
+----Obtained CAND lists----0.648497
+----trying for depth 0----0.648668
+-------Exploring Instance Tree-------0.728704
+-------Exploring Instance Tree-------0.729219
+-------Exploring Instance Tree-------0.729653
+.......................
+----trying for depth 1----6.184347
+-------Exploring Instance Tree-------6.223084
+-------Exploring Instance Tree-------6.223946
+.......................
+-------Obtained merge list-------9.511562
+   l_orderkey o_orderdate  o_shippriority
+0           1  1996-01-02               0
+1           1  1996-01-02               0
+2           1  1996-01-02               0
+3           1  1996-01-02               0
+4           1  1996-01-02               0
+   l_orderkey  o_shippriority o_orderdate
+0           1               0  1996-01-02
+1           1               0  1996-01-02
+2           1               0  1996-01-02
+3           1               0  1996-01-02
+4           1               0  1996-01-02
+SELECT lineitem_0.l_orderkey, orders_0_1_2.o_shippriority, orders_0_1_2.o_orderdate FROM lineitem lineitem_0 , orders orders_0_1_2 WHERE lineitem_0.l_orderkey=orders_0_1_2.o_orderkey
+--------------Post processing over--------------9.561119
+
+
+---------------------------------------------------------------------------------------------------------
+
+Original Query :
+SELECT PS.ps_supplycost, L.l_shipdate, O.o_orderdate 
+FROM partsupp as PS, partsupp as PS1, Part as P, supplier as S, lineitem as L, lineitem as L1, orders as O 
+WHERE PS1.ps_suppkey = S.s_suppkey and S.s_suppkey = PS.ps_suppkey and PS1.ps_partkey = P.p_partkey and P.p_partkey = L.l_partkey and PS1.ps_partkey = L1.l_partkey and PS1.ps_suppkey = L1.l_suppkey and L1.l_orderkey = O.o_orderkey
+
+Found Query :
+SELECT partsupp_0.ps_supplycost, lineitem_16.l_shipdate, orders_9.o_orderdate 
+FROM partsupp partsupp_0 , lineitem lineitem_1 , partsupp partsupp_6 , lineitem lineitem_15_19_28 , partsupp partsupp_7 , lineitem lineitem_16 , orders orders_9 , lineitem lineitem_22 , partsupp partsupp_24 
+WHERE partsupp_0.ps_suppkey=lineitem_1.l_suppkey and lineitem_1.l_suppkey=partsupp_6.ps_suppkey and partsupp_6.ps_suppkey=lineitem_15_19_28.l_suppkey and partsupp_7.ps_suppkey=lineitem_15_19_28.l_suppkey and partsupp_24.ps_suppkey=lineitem_15_19_28.l_suppkey and lineitem_16.l_partkey=partsupp_7.ps_partkey and orders_9.o_orderkey=lineitem_22.l_orderkey and lineitem_22.l_suppkey=partsupp_24.ps_suppkey
+
+--------------Pre processing over--------------0.577509
+----Obtained CAND lists----0.638718
+----trying for depth 0----0.638794
+-------Exploring Instance Tree-------0.696871
+-------Exploring Instance Tree-------0.697331
+-------Exploring Instance Tree-------0.697718
+-------Obtained merge list-------0.697921
+-------Exploring Instance Tree-------0.698452
+-------Exploring Instance Tree-------0.698813
+-------Exploring Instance Tree-------0.699162
+-------Obtained merge list-------0.699364
+-------Exploring Instance Tree-------0.699841
+-------Exploring Instance Tree-------0.700160
+-------Exploring Instance Tree-------0.700447
+-------Obtained merge list-------0.700648
+-------Exploring Instance Tree-------0.701069
+-------Exploring Instance Tree-------0.701348
+-------Exploring Instance Tree-------0.701580
+-------Obtained merge list-------0.701768
+-------Exploring Instance Tree-------0.702157
+-------Exploring Instance Tree-------0.702392
+-------Exploring Instance Tree-------0.702612
+-------Obtained merge list-------0.702802
+----trying for depth 1----0.702813
+-------Exploring Instance Tree-------0.734053
+-------Exploring Instance Tree-------0.734339
+-------Exploring Instance Tree-------0.734855
+-------Update Star Centres-------0.734999
+-------Obtained merge list-------0.735218
+-------Exploring Instance Tree-------0.735930
+-------Exploring Instance Tree-------0.736261
+-------Exploring Instance Tree-------0.737015
+-------Update Star Centres-------0.737151
+-------Obtained merge list-------0.737489
+-------Exploring Instance Tree-------0.738427
+-------Exploring Instance Tree-------0.738832
+-------Exploring Instance Tree-------0.739567
+-------Update Star Centres-------0.739715
+-------Obtained merge list-------0.739974
+-------Exploring Instance Tree-------0.740963
+-------Exploring Instance Tree-------0.741277
+-------Exploring Instance Tree-------0.741770
+-------Update Star Centres-------0.741896
+-------Obtained merge list-------0.742114
+-------Exploring Instance Tree-------0.742750
+-------Exploring Instance Tree-------0.742958
+-------Exploring Instance Tree-------0.743340
+-------Update Star Centres-------0.743463
+-------Obtained merge list-------0.743678
+    ps_supplycost  l_shipdate o_orderdate
+0          771.64  1996-04-21  1996-01-02
+1          771.64  1996-01-29  1996-01-02
+2          771.64  1996-04-12  1996-01-02
+3          771.64  1996-03-13  1996-01-02
+4          993.49  1996-04-21  1996-01-02
+5          993.49  1996-01-29  1996-01-02
+6          993.49  1996-04-12  1996-01-02
+7          993.49  1996-03-13  1996-01-02
+8          337.09  1996-04-21  1996-01-02
+9          337.09  1996-01-29  1996-01-02
+10         337.09  1996-04-12  1996-01-02
+11         337.09  1996-03-13  1996-01-02
+12         357.84  1996-04-21  1996-01-02
+13         357.84  1996-01-29  1996-01-02
+14         357.84  1996-04-12  1996-01-02
+15         357.84  1996-03-13  1996-01-02
+16         378.49  1996-03-30  1996-01-02
+    ps_supplycost  l_shipdate o_orderdate
+0          771.64  1996-04-21  1996-01-02
+1          771.64  1996-01-29  1996-01-02
+2          771.64  1996-04-12  1996-01-02
+3          771.64  1996-03-13  1996-01-02
+4          993.49  1996-04-21  1996-01-02
+5          993.49  1996-01-29  1996-01-02
+6          993.49  1996-04-12  1996-01-02
+7          993.49  1996-03-13  1996-01-02
+8          337.09  1996-04-21  1996-01-02
+9          337.09  1996-01-29  1996-01-02
+10         337.09  1996-04-12  1996-01-02
+11         337.09  1996-03-13  1996-01-02
+12         357.84  1996-04-21  1996-01-02
+13         357.84  1996-01-29  1996-01-02
+14         357.84  1996-04-12  1996-01-02
+15         357.84  1996-03-13  1996-01-02
+16         378.49  1996-03-30  1996-01-02
+SELECT partsupp_0.ps_supplycost, lineitem_0_2_3.l_shipdate, orders_1.o_orderdate FROM partsupp partsupp_0 , lineitem lineitem_0_2_3 , orders orders_1 WHERE partsupp_0.ps_partkey=lineitem_0_2_3.l_partkey and orders_1.o_orderkey=lineitem_0_2_3.l_orderkey
+--------------Post processing over--------------1.159175
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+Original Query :
+select n_name, l_extendedprice
+from customer, orders, lineitem, supplier, nation, region
+where c_custkey = o_custkey and l_orderkey = o_orderkey and l_suppkey = s_suppkey and c_nationkey = s_nationkey and s_nationkey = n_nationkey and n_regionkey = r_regionkey
+
+right now can't be done! (have to implement generalized stars for this)
+
+--------------------------------------------------------------------------------------------------------------------
+
+Original Query :
+select l_shipmode, l_extendedprice
+from lineitem
+
+Found Query :
+SELECT lineitem_0_1.l_extendedprice, lineitem_0_1.l_shipmode 
+FROM lineitem lineitem_0_1
+
+----Obtained CAND lists----0.058419
+----trying for depth 0----0.058460
+-------Exploring Instance Tree-------0.103171
+-------Exploring Instance Tree-------0.103637
+-------Update Star Centres-------0.103757
+-------Obtained merge list-------0.103927
+-------Exploring Instance Tree-------0.104513
+-------Exploring Instance Tree-------0.104868
+-------Update Star Centres-------0.104987
+-------Obtained merge list-------0.105163
+-------Exploring Instance Tree-------0.105750
+-------Exploring Instance Tree-------0.106101
+-------Update Star Centres-------0.106215
+-------Obtained merge list-------0.106376
+-------Exploring Instance Tree-------0.106946
+-------Exploring Instance Tree-------0.107290
+-------Update Star Centres-------0.107403
+-------Obtained merge list-------0.107563
+-------Exploring Instance Tree-------0.108110
+-------Exploring Instance Tree-------0.108441
+-------Update Star Centres-------0.108553
+-------Obtained merge list-------0.108715
+   l_shipmode  l_extendedprice
+0  TRUCK              21168.23
+1  MAIL               45983.16
+2  REG AIR            13309.60
+3  AIR                28955.64
+4  FOB                22824.48
+   l_extendedprice  l_shipmode
+0         21168.23  TRUCK     
+1         45983.16  MAIL      
+2         13309.60  REG AIR   
+3         28955.64  AIR       
+4         22824.48  FOB       
+SELECT lineitem_0_1.l_extendedprice, lineitem_0_1.l_shipmode FROM lineitem lineitem_0_1
+--------------Post processing over--------------0.257972
+
+--------------------------------------------------------------------------------------------------------------------
+
+Original Query :
+select c_name, l_extendedprice, c_acctbal, c_address, c_phone, c_comment
+from customer, orders, lineitem
+where c_custkey = o_custkey and l_orderkey = o_orderkey
+
+Found Query :
+SELECT customer_0.c_name, lineitem_0.l_extendedprice, customer_1.c_acctbal, customer_2.c_address, customer_3.c_phone, customer_4.c_comment 
+FROM customer customer_0 , orders orders_0_1_2_3_4_5 , lineitem lineitem_0 , customer customer_1 , customer customer_2 , customer customer_3 , customer customer_4 
+WHERE customer_0.c_custkey=orders_0_1_2_3_4_5.o_custkey and lineitem_0.l_orderkey=orders_0_1_2_3_4_5.o_orderkey and customer_1.c_custkey=orders_0_1_2_3_4_5.o_custkey and customer_2.c_custkey=orders_0_1_2_3_4_5.o_custkey and customer_3.c_custkey=orders_0_1_2_3_4_5.o_custkey and customer_4.c_custkey=orders_0_1_2_3_4_5.o_custkey
+
+--------------Pre processing over--------------0.546061
+----Obtained CAND lists----0.597203
+----trying for depth 0----0.597266
+-------Exploring Instance Tree-------0.635974
+....................................
+-------Obtained merge list-------0.645284
+----trying for depth 1----0.645296
+-------Exploring Instance Tree-------0.677848
+-------Exploring Instance Tree-------0.678530
+....................................
+-------Obtained merge list-------0.697456
+               c_name  l_extendedprice  c_acctbal          c_address          c_phone                                          c_comment
+0  Customer#000000001         21168.23     711.56  IVhzIApeRb ot,c,E  25-989-741-2988  to the even, regular platelets. regular, ironi...
+1  Customer#000000001         45983.16     711.56  IVhzIApeRb ot,c,E  25-989-741-2988  to the even, regular platelets. regular, ironi...
+2  Customer#000000001         13309.60     711.56  IVhzIApeRb ot,c,E  25-989-741-2988  to the even, regular platelets. regular, ironi...
+3  Customer#000000001         28955.64     711.56  IVhzIApeRb ot,c,E  25-989-741-2988  to the even, regular platelets. regular, ironi...
+4  Customer#000000001         22824.48     711.56  IVhzIApeRb ot,c,E  25-989-741-2988  to the even, regular platelets. regular, ironi...
+               c_name  l_extendedprice  c_acctbal          c_address          c_phone                                          c_comment
+0  Customer#000000001         21168.23     711.56  IVhzIApeRb ot,c,E  25-989-741-2988  to the even, regular platelets. regular, ironi...
+1  Customer#000000001         45983.16     711.56  IVhzIApeRb ot,c,E  25-989-741-2988  to the even, regular platelets. regular, ironi...
+2  Customer#000000001         13309.60     711.56  IVhzIApeRb ot,c,E  25-989-741-2988  to the even, regular platelets. regular, ironi...
+3  Customer#000000001         28955.64     711.56  IVhzIApeRb ot,c,E  25-989-741-2988  to the even, regular platelets. regular, ironi...
+4  Customer#000000001         22824.48     711.56  IVhzIApeRb ot,c,E  25-989-741-2988  to the even, regular platelets. regular, ironi...
+SELECT customer_0.c_name, lineitem_0.l_extendedprice, customer_1.c_acctbal, customer_2.c_address, customer_3.c_phone, customer_4.c_comment FROM customer customer_0 , orders orders_0_1_2_3_4_5 , lineitem lineitem_0 , customer customer_1 , customer customer_2 , customer customer_3 , customer customer_4 WHERE customer_0.c_custkey=orders_0_1_2_3_4_5.o_custkey and lineitem_0.l_orderkey=orders_0_1_2_3_4_5.o_orderkey and customer_1.c_custkey=orders_0_1_2_3_4_5.o_custkey and customer_2.c_custkey=orders_0_1_2_3_4_5.o_custkey and customer_3.c_custkey=orders_0_1_2_3_4_5.o_custkey and customer_4.c_custkey=orders_0_1_2_3_4_5.o_custkey
+--------------Post processing over--------------0.831025
+
+--------------------------------------------------------------------------------------------------------------------
+
+Original Query :
+select ps_comment, ps_availqty
+from partsupp, supplier, nation
+where ps_suppkey = s_suppkey and s_nationkey = n_nationkey
+
+Found Query :
+SELECT partsupp_0_1.ps_availqty, partsupp_0_1.ps_comment 
+FROM partsupp partsupp_0_1
+
+--------------Pre processing over--------------0.687019
+----Obtained CAND lists----0.703968
+----trying for depth 0----0.704000
+-------Exploring Instance Tree-------0.750839
+
+...........
+
+-------Obtained merge list-------0.756199
+                                          ps_comment  ps_availqty
+0  , even theodolites. regular, final theodolites...         3325
+1  ven ideas. quickly even packages print. pendin...         8076
+2  after the fluffily ironic deposits? blithely s...         3956
+3  al, regular dependencies serve carefully after...         4069
+4  nic accounts. final accounts sleep furiously a...         8895
+   ps_availqty                                         ps_comment
+0         3325  , even theodolites. regular, final theodolites...
+1         8076  ven ideas. quickly even packages print. pendin...
+2         3956  after the fluffily ironic deposits? blithely s...
+3         4069  al, regular dependencies serve carefully after...
+4         8895  nic accounts. final accounts sleep furiously a...
+SELECT partsupp_0_1.ps_availqty, partsupp_0_1.ps_comment FROM partsupp partsupp_0_1
+--------------Post processing over--------------0.907739
+
+--------------------------------------------------------------------------------------------------------------------
+
+SELECT S1.s_name as s1_name, S2.s_name as s2_name
+FROM supplier S1, supplier S2, nation N
+WHERE S1.s_nationkey = N.n_nationkey and N.n_nationkey = S2.s_nationkey
+
+{'s1_name': ['supplier.s_name.0'], 's2_name': ['supplier.s_name.1']}
+----Obtained CAND lists----123.218276
+[['supplier.s_name.0', 'supplier.s_name.1']]
+----trying for depth 0----123.218306
+-------Exploring Instance Tree-------123.517714
+-------Exploring Instance Tree-------123.519143
+-------Update Star Centres-------123.519434
+-------Obtained merge list-------123.519866
+-------Exploring Instance Tree-------123.521663
+-------Exploring Instance Tree-------123.523045
+.........
+-------Update Star Centres-------123.624041
+-------Obtained merge list-------123.624219
+                         s1_name                    s2_name
+0      Supplier#000000001         Supplier#000001307       
+1      Supplier#000000001         Supplier#000001267       
+2      Supplier#000000001         Supplier#000001261       
+3      Supplier#000000001         Supplier#000001231       
+4      Supplier#000000001         Supplier#000001207       
+...                          ...                        ...
+75427  Supplier#000001360         Supplier#000000184       
+75428  Supplier#000001360         Supplier#000000127       
+75429  Supplier#000001360         Supplier#000000071       
+75430  Supplier#000001360         Supplier#000000029       
+75431  Supplier#000001360         Supplier#000000003       
+
+[75432 rows x 2 columns]
+                          s_name                     s_name
+0      Supplier#000000001         Supplier#000001307       
+1      Supplier#000000001         Supplier#000001267       
+2      Supplier#000000001         Supplier#000001261       
+3      Supplier#000000001         Supplier#000001231       
+4      Supplier#000000001         Supplier#000001207       
+...                          ...                        ...
+75427  Supplier#000001360         Supplier#000000184       
+75428  Supplier#000001360         Supplier#000000127       
+75429  Supplier#000001360         Supplier#000000071       
+75430  Supplier#000001360         Supplier#000000029       
+75431  Supplier#000001360         Supplier#000000003       
+
+[75432 rows x 2 columns]
+SELECT supplier_0.s_name, supplier_1.s_name FROM supplier supplier_0 , nation nation_0_1 , supplier supplier_1 WHERE supplier_0.s_nationkey=nation_0_1.n_nationkey and supplier_1.s_nationkey=nation_0_1.n_nationkey
+
+-----------------------------------------------------------------------------------------------------------
+
+SELECT P1.p_name , P2.p_name, L.l_discount
+FROM part P1, part P2, partsupp PS1, partsupp PS2, supplier S, lineitem L
+where P1.p_partkey = PS1.ps_partkey and PS1.ps_suppkey = S.s_suppkey and S.s_suppkey = L.l_suppkey and S.s_suppkey = PS2.ps_suppkey and PS2.ps_partkey = P2.p_partkey
+
+-----------------------------------------------------------------------------------------------------------
+
+SELECT S1.s_name , S2.s_name 
+FROM supplier S1, lineitem L1, orders O, lineitem L2, supplier S2
+WHERE S1.s_suppkey = L1.l_suppkey and L1.l_orderkey = O.o_orderkey and o.o_orderkey = L2.l_orderkey and L2.l_suppkey = S2.s_suppkey
