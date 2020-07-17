@@ -1,1 +1,1 @@
-SELECT lineitem_0_1.l_shipmode AS lineitem_0_1_l_shipmode , lineitem_0_1.l_discount AS lineitem_0_1_l_discount FROM LINEITEM lineitem_0_1
+SELECT orders_0_1_2.o_totalprice AS orders_0_1_2_o_totalprice_0 , orders_0_1_2.o_totalprice AS orders_0_1_2_o_totalprice_1 , lineitem_2.l_shipdate AS lineitem_2_l_shipdate_0 FROM orders orders_0_1_2 , lineitem lineitem_2, supplier WHERE orders_0_1_2.o_orderkey=lineitem_2.l_orderkey AND lineitem_2.l_suppkey = supplier.s_suppkey

@@ -10,17 +10,17 @@ def main () :
     start = time.time()
     try:
         conn = psycopg2.connect("dbname=tpch3 host='localhost' user='ananya' password='*Rasika0507'")
-        df = pd.read_csv("query.csv",header=0,index_col=0)
+        df = pd.read_csv("query_out.csv",header=0,index_col=0)
         df = df.sort_values(df.columns.tolist())
         tables = get_tables(conn)
         table_dict = get_table_dict(conn,tables)
-        pre_process(table_dict,conn)
-        print("--------------Pre processing over--------------%f"%(time.time()-start))
-        cand_dict = get_c_and_lists(conn,start,table_dict,df)
+        # pre_process(table_dict,conn)
+        # print("--------------Pre processing over--------------%f"%(time.time()-start))
+        cand_dict, flag = get_c_and_lists(conn,start,table_dict,df)
         print(cand_dict)
         joinGraph = get_join_graph(conn)
         print("----Obtained CAND lists----%f"%(time.time()-start))
-        for depth in range(1):
+        for depth in range(5):
             print("----trying for depth %d----%f"%(depth,time.time()-start))
             star_ctrs,tree_dict = gen_instance_trees(conn,cand_dict,joinGraph,depth)
             valid = None
@@ -52,18 +52,18 @@ def main () :
                 for merged_star in merged_stars :
                     initialize_tid_lists(merged_star,merge)
                     print("-------Initialized TID lists-------%f"%(time.time()-start))
-                    query = gen_lattice(merged_star,merge,df,conn)
+                    query = gen_lattice(merged_star,merge,df,conn,flag)
                     print("-------Gen Lattice-------%f"%(time.time()-start))
                     if(query != None):
                         print(query.split('LIMIT')[0])
-                        f_out = open("extracted_query.txt","w+")
+                        f_out = open("extracted_join_query.txt","w+")
                         f_out.write(query.split('LIMIT')[0])
                         f_out.close()
-                        post_process(table_dict,conn)
-                        print("--------------Post processing over--------------%f"%(time.time()-start))
+                        # post_process(table_dict,conn)
+                        # print("--------------Post processing over--------------%f"%(time.time()-start))
                         sys.exit()
-        post_process(table_dict,conn)
-        print("--------------Post processing over--------------%f"%(time.time()-start))
+        # post_process(table_dict,conn)
+        # print("--------------Post processing over--------------%f"%(time.time()-start))
 
     except psycopg2.Error as e:
         print(type(e))

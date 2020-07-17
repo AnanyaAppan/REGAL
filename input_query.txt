@@ -1,0 +1,4 @@
+select s_name, max(p_size)
+from part, partsupp,supplier
+where p_partkey = ps_partkey and s_suppkey = ps_suppkey and p_size = 38 
+group by s_acctbal, s_name, p_partkey;

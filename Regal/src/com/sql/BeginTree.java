@@ -26,11 +26,12 @@ public class BeginTree {
 		Connection conn = DbTree.getConnection();
 		/***_________________________________________Base Table____________________________________***/
 		
-		// String baseTable = "SELECT L_SHIPMODE, L_QUANTITY, L_LINENUMBER, L_TAX FROM LINEITEM"; 
+		// String baseTable = "SELECT L_SHIPMODE, L_QUANTITY, L_LINENUMBER, L_TAX FROM lineitem"; 
 
-		File file = new File("/home/ananya/Documents/IISc/RQE/code/extracted_query.txt");
+		File file = new File("../../extracted_join_query.txt");
 		Scanner sc = new Scanner(file); 
 		String baseTable = sc.nextLine();
+		System.out.println(baseTable);
 			
 		long start_pre = System.currentTimeMillis();
 		Map<Integer, List<T>> baseColumn = new HashMap<>();		
@@ -47,6 +48,7 @@ public class BeginTree {
 		int baseCardinality = 
 				PreprocessBase.makeDataStruct(conn, baseTable, baseColumn, baseFreq, baseName, baseClass, 
 						baseRowStore, basePartialRow); //, baseSPGA); //@@
+		System.out.println("base cardinality");
 		
 		Map<Integer, MathClass<Integer>> inmath = new HashMap<>();
 		Map<Integer, MathClass<BigDecimal>> domath = new HashMap<>();
@@ -60,16 +62,20 @@ public class BeginTree {
 		
 		/***___________________________________Query Output Table______________________________________***/
 		
-		// String resultTable = "SELECT L_SHIPMODE, COUNT(L_QUANTITY) FROM LINEITEM " 
+		// String resultTable = "SELECT L_SHIPMODE, COUNT(L_QUANTITY) FROM lineitem " 
 		// 		+ "WHERE L_TAX >= 0.02 "
 		// 		+ "AND L_QUANTITY < 46 "
 		// 		+ "AND L_LINENUMBER < 6 " 
 		// 		+ "GROUP BY L_SHIPMODE";
 
-		String resultTable = "select l_shipmode, max(l_discount)" + 
-		" from LINEITEM" + 
-		" where l_discount < 0.08" +
-		" group by l_shipmode" ;
+		file = new File("../../input_query.txt");
+		sc = new Scanner(file); 
+		String resultTable = "";
+		while(sc.hasNextLine()) {
+			resultTable += sc.nextLine() + " ";
+		}
+
+		System.out.println(resultTable);
 		
 		long start_on = System.currentTimeMillis();
 		Map <Integer, List<T>> resultColumn = new HashMap<>();		

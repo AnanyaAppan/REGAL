@@ -226,15 +226,22 @@ def get_table_values(conn, table) :
             else :
                 ret[col].add(row[col])
     return ret
-    # for val in vals :
-    #     if type(val[col_name]) == str :
-    #         ret_vals.append(val[col_name])
-    #     elif type(val[col_name]) == date :
-    #         ret_vals.append(str(val[col_name]))
-    #     else :
-    #         ret_vals.append(eval(str(val[col_name])))
+
+def get_key_cols(conn) :
+    foreign_keys = get_foreign_keys(conn)
+    primary_keys = get_primary_keys(conn)
+    foreign_key_dict = get_foreign_key_dict(primary_keys,foreign_keys)
+    key_cols = set([])
+    for table in foreign_key_dict :
+        fk_constraints = foreign_key_dict[table]
+        for constraint in fk_constraints :
+            key_cols.add(table + '.' + constraint['foreign_col'])
+            key_cols.add(constraint['primary_table'] + '.' + constraint['primary_col'])
+    return key_cols
 
 def get_c_and_lists(connection,start,table_dict,out) :
+
+    key_cols = get_key_cols(connection)
     
     ret_dict = {}
     for col_out in out :
@@ -249,26 +256,20 @@ def get_c_and_lists(connection,start,table_dict,out) :
             col_type = get_col_type(connection,col,table)
             col_values = set()
             for col_out in ret_dict : 
-                if(col_type == type(out[col_out][0])):
+                if((col_type == type(out[col_out][0])) and (table + "." + col not in key_cols)):
                     if col_values == set() : 
                         values = get_col_values(connection,col,table)
                         col_values = set(values)
                     if set(out[col_out]).issubset(col_values):
                         ret_dict[col_out].append(table + "." + col + "." + str(col_count[col]))
                         col_count[col] += 1
-    
-    # for table in table_dict :
-    #     print("----Before obtaining table values----%f"%(time.time()-start))
-    #     table_values = get_table_values(connection,table)
-    #     print("----Obtained table values----%f"%(time.time()-start))
-    #     for col in table_values :
-    #         col_count[col] = 0
-    #         for col_out in ret_dict :
-    #             if set(out[col_out]).issubset(table_values[col]):
-    #                 ret_dict[col_out].append(table + "." + col + "." + str(col_count[col]))
-    #                 col_count[col] += 1
-
-    return ret_dict
+    flag = False
+    for col_out in list(ret_dict.keys()).copy() :
+        if(ret_dict[col_out] == []) :
+            del ret_dict[col_out]
+            del out[col_out]
+            flag = True
+    return ret_dict, flag
 
 def get_foreign_key_dict(primary_keys,foreign_keys) :
     ret_dict = {}
@@ -426,7 +427,6 @@ def bottom_up_prune(tree,root,prev_node,is_star) :
     
 
 def gen_instance_trees(connection,cand_dict,joinGraph,depth) : 
-
     tables = get_tables(connection)
     table_dict = get_table_dict(connection,tables)
     tree_dict = {}
@@ -460,7 +460,6 @@ def gen_instance_trees(connection,cand_dict,joinGraph,depth) :
             nx.set_node_attributes(tree,attr)
             is_star = nx.get_node_attributes(tree,'star')
             tree = bottom_up_prune(tree,list(tree.nodes())[0],None,is_star)
-        
     return star_ctrs,tree_dict
 
 def get_tid_util(tree,prev_node,cur_node,attr,conn, wildcard) :
@@ -749,14 +748,24 @@ def execute_query(query,conn) :
     dat = pd.read_sql_query(query, conn)
     return dat
 
-def get_query_from_graph (graph,limit) :
+def get_query_from_graph (graph,limit,flag) :
     nodes = list(graph.nodes())
     query = " SELECT "
     col = nx.get_node_attributes(graph,'col')
+    col_dict = {}
+    for node in col :
+        for i in range(len(col[node])) :
+            column = col[node][i]
+            if(column not in col_dict) :
+                col_dict[column] = 0
+                col[node][i] += "." + str(col_dict[column])
+            else :
+                col_dict[column] += 1
+                col[node][i] += "." + str(col_dict[column])
     projected_tables = col.keys()
     for projected_table in projected_tables :
-        for x in set(col[projected_table]):
-            query += projected_table + '.' + x + " AS " + projected_table + '_' + x + " , "
+        for x in col[projected_table]:
+            query += projected_table + '.' + x.split(".")[0] + " AS " + projected_table + '_' + x.split(".")[0] + '_' + x.split(".")[1] + " , "
     query = query.strip(", ")
     query += " FROM "
     for node in nodes :
@@ -787,6 +796,7 @@ def df_equals(query,conn,df) :
     vals_df1 = [set([str(j) for j in i]) for i in df1.values]
     vals_df2 = [set([str(j) for j in i]) for i in df2.values]
     if(len(df1.columns) != len(df2.columns)) : return False
+    if(len(df1.index) < len(df2.index)) : return False
     for row in vals_df2 :
         if row in vals_df1 :
             vals_df1.remove(row)
@@ -805,15 +815,20 @@ def df_equals(query,conn,df) :
     #             return False
     
 
-def gen_lattice(star_graph,merge_list,df,conn):
+def gen_lattice(star_graph,merge_list,df,conn,flag):
     lattice = [star_graph]
+    queries = []
     while(len(lattice)) :
         new_lattice = []
+        queries_for_level = []
         while(len(lattice)):
             graph = lattice.pop()
-            query = get_query_from_graph(graph,len(df.index)+1)
-            if df_equals(query,conn,df):
-                return query
+            query = get_query_from_graph(graph,len(df.index)+1,flag)
+            queries_for_level.append(query)
+            # if df_equals(query,conn,df):
+            #     if(flag) :
+            #         query = "SELECT * FROM " + query.split("SELECT")[1].split("FROM")[1]
+            #     return query
             tids = nx.get_node_attributes(graph,'tid')
             nodes = list(graph.nodes())
             for i in range(len(nodes)):
@@ -834,7 +849,14 @@ def gen_lattice(star_graph,merge_list,df,conn):
                             new_lattice.append(new_graph)
                         else : new_graph.clear()
             graph.clear()
+        queries.append(queries_for_level)
         lattice = new_lattice
+    queries.reverse()
+    for queries_for_level in queries :
+        if df_equals(query,conn,df):
+                if(flag) :
+                    query = "SELECT * FROM " + query.split("SELECT")[1].split("FROM")[1]
+                return query
 
 def initialize_black_list(cand_dict) :
     blacklist = {}
