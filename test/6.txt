@@ -1,0 +1,65 @@
+select ps_COMMENT, sum(ps_availqty) as value
+from partsupp, supplier, nation
+where ps_suppkey = s_suppkey and s_nationkey = n_nationkey and s_acctbal > 4500
+group by ps_COMMENT
+
+--------------------------------------------------------------------------------------------------------
+
+--------------Pre processing over--------------0.432259
+{'ps_comment': ['partsupp.ps_comment.0'], 'value': ['partsupp.ps_availqty.0']}
+----Obtained CAND lists----0.665563
+----trying for depth 0----0.665592
+-------Exploring Instance Tree-------0.691119
+-------Update Star Centres-------0.691229
+-------Obtained merge list-------0.691392
+-------Obtained star set-------0.691414
+-------Obtained merged stars-------0.691638
+-------Initialized TID lists-------0.691662
+-------Gen Lattice-------0.693811
+SELECT * FROM  partsupp partsupp_0_1
+--------------Post processing over--------------0.712451
+Database connection established!
+SELECT * FROM  partsupp partsupp_0_1
+base cardinality
+PreproBase.makeDataStruct_cardinality 5
+PreproBase.makeDataStruct_attribute {5=PS_COMMENT, 4=PS_SUPPLYCOST, 3=PS_AVAILQTY, 2=PS_SUPPKEY, 1=PS_PARTKEY}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.Integer, 2=java.lang.Integer, 3=java.lang.Integer, 4=java.math.BigDecimal, 5=java.lang.String}
+__________Preprocessing base table 30.0 ms
+select ps_COMMENT, sum(ps_availqty) as value from partsupp, supplier, nation where ps_suppkey = s_suppkey and s_nationkey = n_nationkey and s_acctbal > 4500 group by ps_COMMENT 
+PreproBase.makeDataStruct_class_query {1=java.lang.String, 2=java.math.BigDecimal}
+{1=java.lang.String, 2=java.lang.Integer}
+PreproBase.result_cardinality 2
+PreproBase.result_column {2=value, 1=ps_COMMENT}
+PreproBase.result_class {1=java.lang.String, 2=java.lang.Integer}
+MapBoth.pairs_{1=[5], 2=[3]}
+MapBoth.produce_lattice_root_[[5, 3]]
+__________Query output table cum Mapping table 9.0 ms
+Used memory is megabytes: 7 MB
+lattice_root [ps_COMMENT, value]
+BuildLattice.lattice_size 3 keyness_count 2
+Keyness_[ps_COMMENT, value]
+Keyness_[ps_COMMENT]
+Keyness_[value]
+Containment_0.0 ms_[ps_COMMENT, value]_true
+Time_TD 1.0 Time_BU 0.0
+Phase1.lattice_root {ps_COMMENT=5, value=3} num_candidates 3
+[(ps_COMMENT ), (value ), (ps_COMMENT value )]
+__________diff_grpby 8.0 ms
+SingleConstraints.aggregation (1, {})
+SingleConstraints.aggregation (2, {min=[3], avg=[3], max=[3], sum=[3]})
+Grouping_[ps_COMMENT]_aggreColumns_[2]
+Read_partial_data_5.0_ms
+Column_id_2 Aggregations_{min=[3], avg=[3], max=[3], sum=[3]}
+Phase2.combnode [ps_COMMENT] 
+aggregation(list of pair) [(2, {avg=[3], sum=[3]})]
+Phase2.treenode {ps_COMMENT=5, value=3}
+Phase2.combnode [ps_COMMENT]
+aggregation 2 [{2=(avg, 3)}, {2=(sum, 3)}]
+__________diff_aggre 0.0 ms
+__________diff_granu 9.0 ms
+FilterSelection_latticeRoot_{ps_COMMENT=5, value=3}
+FilterSelection.grouping_(ps_COMMENT )_multi-dimensions_[1, 2, 3, 4]_aggregation-combinations_2
+time1_0.0_time2_0.0_time3_0.0 = 0.0_ms
+No any filter on aggregate attributes for groupby [ps_COMMENT]
+__________diff_filter 2.0 ms
+Used memory2 is megabytes: 4 MB

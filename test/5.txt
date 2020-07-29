@@ -1,0 +1,237 @@
+select c_name, sum(l_extendedprice) as revenue, c_acctbal, n_name, c_address, c_phone, c_comment
+from customer, orders, lineitem, nation
+where c_custkey = o_custkey and l_orderkey = o_orderkey and c_nationkey = n_nationkey and c_acctbal < 1000
+group by c_name, c_acctbal, c_phone, n_name, c_address, c_comment
+--------------------------------------------------------------------------------------------------------
+
+--------------Pre processing over--------------0.425652
+{'c_name': ['customer.c_name.0'], 'c_acctbal': ['customer.c_acctbal.0'], 'n_name': ['nation.n_name.0'], 'c_address': ['customer.c_address.0'], 'c_phone': ['customer.c_phone.0'], 'c_comment': ['customer.c_comment.0']}
+----Obtained CAND lists----0.685669
+----trying for depth 0----0.685697
+-------Exploring Instance Tree-------0.711008
+-------Obtained merge list-------0.711363
+----trying for depth 1----0.711377
+-------Exploring Instance Tree-------0.738278
+-------Update Star Centres-------0.738533
+-------Update Star Centres-------0.738760
+-------Update Star Centres-------0.738981
+-------Obtained merge list-------0.739446
+-------Obtained star set-------0.739492
+-------Obtained merged stars-------0.741260
+-------Initialized TID lists-------0.741301
+-------Gen Lattice-------0.744070
+SELECT * FROM  customer customer_0_1_2_3_4_5 , nation nation_2 WHERE nation_2.n_nationkey=customer_0_1_2_3_4_5.c_nationkey
+--------------Post processing over--------------0.772160
+Database connection established!
+SELECT * FROM  customer customer_0_1_2_3_4_5 , nation nation_2 WHERE nation_2.n_nationkey=customer_0_1_2_3_4_5.c_nationkey
+base cardinality
+PreproBase.makeDataStruct_cardinality 5
+PreproBase.makeDataStruct_attribute {5=C_PHONE, 10=N_NAME, 4=C_NATIONKEY, 9=N_NATIONKEY, 3=C_ADDRESS, 8=C_COMMENT, 2=C_NAME, 7=C_MKTSEGMENT, 1=C_CUSTKEY, 6=C_ACCTBAL, 12=N_COMMENT, 11=N_REGIONKEY}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.Integer, 2=java.lang.String, 3=java.lang.String, 4=java.lang.Integer, 5=java.lang.String, 6=java.math.BigDecimal, 7=java.lang.String, 8=java.lang.String, 9=java.lang.Integer, 10=java.lang.String, 11=java.lang.Integer, 12=java.lang.String}
+__________Preprocessing base table 96.0 ms
+select c_name, sum(l_extendedprice) as revenue, c_acctbal, n_name, c_address, c_phone, c_comment from customer, orders, lineitem, nation where c_custkey = o_custkey and l_orderkey = o_orderkey and c_nationkey = n_nationkey and c_acctbal < 1000 group by c_name, c_acctbal, c_phone, n_name, c_address, c_comment 
+PreproBase.makeDataStruct_class_query {1=java.lang.String, 2=java.math.BigDecimal, 3=java.math.BigDecimal, 4=java.lang.String, 5=java.lang.String, 6=java.lang.String, 7=java.lang.String}
+{1=java.lang.String, 2=java.math.BigDecimal, 3=java.math.BigDecimal, 4=java.lang.String, 5=java.lang.String, 6=java.lang.String, 7=java.lang.String}
+PreproBase.result_cardinality 1
+PreproBase.result_column {5=c_address, 4=n_name, 3=c_acctbal, 2=revenue, 7=c_comment, 1=c_name, 6=c_phone}
+PreproBase.result_class {1=java.lang.String, 2=java.math.BigDecimal, 3=java.math.BigDecimal, 4=java.lang.String, 5=java.lang.String, 6=java.lang.String, 7=java.lang.String}
+MapBoth.pairs_{1=[2], 3=[6], 4=[10], 5=[3], 6=[5], 7=[8]}
+MapBoth.produce_lattice_root_[[2, 6, 10, 3, 5, 8]]
+__________Query output table cum Mapping table 11.0 ms
+Used memory is megabytes: 5 MB
+lattice_root [c_name, c_acctbal, n_name, c_address, c_phone, c_comment]
+BuildLattice.lattice_size 63 keyness_count 6
+Keyness_[c_name, c_acctbal, n_name, c_address, c_phone, c_comment]
+Keyness_[c_name, c_acctbal, n_name, c_address, c_phone]
+Keyness_[c_name, c_acctbal, n_name, c_address, c_comment]
+Keyness_[c_name, c_acctbal, n_name, c_phone, c_comment]
+Keyness_[c_name, c_acctbal, c_address, c_phone, c_comment]
+Keyness_[c_name, n_name, c_address, c_phone, c_comment]
+Keyness_[c_acctbal, n_name, c_address, c_phone, c_comment]
+Keyness_[c_name, c_acctbal, n_name, c_address]
+Keyness_[c_name, c_acctbal, n_name, c_phone]
+Keyness_[c_name, c_acctbal, n_name, c_comment]
+Keyness_[c_name, c_acctbal, c_address, c_phone]
+Keyness_[c_name, c_acctbal, c_address, c_comment]
+Keyness_[c_name, c_acctbal, c_phone, c_comment]
+Keyness_[c_name, n_name, c_address, c_phone]
+Keyness_[c_name, n_name, c_address, c_comment]
+Keyness_[c_name, n_name, c_phone, c_comment]
+Keyness_[c_name, c_address, c_phone, c_comment]
+Keyness_[c_acctbal, n_name, c_address, c_phone]
+Keyness_[c_acctbal, n_name, c_address, c_comment]
+Keyness_[c_acctbal, n_name, c_phone, c_comment]
+Keyness_[c_acctbal, c_address, c_phone, c_comment]
+Keyness_[n_name, c_address, c_phone, c_comment]
+Keyness_[c_name, c_acctbal, n_name]
+Keyness_[c_name, c_acctbal, c_address]
+Keyness_[c_name, c_acctbal, c_phone]
+Keyness_[c_name, c_acctbal, c_comment]
+Keyness_[c_name, n_name, c_address]
+Keyness_[c_name, n_name, c_phone]
+Keyness_[c_name, n_name, c_comment]
+Keyness_[c_name, c_address, c_phone]
+Keyness_[c_name, c_address, c_comment]
+Keyness_[c_name, c_phone, c_comment]
+Keyness_[c_acctbal, n_name, c_address]
+Keyness_[c_acctbal, n_name, c_phone]
+Keyness_[c_acctbal, n_name, c_comment]
+Keyness_[c_acctbal, c_address, c_phone]
+Keyness_[c_acctbal, c_address, c_comment]
+Keyness_[c_acctbal, c_phone, c_comment]
+Keyness_[n_name, c_address, c_phone]
+Keyness_[n_name, c_address, c_comment]
+Keyness_[n_name, c_phone, c_comment]
+Keyness_[c_address, c_phone, c_comment]
+Keyness_[c_name, c_acctbal]
+Keyness_[c_name, n_name]
+Keyness_[c_name, c_address]
+Keyness_[c_name, c_phone]
+Keyness_[c_name, c_comment]
+Keyness_[c_acctbal, n_name]
+Keyness_[c_acctbal, c_address]
+Keyness_[c_acctbal, c_phone]
+Keyness_[c_acctbal, c_comment]
+Keyness_[n_name, c_address]
+Keyness_[n_name, c_phone]
+Keyness_[n_name, c_comment]
+Keyness_[c_address, c_phone]
+Keyness_[c_address, c_comment]
+Keyness_[c_phone, c_comment]
+Keyness_[c_name]
+Keyness_[c_acctbal]
+Keyness_[n_name]
+Keyness_[c_address]
+Keyness_[c_phone]
+Keyness_[c_comment]
+Containment_0.0 ms_[c_name, c_acctbal, n_name, c_address, c_phone, c_comment]_false
+Containment_0.0 ms_[c_name, c_acctbal, n_name, c_address, c_phone]_false
+Containment_0.0 ms_[c_name, c_acctbal, n_name, c_address, c_comment]_false
+Containment_0.0 ms_[c_name, c_acctbal, n_name, c_phone, c_comment]_false
+Containment_0.0 ms_[c_name, c_acctbal, c_address, c_phone, c_comment]_false
+Containment_0.0 ms_[c_name, n_name, c_address, c_phone, c_comment]_false
+Containment_0.0 ms_[c_acctbal, n_name, c_address, c_phone, c_comment]_false
+Containment_0.0 ms_[c_name, c_acctbal, n_name, c_address]_false
+Containment_1.0 ms_[c_name, c_acctbal, n_name, c_phone]_false
+Containment_0.0 ms_[c_name, c_acctbal, c_address, c_phone]_false
+Containment_0.0 ms_[c_name, n_name, c_address, c_phone]_false
+Containment_0.0 ms_[c_acctbal, n_name, c_address, c_phone]_false
+Containment_0.0 ms_[c_name, c_acctbal, n_name, c_comment]_false
+Containment_0.0 ms_[c_name, c_acctbal, c_address, c_comment]_false
+Containment_0.0 ms_[c_name, n_name, c_address, c_comment]_false
+Containment_0.0 ms_[c_acctbal, n_name, c_address, c_comment]_false
+Containment_0.0 ms_[c_name, c_acctbal, c_phone, c_comment]_false
+Containment_0.0 ms_[c_name, n_name, c_phone, c_comment]_false
+Containment_0.0 ms_[c_acctbal, n_name, c_phone, c_comment]_false
+Containment_0.0 ms_[c_name, c_address, c_phone, c_comment]_false
+Containment_1.0 ms_[c_acctbal, c_address, c_phone, c_comment]_false
+Containment_0.0 ms_[n_name, c_address, c_phone, c_comment]_false
+Containment_0.0 ms_[c_name, c_acctbal, n_name]_false
+Containment_0.0 ms_[c_name, c_acctbal, c_address]_true
+Containment_0.0 ms_[c_name, n_name, c_address]_false
+Containment_0.0 ms_[c_acctbal, n_name, c_address]_false
+Containment_0.0 ms_[c_name, c_acctbal, c_phone]_false
+Containment_0.0 ms_[c_name, n_name, c_phone]_false
+Containment_0.0 ms_[c_acctbal, n_name, c_phone]_false
+Containment_0.0 ms_[c_name, c_address, c_phone]_false
+Containment_0.0 ms_[c_acctbal, c_address, c_phone]_false
+Containment_0.0 ms_[n_name, c_address, c_phone]_false
+Containment_0.0 ms_[c_name, c_acctbal, c_comment]_false
+Containment_0.0 ms_[c_name, n_name, c_comment]_false
+Containment_0.0 ms_[c_acctbal, n_name, c_comment]_false
+Containment_0.0 ms_[c_name, c_address, c_comment]_false
+Containment_0.0 ms_[c_acctbal, c_address, c_comment]_false
+Containment_0.0 ms_[n_name, c_address, c_comment]_false
+Containment_0.0 ms_[c_name, c_phone, c_comment]_false
+Containment_0.0 ms_[c_acctbal, c_phone, c_comment]_false
+Containment_0.0 ms_[n_name, c_phone, c_comment]_false
+Containment_0.0 ms_[c_address, c_phone, c_comment]_false
+Containment_0.0 ms_[c_name, n_name]_false
+Containment_0.0 ms_[c_acctbal, n_name]_false
+Containment_0.0 ms_[n_name, c_address]_false
+Containment_0.0 ms_[c_name, c_phone]_false
+Containment_0.0 ms_[c_acctbal, c_phone]_false
+Containment_0.0 ms_[n_name, c_phone]_false
+Containment_0.0 ms_[c_address, c_phone]_false
+Containment_0.0 ms_[c_name, c_comment]_false
+Containment_0.0 ms_[c_acctbal, c_comment]_false
+Containment_0.0 ms_[n_name, c_comment]_false
+Containment_0.0 ms_[c_address, c_comment]_false
+Containment_0.0 ms_[c_phone, c_comment]_false
+Time_TD 212.0 Time_BU 1.0
+Phase1.lattice_root {c_acctbal=6, c_phone=5, c_address=3, c_name=2, n_name=10, c_comment=8} num_candidates 10
+[(c_name ), (c_acctbal ), (n_name ), (c_address ), (c_phone ), (c_comment ), (c_name c_acctbal ), (c_name c_address ), (c_acctbal c_address ), (c_name c_acctbal c_address )]
+__________diff_grpby 222.0 ms
+SingleConstraints.aggregation (1, {})
+SingleConstraints.aggregation (2, {})
+SingleConstraints.aggregation (4, {})
+SingleConstraints.aggregation (5, {})
+SingleConstraints.aggregation (6, {})
+SingleConstraints.aggregation (7, {})
+SingleConstraints.aggregation (3, {min=[6], avg=[6], max=[6], sum=[6]})
+Grouping_[c_name]_aggreColumns_[3]
+Read_partial_data_5.0_ms
+Column_id_3 Aggregations_{min=[6], avg=[6], max=[6], sum=[6]}
+Grouping_[n_name]_aggreColumns_[3]
+Read_partial_data_0.0_ms
+Column_id_3 Aggregations_{min=[6], avg=[6], max=[6], sum=[6]}
+Grouping_[c_address]_aggreColumns_[3]
+Read_partial_data_0.0_ms
+Column_id_3 Aggregations_{min=[6], avg=[6], max=[6], sum=[6]}
+Grouping_[c_phone]_aggreColumns_[3]
+Read_partial_data_0.0_ms
+Column_id_3 Aggregations_{min=[6], avg=[6], max=[6], sum=[6]}
+Grouping_[c_comment]_aggreColumns_[3]
+Read_partial_data_0.0_ms
+Column_id_3 Aggregations_{min=[6], avg=[6], max=[6], sum=[6]}
+Grouping_[c_name, c_address]_aggreColumns_[3]
+Read_partial_data_7.0_ms
+Column_id_3 Aggregations_{min=[6], avg=[6], max=[6], sum=[6]}
+Phase2.combnode [c_phone] 
+aggregation(list of pair) [(3, {min=[6], avg=[6], max=[6], sum=[6]})]
+Phase2.combnode [c_comment] 
+aggregation(list of pair) [(3, {min=[6], avg=[6], max=[6], sum=[6]})]
+Phase2.combnode [n_name] 
+aggregation(list of pair) [(3, {min=[6], avg=[6], max=[6], sum=[6]})]
+Phase2.combnode [c_address] 
+aggregation(list of pair) [(3, {min=[6], avg=[6], max=[6], sum=[6]})]
+Phase2.combnode [c_name, c_address] 
+aggregation(list of pair) [(3, {min=[6], avg=[6], max=[6], sum=[6]})]
+Phase2.combnode [c_name] 
+aggregation(list of pair) [(3, {min=[6], avg=[6], max=[6], sum=[6]})]
+Phase2.treenode {c_acctbal=6, c_phone=5, c_address=3, c_name=2, n_name=10, c_comment=8}
+Phase2.combnode [c_phone]
+aggregation 4 [{3=(min, 6)}, {3=(avg, 6)}, {3=(max, 6)}, {3=(sum, 6)}]
+Phase2.combnode [c_comment]
+aggregation 4 [{3=(min, 6)}, {3=(avg, 6)}, {3=(max, 6)}, {3=(sum, 6)}]
+Phase2.combnode [n_name]
+aggregation 4 [{3=(min, 6)}, {3=(avg, 6)}, {3=(max, 6)}, {3=(sum, 6)}]
+Phase2.combnode [c_address]
+aggregation 4 [{3=(min, 6)}, {3=(avg, 6)}, {3=(max, 6)}, {3=(sum, 6)}]
+Phase2.combnode [c_name, c_address]
+aggregation 4 [{3=(min, 6)}, {3=(avg, 6)}, {3=(max, 6)}, {3=(sum, 6)}]
+Phase2.combnode [c_name]
+aggregation 4 [{3=(min, 6)}, {3=(avg, 6)}, {3=(max, 6)}, {3=(sum, 6)}]
+__________diff_aggre 1.0 ms
+__________diff_granu 23.0 ms
+FilterSelection_latticeRoot_{c_acctbal=6, c_phone=5, c_address=3, c_name=2, n_name=10, c_comment=8}
+FilterSelection.grouping_(c_phone )_multi-dimensions_[1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12]_aggregation-combinations_4
+time1_0.0_time2_0.0_time3_0.0 = 1.0_ms
+No any filter on aggregate attributes for groupby [c_phone]
+FilterSelection.grouping_(c_comment )_multi-dimensions_[1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12]_aggregation-combinations_4
+time1_0.0_time2_0.0_time3_0.0 = 0.0_ms
+No any filter on aggregate attributes for groupby [c_comment]
+FilterSelection.grouping_(n_name )_multi-dimensions_[1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12]_aggregation-combinations_4
+time1_0.0_time2_0.0_time3_0.0 = 1.0_ms
+No any filter on aggregate attributes for groupby [n_name]
+FilterSelection.grouping_(c_address )_multi-dimensions_[1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12]_aggregation-combinations_4
+time1_0.0_time2_0.0_time3_0.0 = 0.0_ms
+No any filter on aggregate attributes for groupby [c_address]
+FilterSelection.grouping_(c_name c_address )_multi-dimensions_[1, 4, 5, 6, 7, 8, 9, 10, 11, 12]_aggregation-combinations_4
+time1_0.0_time2_0.0_time3_0.0 = 0.0_ms
+No any filter on aggregate attributes for groupby [c_name, c_address]
+FilterSelection.grouping_(c_name )_multi-dimensions_[1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]_aggregation-combinations_4
+time1_0.0_time2_0.0_time3_0.0 = 1.0_ms
+No any filter on aggregate attributes for groupby [c_name]
+__________diff_filter 4.0 ms
+Used memory2 is megabytes: 5 MB

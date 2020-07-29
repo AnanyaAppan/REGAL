@@ -268,9 +268,11 @@ public class GroupGranular {
 		if (!baseSPGA.keySet().contains(combinaBID)) {
 			List<Integer> getBaseCols = basePartialRow.get(combinaBID); //@@@@
 			//List<Integer> getBaseCols = new ArrayList<>(removeKey);
-			//System.out.println("getBaseCols " +getBaseCols);
-			ReadDatabase.readSkipDatabase(baseSPGA, baseRowStore, combinaBID, 
+			// System.out.println("getBaseCols " +getBaseCols);
+			if(getBaseCols != null){
+				ReadDatabase.readSkipDatabase(baseSPGA, baseRowStore, combinaBID, 
 					getBaseCols, baseColumn, baseFreq, skipBase);
+			}
 		}
 		Map<List<String>, Multimap<Integer, T>> mapBID = baseSPGA.get(combinaBID);
 		
@@ -461,10 +463,10 @@ public class GroupGranular {
 					groupsum += bidValue.get(i).doubleValue();
 				}
 				double groupavg = groupsum / bidValue.size();
-			//System.out.println("SwitchDemo.gotoAvg_groupavg "+ bidValue.size()+" " + groupavg + " compare " +
-			//	ridval + " " + (int) Math.round(groupavg-ridval.doubleValue()));
-			//System.out.println("SwitchDemo.gotoAvg " + cn.getInferFrequency());
-			//int zero = (int) Math.round(groupavg-ridval.doubleValue());
+				//System.out.println("SwitchDemo.gotoAvg_groupavg "+ bidValue.size()+" " + groupavg + " compare " +
+				//	ridval + " " + (int) Math.round(groupavg-ridval.doubleValue()));
+				//System.out.println("SwitchDemo.gotoAvg " + cn.getInferFrequency());
+				//int zero = (int) Math.round(groupavg-ridval.doubleValue());
 				BigDecimal value = new BigDecimal(groupavg-ridval.doubleValue());
 				value = value.setScale(2, RoundingMode.HALF_DOWN);
 				if (statment == true) {
@@ -497,8 +499,8 @@ public class GroupGranular {
 						} /** else if (value.compareTo(BigDecimal.ZERO) == 0) {
 							inferFreq.add(tupleRID);
 						} */
-					} else if (Collections.min(bidValue).compareTo(ridval) > 0 || 
-							ridval.compareTo(Collections.max(bidValue)) > 0) 
+					} else if (String.valueOf(ridval).compareTo(String.valueOf((Collections.min(bidValue)))) > 0 || 
+							String.valueOf(ridval).compareTo(String.valueOf(Collections.max(bidValue))) > 0) 
 					{
 						valid = false;
 						break outer;
@@ -782,7 +784,7 @@ public class GroupGranular {
 		outer:
 		while (iterListRID.hasNext()) {
 			List<String> tupleRID = iterListRID.next();
-			if (mapBID.keySet().contains(tupleRID)) {
+			if ((mapBID != null) && mapBID.keySet().contains(tupleRID)) {
 				List<T> ridValue = (List<T>) mapRID.get(tupleRID).get(rid);
 				//System.out.println(ridValue.get(0).getClass().getSimpleName() + " " + rid);
 				int ridval;

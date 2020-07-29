@@ -1,6 +1,7 @@
 package com.sql;
 
 import java.math.BigDecimal;
+import static java.lang.Math.min;
 // import java.sql.Connection;
 // import java.sql.SQLException;
 import java.sql.*;
@@ -39,16 +40,15 @@ public class PreprocessBase {
 			ResultSet rs = (ResultSet) stmt.executeQuery(query);
 			ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
 			int columnsNumber = rsmd.getColumnCount();
-						
 			List<Integer> allColumn = new ArrayList<>();
 	        for (int i=1 ; i <= columnsNumber ; ++i){
 	        	columnName.put(i, rsmd.getColumnLabel(i));
 	        	columnClass.put(i, rsmd.getColumnClassName(i));
 	        	allColumn.add(i);
 	        }
-	        Integer[] columnArray = allColumn.toArray(new Integer[allColumn.size()]);
-	        ArrayList<List<Integer>> treeCom = new ArrayList<>();
-			for (int i=1; i <= columnArray.length; ++i) {
+			Integer[] columnArray = allColumn.toArray(new Integer[allColumn.size()]);
+			ArrayList<List<Integer>> treeCom = new ArrayList<>();
+			for (int i=1; i <= columnArray.length ; ++i) {
 				treeCom.addAll(combination(columnArray, i));	
 			}
 			//@@
@@ -264,6 +264,7 @@ public class PreprocessBase {
 		int nf = fact(n);
 		int rf = fact(r);
 		int nrf = fact(n-r);
+		if(nrf == 0) return 1;
 		int npr = nf/nrf;
 		int ncr = npr/rf;
 		//System.out.println("PreproBase.c C(" + n + "," + r +") = " + ncr);

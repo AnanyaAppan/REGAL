@@ -786,27 +786,26 @@ def get_query_from_graph (graph,limit,flag) :
     # query += " LIMIT %d" % (limit) 
     return query
 
-def df_equals(query,conn,df) :
+def df_equals(query,conn,df,flag) :
     df1 = pd.read_sql_query(query , conn)
     df2 = df
     df1 = df1.sort_index(axis=1)
     df2 = df2.sort_index(axis=1)
-    print(df1)
-    print(df2)
     vals_df1 = [set([str(j) for j in i]) for i in df1.values]
     vals_df2 = [set([str(j) for j in i]) for i in df2.values]
-    if(len(df1.columns) != len(df2.columns)) : return False
-    if(len(df1.index) < len(df2.index)) : return False
+    if(len(df1.columns) != len(df2.columns)) : return flag,False
+    if(len(df1.index) < len(df2.index)) : return flag,False
+    if(len(df1.index) != len(df2.index)) : flag = True
     for row in vals_df2 :
         if row in vals_df1 :
             vals_df1.remove(row)
         else :
             del vals_df1
             del vals_df2
-            return False
+            return flag,False
     del vals_df1
     del vals_df2
-    return True
+    return flag,True
     # for i in range(len(vals_df1)) :
     #     for j in range(len(vals_df1[0])):
     #         if(str(vals_df1[i][j]) != str(vals_df2[i][j])):
@@ -853,10 +852,11 @@ def gen_lattice(star_graph,merge_list,df,conn,flag):
         lattice = new_lattice
     queries.reverse()
     for queries_for_level in queries :
-        if df_equals(query,conn,df):
-                if(flag) :
-                    query = "SELECT * FROM " + query.split("SELECT")[1].split("FROM")[1]
-                return query
+        flag, is_equal = df_equals(query,conn,df,flag)
+        if is_equal:
+            if(flag) :
+                query = "SELECT * FROM " + query.split("SELECT")[1].split("FROM")[1]
+            return query
 
 def initialize_black_list(cand_dict) :
     blacklist = {}

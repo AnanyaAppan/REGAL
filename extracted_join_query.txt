@@ -1,1 +1,1 @@
-SELECT supplier_0.s_name AS supplier_0_s_name_0 , part_0.p_size AS part_0_p_size_0 FROM supplier supplier_0 , lineitem lineitem_0_1 , part part_0 WHERE lineitem_0_1.l_suppkey=supplier_0.s_suppkey and lineitem_0_1.l_partkey=part_0.p_partkey
+SELECT * FROM  orders orders_0_1

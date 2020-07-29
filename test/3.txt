@@ -1,0 +1,52 @@
+select max(O_ORDERDATE), o_orderpriority
+from orders
+where o_totalprice > 50000
+group by O_ORDERDATE, o_orderpriority
+
+--------------------------------------------------------------------------------------------------------
+
+--------------Pre processing over--------------1.725295
+{'max': ['orders.o_orderdate.0'], 'o_orderpriority': ['orders.o_orderpriority.0']}
+----Obtained CAND lists----1.926732
+----trying for depth 0----1.926756
+-------Exploring Instance Tree-------1.948156
+-------Update Star Centres-------1.948269
+-------Obtained merge list-------1.948423
+-------Obtained star set-------1.948443
+-------Obtained merged stars-------1.948640
+-------Initialized TID lists-------1.948663
+-------Gen Lattice-------1.950063
+SELECT * FROM  orders orders_0_1
+--------------Post processing over--------------1.988663
+Database connection established!
+SELECT * FROM  orders orders_0_1
+base cardinality
+PreproBase.makeDataStruct_cardinality 5
+PreproBase.makeDataStruct_attribute {5=O_ORDERDATE, 4=O_TOTALPRICE, 9=O_COMMENT, 3=O_ORDERSTATUS, 8=O_SHIPPRIORITY, 2=O_CUSTKEY, 7=O_CLERK, 1=O_ORDERKEY, 6=O_ORDERPRIORITY}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.Integer, 2=java.lang.Integer, 3=java.lang.String, 4=java.math.BigDecimal, 5=java.sql.Date, 6=java.lang.String, 7=java.lang.String, 8=java.lang.Integer, 9=java.lang.String}
+__________Preprocessing base table 35.0 ms
+select max(O_ORDERDATE), o_orderpriority from orders where o_totalprice > 50000 group by O_ORDERDATE, o_orderpriority 
+PreproBase.makeDataStruct_class_query {1=java.sql.Date, 2=java.lang.String}
+{1=java.sql.Date, 2=java.lang.String}
+PreproBase.result_cardinality 3
+PreproBase.result_column {2=o_orderpriority, 1=max(O_ORDERDATE)}
+PreproBase.result_class {1=java.sql.Date, 2=java.lang.String}
+MapBoth.pairs_{1=[5], 2=[6]}
+MapBoth.produce_lattice_root_[[5, 6]]
+__________Query output table cum Mapping table 12.0 ms
+Used memory is megabytes: 7 MB
+lattice_root [max(O_ORDERDATE), o_orderpriority]
+BuildLattice.lattice_size 3 keyness_count 2
+Keyness_[max(O_ORDERDATE), o_orderpriority]
+Keyness_[max(O_ORDERDATE)]
+Containment_0.0 ms_[max(O_ORDERDATE), o_orderpriority]_true
+Time_TD 1.0 Time_BU 0.0
+Phase1.lattice_root {max(O_ORDERDATE)=5, o_orderpriority=6} num_candidates 2
+[(max(O_ORDERDATE) ), (max(O_ORDERDATE) o_orderpriority )]
+__________diff_grpby 5.0 ms
+SingleConstraints.aggregation (1, {})
+SingleConstraints.aggregation (2, {})
+__________diff_aggre 0.0 ms
+__________diff_granu 2.0 ms
+__________diff_filter 1.0 ms
+Used memory2 is megabytes: 4 MB

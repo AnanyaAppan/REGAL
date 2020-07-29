@@ -1,0 +1,47 @@
+select s_name, count(*) as numwait
+from supplier, lineitem l1, orders, nation
+where s_suppkey = l1.l_suppkey and o_orderkey = l1.l_orderkey and s_nationkey = n_nationkey 
+group by s_name;
+--------------------------------------------------------------------------------------------------------
+
+Database connection established!
+select s_name from supplier, lineitem l1, orders, nation where s_suppkey = l1.l_suppkey and o_orderkey = l1.l_orderkey and s_nationkey = n_nationkey ; 
+base cardinality
+PreproBase.makeDataStruct_cardinality 5
+PreproBase.makeDataStruct_attribute {1=s_name}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.String}
+__________Preprocessing base table 24.0 ms
+select s_name, count(*) as numwait from supplier, lineitem l1, orders, nation where s_suppkey = l1.l_suppkey and o_orderkey = l1.l_orderkey and s_nationkey = n_nationkey  group by s_name; 
+PreproBase.makeDataStruct_class_query {1=java.lang.String, 2=java.lang.Long}
+{1=java.lang.String, 2=java.lang.Long}
+PreproBase.result_cardinality 5
+PreproBase.result_column {2=numwait, 1=s_name}
+PreproBase.result_class {1=java.lang.String, 2=java.lang.Long}
+MapBoth.pairs_{1=[1]}
+MapBoth.produce_lattice_root_[[1]]
+__________Query output table cum Mapping table 9.0 ms
+Used memory is megabytes: 7 MB
+lattice_root [s_name]
+BuildLattice.lattice_size 1 keyness_count 1
+Keyness_[s_name]
+Time_TD 1.0 Time_BU 0.0
+Phase1.lattice_root {s_name=1} num_candidates 1
+[(s_name )]
+__________diff_grpby 8.0 ms
+SingleConstraints.aggregation (1, {})
+SingleConstraints.aggregation (2, {count=[0]})
+Grouping_[s_name]_aggreColumns_[2]
+Read_partial_data_5.0_ms
+Column_id_2 Aggregations_{count=[0]}
+Phase2.combnode [s_name] 
+aggregation(list of pair) [(2, {count=[0]})]
+Phase2.treenode {s_name=1}
+Phase2.combnode [s_name]
+aggregation 1 [{2=(count, 0)}]
+__________diff_aggre 1.0 ms
+__________diff_granu 7.0 ms
+FilterSelection_latticeRoot_{s_name=1}
+FilterSelection.grouping_(s_name )_multi-dimensions_null_aggregation-combinations_1
+time1_0.0_time2_0.0_time3_0.0 = 0.0_ms
+No any filter on aggregate attributes for groupby [s_name]
+__________diff_filter 2.0 ms

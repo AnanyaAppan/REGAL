@@ -1,0 +1,94 @@
+select n_name, c_name, sum(c_acctbal) as revenue
+from customer,supplier, nation, region
+where c_nationkey = s_nationkey and s_nationkey = n_nationkey and n_regionkey = r_regionkey
+group by n_name, c_name;
+--------------------------------------------------------------------------------------------------------
+
+--------------Pre processing over--------------0.444203
+{'n_name': ['nation.n_name.0'], 'c_name': ['customer.c_name.0'], 'revenue': ['customer.c_acctbal.0']}
+----Obtained CAND lists----0.648182
+----trying for depth 0----0.648207
+-------Exploring Instance Tree-------0.671147
+-------Obtained merge list-------0.671365
+----trying for depth 1----0.671377
+-------Exploring Instance Tree-------0.693317
+-------Update Star Centres-------0.693475
+-------Update Star Centres-------0.693600
+-------Update Star Centres-------0.693736
+-------Obtained merge list-------0.694031
+-------Obtained star set-------0.694059
+-------Obtained merged stars-------0.694948
+-------Initialized TID lists-------0.694973
+-------Gen Lattice-------0.697484
+SELECT nation_0.n_name AS nation_0_n_name_0 , customer_1_2.c_name AS customer_1_2_c_name_0 , customer_1_2.c_acctbal AS customer_1_2_c_acctbal_0 FROM nation nation_0 , supplier supplier_0_1_2 , customer customer_1_2 WHERE nation_0.n_nationkey=supplier_0_1_2.s_nationkey and customer_1_2.c_nationkey=supplier_0_1_2.s_nationkey
+--------------Post processing over--------------0.740425
+Database connection established!
+SELECT nation_0.n_name AS nation_0_n_name_0 , customer_1_2.c_name AS customer_1_2_c_name_0 , customer_1_2.c_acctbal AS customer_1_2_c_acctbal_0 FROM nation nation_0 , supplier supplier_0_1_2 , customer customer_1_2 WHERE nation_0.n_nationkey=supplier_0_1_2.s_nationkey and customer_1_2.c_nationkey=supplier_0_1_2.s_nationkey
+base cardinality
+PreproBase.makeDataStruct_cardinality 5
+PreproBase.makeDataStruct_attribute {3=customer_1_2_c_acctbal_0, 2=customer_1_2_c_name_0, 1=nation_0_n_name_0}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.String, 2=java.lang.String, 3=java.math.BigDecimal}
+__________Preprocessing base table 28.0 ms
+select n_name, c_name, sum(c_acctbal) as revenue from customer,supplier, nation, region where c_nationkey = s_nationkey and s_nationkey = n_nationkey and n_regionkey = r_regionkey group by n_name, c_name; 
+PreproBase.makeDataStruct_class_query {1=java.lang.String, 2=java.lang.String, 3=java.math.BigDecimal}
+{1=java.lang.String, 2=java.lang.String, 3=java.math.BigDecimal}
+PreproBase.result_cardinality 5
+PreproBase.result_column {3=revenue, 2=c_name, 1=n_name}
+PreproBase.result_class {1=java.lang.String, 2=java.lang.String, 3=java.math.BigDecimal}
+MapBoth.pairs_{1=[1], 2=[2], 3=[3]}
+MapBoth.produce_lattice_root_[[1, 2, 3]]
+__________Query output table cum Mapping table 9.0 ms
+Used memory is megabytes: 7 MB
+lattice_root [n_name, c_name, revenue]
+BuildLattice.lattice_size 7 keyness_count 3
+Keyness_[n_name, c_name, revenue]
+Keyness_[n_name, c_name]
+Keyness_[n_name, revenue]
+Keyness_[c_name, revenue]
+Keyness_[n_name]
+Keyness_[c_name]
+Keyness_[revenue]
+Containment_0.0 ms_[n_name, c_name, revenue]_true
+Time_TD 2.0 Time_BU 0.0
+Phase1.lattice_root {revenue=3, c_name=2, n_name=1} num_candidates 7
+[(n_name ), (c_name ), (revenue ), (n_name c_name ), (n_name revenue ), (c_name revenue ), (n_name c_name revenue )]
+__________diff_grpby 6.0 ms
+SingleConstraints.aggregation (1, {})
+SingleConstraints.aggregation (2, {})
+SingleConstraints.aggregation (3, {min=[3], avg=[3], max=[3], sum=[3]})
+Grouping_[n_name]_aggreColumns_[3]
+Read_partial_data_5.0_ms
+Column_id_3 Aggregations_{min=[3], avg=[3], max=[3], sum=[3]}
+Grouping_[c_name]_aggreColumns_[3]
+Read_partial_data_0.0_ms
+Column_id_3 Aggregations_{min=[3], avg=[3], max=[3], sum=[3]}
+Grouping_[n_name, c_name]_aggreColumns_[3]
+Read_partial_data_78.0_ms
+Column_id_3 Aggregations_{min=[3], avg=[3], max=[3], sum=[3]}
+Phase2.combnode [n_name] 
+aggregation(list of pair) [(3, {min=[3], avg=[3], max=[3], sum=[3]})]
+Phase2.combnode [n_name, c_name] 
+aggregation(list of pair) [(3, {min=[3], avg=[3], max=[3], sum=[3]})]
+Phase2.combnode [c_name] 
+aggregation(list of pair) [(3, {min=[3], avg=[3], max=[3], sum=[3]})]
+Phase2.treenode {revenue=3, c_name=2, n_name=1}
+Phase2.combnode [n_name]
+aggregation 4 [{3=(min, 3)}, {3=(avg, 3)}, {3=(max, 3)}, {3=(sum, 3)}]
+Phase2.combnode [n_name, c_name]
+aggregation 4 [{3=(min, 3)}, {3=(avg, 3)}, {3=(max, 3)}, {3=(sum, 3)}]
+Phase2.combnode [c_name]
+aggregation 4 [{3=(min, 3)}, {3=(avg, 3)}, {3=(max, 3)}, {3=(sum, 3)}]
+__________diff_aggre 1.0 ms
+__________diff_granu 90.0 ms
+FilterSelection_latticeRoot_{revenue=3, c_name=2, n_name=1}
+FilterSelection.grouping_(n_name )_multi-dimensions_[2, 3]_aggregation-combinations_4
+time1_0.0_time2_0.0_time3_0.0 = 1.0_ms
+No any filter on aggregate attributes for groupby [n_name]
+FilterSelection.grouping_(n_name c_name )_multi-dimensions_[3]_aggregation-combinations_4
+time1_0.0_time2_0.0_time3_0.0 = 1.0_ms
+No any filter on aggregate attributes for groupby [n_name, c_name]
+FilterSelection.grouping_(c_name )_multi-dimensions_[1, 3]_aggregation-combinations_4
+time1_0.0_time2_0.0_time3_0.0 = 1.0_ms
+No any filter on aggregate attributes for groupby [c_name]
+__________diff_filter 8.0 ms
+Used memory2 is megabytes: 4 MB

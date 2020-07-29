@@ -1,0 +1,60 @@
+select p_name, AVG(l_extendedprice) as AVG_revenue
+from lineitem, part
+where p_partkey = l_partkey and p_size between 1 and 15
+group by p_name;
+
+--------------------------------------------------------------------------------------------------------
+
+--------------Pre processing over--------------1.049620
+{'p_name': ['part.p_name.0']}
+----Obtained CAND lists----1.258244
+----trying for depth 0----1.258276
+-------Exploring Instance Tree-------1.278791
+-------Update Star Centres-------1.278878
+-------Obtained merge list-------1.278991
+-------Obtained star set-------1.279014
+-------Obtained merged stars-------1.279193
+-------Initialized TID lists-------1.279223
+-------Gen Lattice-------1.280561
+----trying for depth 1----1.280582
+-------Exploring Instance Tree-------1.300621
+-------Update Star Centres-------1.300715
+-------Update Star Centres-------1.300773
+-------Update Star Centres-------1.300834
+-------Obtained merge list-------1.300951
+-------Obtained star set-------1.300980
+-------Obtained merged stars-------1.301315
+-------Initialized TID lists-------1.301338
+-------Gen Lattice-------1.302562
+SELECT * FROM  part part_0 , partsupp partsupp_0 WHERE part_0.p_partkey=partsupp_0.ps_partkey
+--------------Post processing over--------------1.334105
+Database connection established!
+SELECT * FROM  part part_0 , partsupp partsupp_0 WHERE part_0.p_partkey=partsupp_0.ps_partkey
+base cardinality
+PreproBase.makeDataStruct_cardinality 5
+PreproBase.makeDataStruct_attribute {5=P_TYPE, 10=PS_PARTKEY, 4=P_BRAND, 9=P_COMMENT, 3=P_MFGR, 8=P_RETAILPRICE, 14=PS_COMMENT, 2=P_NAME, 7=P_CONTAINER, 13=PS_SUPPLYCOST, 1=P_PARTKEY, 6=P_SIZE, 12=PS_AVAILQTY, 11=PS_SUPPKEY}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.Integer, 2=java.lang.String, 3=java.lang.String, 4=java.lang.String, 5=java.lang.String, 6=java.lang.Integer, 7=java.lang.String, 8=java.math.BigDecimal, 9=java.lang.String, 10=java.lang.Integer, 11=java.lang.Integer, 12=java.lang.Integer, 13=java.math.BigDecimal, 14=java.lang.String}
+__________Preprocessing base table 212.0 ms
+select p_name, AVG(l_extendedprice) as AVG_revenue from lineitem, part where p_partkey = l_partkey and p_size between 1 and 15 group by p_name; 
+PreproBase.makeDataStruct_class_query {1=java.lang.String, 2=java.math.BigDecimal}
+{1=java.lang.String, 2=java.math.BigDecimal}
+PreproBase.result_cardinality 2
+PreproBase.result_column {2=AVG_revenue, 1=p_name}
+PreproBase.result_class {1=java.lang.String, 2=java.math.BigDecimal}
+MapBoth.pairs_{1=[2]}
+MapBoth.produce_lattice_root_[[2]]
+__________Query output table cum Mapping table 7.0 ms
+Used memory is megabytes: 8 MB
+lattice_root [p_name]
+BuildLattice.lattice_size 1 keyness_count 1
+Keyness_[p_name]
+Time_TD 1.0 Time_BU 0.0
+Phase1.lattice_root {p_name=2} num_candidates 1
+[(p_name )]
+__________diff_grpby 4.0 ms
+SingleConstraints.aggregation (1, {})
+SingleConstraints.aggregation (2, {})
+__________diff_aggre 1.0 ms
+__________diff_granu 2.0 ms
+__________diff_filter 1.0 ms
+Used memory2 is megabytes: 7 MB

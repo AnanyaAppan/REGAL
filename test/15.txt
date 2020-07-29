@@ -1,0 +1,58 @@
+SELECT part.p_name,part.p_retailprice,part.p_size 
+FROM part,partsupp 
+WHERE part.p_partkey = partsupp.ps_partkey 
+GROUP BY partsupp.ps_suppkey,part.p_mfgr,part.p_name,part.p_retailprice,part.p_size   ;
+
+--------------------------------------------------------------------------------------------------------
+
+--------------Pre processing over--------------0.517505
+{'p_name': ['part.p_name.0'], 'p_retailprice': ['part.p_retailprice.0'], 'p_size': ['part.p_size.0']}
+----Obtained CAND lists----0.731687
+----trying for depth 0----0.731709
+-------Exploring Instance Tree-------0.754077
+-------Update Star Centres-------0.754182
+-------Obtained merge list-------0.754357
+-------Obtained star set-------0.754374
+-------Obtained merged stars-------0.754608
+-------Initialized TID lists-------0.754624
+-------Gen Lattice-------0.756284
+----trying for depth 1----0.756303
+-------Exploring Instance Tree-------0.779983
+-------Update Star Centres-------0.780241
+-------Update Star Centres-------0.780389
+-------Update Star Centres-------0.780507
+-------Obtained merge list-------0.780780
+-------Obtained star set-------0.780818
+-------Obtained merged stars-------0.781669
+-------Initialized TID lists-------0.781698
+-------Gen Lattice-------0.804771
+SELECT part_2_0_1.p_size AS part_2_0_1_p_size_0 , part_2_0_1.p_name AS part_2_0_1_p_name_0 , part_2_0_1.p_retailprice AS part_2_0_1_p_retailprice_0 FROM lineitem lineitem_0_1_2 , part part_2_0_1 WHERE lineitem_0_1_2.l_partkey=part_2_0_1.p_partkey
+--------------Post processing over--------------0.848372
+Database connection established!
+SELECT part_2_0_1.p_size AS part_2_0_1_p_size_0 , part_2_0_1.p_name AS part_2_0_1_p_name_0 , part_2_0_1.p_retailprice AS part_2_0_1_p_retailprice_0 FROM lineitem lineitem_0_1_2 , part part_2_0_1 WHERE lineitem_0_1_2.l_partkey=part_2_0_1.p_partkey
+base cardinality
+PreproBase.makeDataStruct_cardinality 5
+PreproBase.makeDataStruct_attribute {3=part_2_0_1_p_retailprice_0, 2=part_2_0_1_p_name_0, 1=part_2_0_1_p_size_0}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.Integer, 2=java.lang.String, 3=java.math.BigDecimal}
+__________Preprocessing base table 25.0 ms
+SELECT part.p_name,part.p_retailprice,part.p_size  FROM part,partsupp  WHERE part.p_partkey = partsupp.ps_partkey  GROUP BY partsupp.ps_suppkey,part.p_mfgr,part.p_name,part.p_retailprice,part.p_size   ; 
+PreproBase.makeDataStruct_class_query {1=java.lang.String, 2=java.math.BigDecimal, 3=java.lang.Integer}
+{1=java.lang.String, 2=java.math.BigDecimal, 3=java.lang.Integer}
+PreproBase.result_cardinality 5
+PreproBase.result_column {3=p_size, 2=p_retailprice, 1=p_name}
+PreproBase.result_class {1=java.lang.String, 2=java.math.BigDecimal, 3=java.lang.Integer}
+MapBoth.pairs_{1=[2], 2=[3], 3=[1]}
+MapBoth.produce_lattice_root_[[2, 3, 1]]
+__________Query output table cum Mapping table 11.0 ms
+Used memory is megabytes: 7 MB
+lattice_root [p_name, p_retailprice, p_size]
+BuildLattice.lattice_size 7 keyness_count 7
+Time_TD 1.0 Time_BU 1.0
+__________diff_grpby 6.0 ms
+SingleConstraints.aggregation (1, {})
+SingleConstraints.aggregation (2, {min=[3], avg=[3], max=[3], sum=[3]})
+SingleConstraints.aggregation (3, {min=[1], avg=[1], max=[1], sum=[1]})
+__________diff_aggre 1.0 ms
+__________diff_granu 1.0 ms
+__________diff_filter 2.0 ms
+Used memory2 is megabytes: 4 MB

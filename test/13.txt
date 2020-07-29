@@ -1,0 +1,49 @@
+SELECT COUNT(region.r_comment) , region.r_comment 
+FROM lineitem,supplier,nation,region 
+WHERE lineitem.l_suppkey = supplier.s_suppkey AND nation.n_nationkey = supplier.s_nationkey AND region.r_regionkey = nation.n_regionkey AND supplier.s_acctbal > 4500
+GROUP BY lineitem.l_commitdate,region.r_comment 
+
+--------------------------------------------------------------------------------------------------------
+
+Database connection established!
+SELECT r_comment FROM lineitem,supplier,nation,region WHERE lineitem.l_suppkey = supplier.s_suppkey AND nation.n_nationkey = supplier.s_nationkey AND region.r_regionkey = nation.n_regionkey
+base cardinality
+PreproBase.makeDataStruct_cardinality 5
+PreproBase.makeDataStruct_attribute {1=r_comment}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.String}
+__________Preprocessing base table 25.0 ms
+SELECT COUNT(region.r_comment) , region.r_comment  FROM lineitem,supplier,nation,region  WHERE lineitem.l_suppkey = supplier.s_suppkey AND nation.n_nationkey = supplier.s_nationkey AND region.r_regionkey = nation.n_regionkey AND supplier.s_acctbal > 4500 GROUP BY lineitem.l_commitdate,region.r_comment  
+PreproBase.makeDataStruct_class_query {1=java.lang.Long, 2=java.lang.String}
+{1=java.lang.Long, 2=java.lang.String}
+PreproBase.result_cardinality 2
+PreproBase.result_column {2=r_comment, 1=COUNT(region.r_comment)}
+PreproBase.result_class {1=java.lang.Long, 2=java.lang.String}
+MapBoth.pairs_{2=[1]}
+MapBoth.produce_lattice_root_[[1]]
+__________Query output table cum Mapping table 10.0 ms
+Used memory is megabytes: 7 MB
+lattice_root [r_comment]
+BuildLattice.lattice_size 1 keyness_count 1
+Keyness_[r_comment]
+Time_TD 1.0 Time_BU 0.0
+Phase1.lattice_root {r_comment=1} num_candidates 1
+[(r_comment )]
+__________diff_grpby 5.0 ms
+SingleConstraints.aggregation (2, {})
+SingleConstraints.aggregation (1, {count=[0]})
+Grouping_[r_comment]_aggreColumns_[1]
+Read_partial_data_7.0_ms
+Column_id_1 Aggregations_{count=[0]}
+Phase2.combnode [r_comment] 
+aggregation(list of pair) [(1, {count=[0]})]
+Phase2.treenode {r_comment=1}
+Phase2.combnode [r_comment]
+aggregation 1 [{1=(count, 0)}]
+__________diff_aggre 1.0 ms
+__________diff_granu 9.0 ms
+FilterSelection_latticeRoot_{r_comment=1}
+FilterSelection.grouping_(r_comment )_multi-dimensions_null_aggregation-combinations_1
+time1_0.0_time2_0.0_time3_0.0 = 0.0_ms
+No any filter on aggregate attributes for groupby [r_comment]
+__________diff_filter 2.0 ms
+Used memory2 is megabytes: 4 MB

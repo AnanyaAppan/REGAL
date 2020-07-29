@@ -1,0 +1,500 @@
+select l_returnflag, l_linestatus, sum(l_quantity), sum(l_extendedprice), count(*) as count_order
+from lineitem
+where l_quantity > 15 and l_tax >= 0.04
+group by l_returnflag, l_linestatus;
+--------------------------------------------------------------------------------------------------------
+
+Database connection established!
+SELECT * FROM  lineitem lineitem_0_1_2
+base cardinality
+PreproBase.makeDataStruct_cardinality 5
+PreproBase.makeDataStruct_attribute {5=L_QUANTITY, 10=L_LINESTATUS, 16=L_COMMENT, 4=L_LINENUMBER, 9=L_RETURNFLAG, 15=L_SHIPMODE, 3=L_SUPPKEY, 8=L_TAX, 14=L_SHIPINSTRUCT, 2=L_PARTKEY, 7=L_DISCOUNT, 13=L_RECEIPTDATE, 1=L_ORDERKEY, 6=L_EXTENDEDPRICE, 12=L_COMMITDATE, 11=L_SHIPDATE}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.Integer, 2=java.lang.Integer, 3=java.lang.Integer, 4=java.lang.Integer, 5=java.math.BigDecimal, 6=java.math.BigDecimal, 7=java.math.BigDecimal, 8=java.math.BigDecimal, 9=java.lang.String, 10=java.lang.String, 11=java.sql.Date, 12=java.sql.Date, 13=java.sql.Date, 14=java.lang.String, 15=java.lang.String, 16=java.lang.String}
+__________Preprocessing base table 471.0 ms
+select l_returnflag, l_linestatus, sum(l_quantity), sum(l_extendedprice), count(*) as count_order from lineitem where l_quantity > 15 and l_tax >= 0.04 group by l_returnflag, l_linestatus; 
+PreproBase.makeDataStruct_class_query {1=java.lang.String, 2=java.lang.String, 3=java.math.BigDecimal, 4=java.math.BigDecimal, 5=java.lang.Long}
+{1=java.lang.String, 2=java.lang.String, 3=java.math.BigDecimal, 4=java.math.BigDecimal, 5=java.lang.Long}
+PreproBase.result_cardinality 1
+PreproBase.result_column {5=count_order, 4=sum(l_extendedprice), 3=sum(l_quantity), 2=l_linestatus, 1=l_returnflag}
+PreproBase.result_class {1=java.lang.String, 2=java.lang.String, 3=java.math.BigDecimal, 4=java.math.BigDecimal, 5=java.lang.Long}
+MapBoth.pairs_{1=[9], 2=[10]}
+MapBoth.produce_lattice_root_[[9, 10]]
+__________Query output table cum Mapping table 11.0 ms
+Used memory is megabytes: 18 MB
+lattice_root [l_returnflag, l_linestatus]
+BuildLattice.lattice_size 3 keyness_count 2
+Keyness_[l_returnflag, l_linestatus]
+Keyness_[l_returnflag]
+Keyness_[l_linestatus]
+Containment_0.0 ms_[l_returnflag, l_linestatus]_true
+Time_TD 2.0 Time_BU 0.0
+Phase1.lattice_root {l_returnflag=9, l_linestatus=10} num_candidates 3
+[(l_returnflag ), (l_linestatus ), (l_returnflag l_linestatus )]
+__________diff_grpby 33.0 ms
+SingleConstraints.aggregation (1, {})
+SingleConstraints.aggregation (2, {})
+SingleConstraints.aggregation (3, {sum=[5]})
+SingleConstraints.aggregation (4, {sum=[6]})
+SingleConstraints.aggregation (5, {count=[0]})
+Grouping_[l_returnflag]_aggreColumns_[3, 4, 5]
+Read_partial_data_46.0_ms
+Column_id_3 Aggregations_{sum=[5]}
+Column_id_4 Aggregations_{sum=[6]}
+Column_id_5 Aggregations_{count=[0]}
+Grouping_[l_linestatus]_aggreColumns_[3, 4, 5]
+Read_partial_data_1.0_ms
+Column_id_3 Aggregations_{sum=[5]}
+Column_id_4 Aggregations_{sum=[6]}
+Column_id_5 Aggregations_{count=[0]}
+Grouping_[l_returnflag, l_linestatus]_aggreColumns_[3, 4, 5]
+Read_partial_data_3.0_ms
+Column_id_3 Aggregations_{sum=[5]}
+Column_id_4 Aggregations_{sum=[6]}
+Column_id_5 Aggregations_{count=[0]}
+Phase2.combnode [l_linestatus] 
+aggregation(list of pair) [(3, {sum=[5]}), (4, {sum=[6]}), (5, {count=[0]})]
+Phase2.combnode [l_returnflag] 
+aggregation(list of pair) [(3, {sum=[5]}), (4, {sum=[6]}), (5, {count=[0]})]
+Phase2.combnode [l_returnflag, l_linestatus] 
+aggregation(list of pair) [(3, {sum=[5]}), (4, {sum=[6]}), (5, {count=[0]})]
+Phase2.treenode {l_returnflag=9, l_linestatus=10}
+Phase2.combnode [l_linestatus]
+aggregation 1 [{3=(sum, 5), 4=(sum, 6), 5=(count, 0)}]
+Phase2.combnode [l_returnflag]
+aggregation 1 [{3=(sum, 5), 4=(sum, 6), 5=(count, 0)}]
+Phase2.combnode [l_returnflag, l_linestatus]
+aggregation 1 [{3=(sum, 5), 4=(sum, 6), 5=(count, 0)}]
+__________diff_aggre 1.0 ms
+__________diff_granu 72.0 ms
+FilterSelection_latticeRoot_{l_returnflag=9, l_linestatus=10}
+FilterSelection.grouping_(l_linestatus )_multi-dimensions_[1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16]_aggregation-combinations_1
+FilterSelection.matrix_[O]_boundingValues_{3=88.00, 4=97763.28, 5=3}
+time1_1.0_time2_1.0_time3_0.0 = 2.0_ms
+Start Experiment from One Dimensi
+index_1_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[O]
+this aggregate returns empty
+not any box returns
+index_2_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[O]
+this aggregate returns empty
+not any box returns
+index_3_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::5
+Time for grouping_[O] = 4.0_ms
+index_4_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+cross aggregate no valid
+not any box returns
+index_5_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::5
+Time for grouping_[O] = 0.0_ms
+index_6_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::5
+Time for grouping_[O] = 0.0_ms
+index_7_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[O]
+Created bounding box 1 (count, 0)
+Maximum bounding box_0 2
+Function_sum::6
+cross aggregate no valid
+not any box returns
+index_8_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[O]
+Created bounding box 2 (count, 0)
+Maximum bounding box_0 2
+Function_sum::6
+Maximum bounding box_0 2
+Function_sum::5
+Time for grouping_[O] = 0.0_ms
+index_9_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[O]
+this aggregate returns empty
+not any box returns
+index_11_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::5
+Time for grouping_[O] = 1.0_ms
+index_12_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+cross aggregate no valid
+not any box returns
+index_13_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::5
+Time for grouping_[O] = 1.0_ms
+index_14_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[O]
+Created bounding box 1 (count, 0)
+Maximum bounding box_0 2
+Function_sum::6
+cross aggregate no valid
+not any box returns
+index_15_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_0 3
+Function_sum::5
+Time for grouping_[O] = 1.0_ms
+index_16_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+cross aggregate no valid
+not any box returns
+------------------------one dimension--------------------- 16.0_ms
+15 (0, 2) (0, 3)
+OneDimenFilter BaseIndex=15 (AIR, MAIL) (AIR, REG AIR) [(sum, 5), (sum, 6), (count, 0)]
+6 (1, 4) (1, 4)
+OneDimenFilter BaseIndex=6 (21168.23, 45983.16) (21168.23, 45983.16) [(sum, 5), (sum, 6), (count, 0)]
+8 (0, 2) (0, 2)
+OneDimenFilter BaseIndex=8 (0.02, 0.06) (0.02, 0.06) [(sum, 5), (sum, 6), (count, 0)]
+13 (1, 4) (1, 4)
+OneDimenFilter BaseIndex=13 (1996-03-22, 1996-05-16) (1996-03-22, 1996-05-16) [(sum, 5), (sum, 6), (count, 0)]
+5 (1, 4) (1, 4)
+OneDimenFilter BaseIndex=5 (17.00, 36.00) (17.00, 36.00) [(sum, 5), (sum, 6), (count, 0)]
+11 (1, 4) (1, 4)
+OneDimenFilter BaseIndex=11 (1996-03-13, 1996-04-21) (1996-03-13, 1996-04-21) [(sum, 5), (sum, 6), (count, 0)]
+3 (1, 4) (1, 4)
+OneDimenFilter BaseIndex=3 (2, 5) (2, 5) [(sum, 5), (sum, 6), (count, 0)]
+time for one/two/three dimensi_17.0_ms
+FilterSelection.grouping_(l_returnflag )_multi-dimensions_[1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16]_aggregation-combinations_1
+FilterSelection.matrix_[N]_boundingValues_{3=88.00, 4=97763.28, 5=3}
+time1_0.0_time2_0.0_time3_0.0 = 0.0_ms
+Start Experiment from One Dimensi
+index_1_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N]
+this aggregate returns empty
+not any box returns
+index_2_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N]
+this aggregate returns empty
+not any box returns
+index_3_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::5
+Time for grouping_[N] = 1.0_ms
+index_4_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+cross aggregate no valid
+not any box returns
+index_5_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::5
+Time for grouping_[N] = 1.0_ms
+index_6_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::5
+Time for grouping_[N] = 1.0_ms
+index_7_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N]
+Created bounding box 1 (count, 0)
+Maximum bounding box_0 2
+Function_sum::6
+cross aggregate no valid
+not any box returns
+index_8_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N]
+Created bounding box 2 (count, 0)
+Maximum bounding box_0 2
+Function_sum::6
+Maximum bounding box_0 2
+Function_sum::5
+Time for grouping_[N] = 1.0_ms
+index_10_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N]
+this aggregate returns empty
+not any box returns
+index_11_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::5
+Time for grouping_[N] = 1.0_ms
+index_12_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+cross aggregate no valid
+not any box returns
+index_13_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::5
+Time for grouping_[N] = 0.0_ms
+index_14_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N]
+Created bounding box 1 (count, 0)
+Maximum bounding box_0 2
+Function_sum::6
+cross aggregate no valid
+not any box returns
+index_15_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_0 3
+Function_sum::5
+Time for grouping_[N] = 1.0_ms
+index_16_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+cross aggregate no valid
+not any box returns
+------------------------one dimension--------------------- 9.0_ms
+13 (1, 4) (1, 4)
+OneDimenFilter BaseIndex=13 (1996-03-22, 1996-05-16) (1996-03-22, 1996-05-16) [(sum, 5), (sum, 6), (count, 0)]
+6 (1, 4) (1, 4)
+OneDimenFilter BaseIndex=6 (21168.23, 45983.16) (21168.23, 45983.16) [(sum, 5), (sum, 6), (count, 0)]
+11 (1, 4) (1, 4)
+OneDimenFilter BaseIndex=11 (1996-03-13, 1996-04-21) (1996-03-13, 1996-04-21) [(sum, 5), (sum, 6), (count, 0)]
+5 (1, 4) (1, 4)
+OneDimenFilter BaseIndex=5 (17.00, 36.00) (17.00, 36.00) [(sum, 5), (sum, 6), (count, 0)]
+8 (0, 2) (0, 2)
+OneDimenFilter BaseIndex=8 (0.02, 0.06) (0.02, 0.06) [(sum, 5), (sum, 6), (count, 0)]
+15 (0, 2) (0, 3)
+OneDimenFilter BaseIndex=15 (AIR, MAIL) (AIR, REG AIR) [(sum, 5), (sum, 6), (count, 0)]
+3 (1, 4) (1, 4)
+OneDimenFilter BaseIndex=3 (2, 5) (2, 5) [(sum, 5), (sum, 6), (count, 0)]
+time for one/two/three dimensi_10.0_ms
+FilterSelection.grouping_(l_returnflag l_linestatus )_multi-dimensions_[1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16]_aggregation-combinations_1
+FilterSelection.matrix_[N, O]_boundingValues_{3=88.00, 4=97763.28, 5=3}
+time1_0.0_time2_0.0_time3_0.0 = 1.0_ms
+Start Experiment from One Dimensi
+index_1_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N, O]
+this aggregate returns empty
+not any box returns
+index_2_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N, O]
+this aggregate returns empty
+not any box returns
+index_3_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N, O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::5
+Time for grouping_[N, O] = 1.0_ms
+index_4_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N, O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+cross aggregate no valid
+not any box returns
+index_5_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N, O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::5
+Time for grouping_[N, O] = 1.0_ms
+index_6_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N, O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::5
+Time for grouping_[N, O] = 1.0_ms
+index_7_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N, O]
+Created bounding box 1 (count, 0)
+Maximum bounding box_0 2
+Function_sum::6
+cross aggregate no valid
+not any box returns
+index_8_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N, O]
+Created bounding box 2 (count, 0)
+Maximum bounding box_0 2
+Function_sum::6
+Maximum bounding box_0 2
+Function_sum::5
+Time for grouping_[N, O] = 0.0_ms
+index_11_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N, O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::5
+Time for grouping_[N, O] = 0.0_ms
+index_12_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N, O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+cross aggregate no valid
+not any box returns
+index_13_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N, O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::5
+Time for grouping_[N, O] = 1.0_ms
+index_14_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N, O]
+Created bounding box 1 (count, 0)
+Maximum bounding box_0 2
+Function_sum::6
+cross aggregate no valid
+not any box returns
+index_15_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N, O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+Maximum bounding box_0 3
+Function_sum::5
+Time for grouping_[N, O] = 1.0_ms
+index_16_combination_[(sum, 5), (sum, 6), (count, 0)]_matrix_[N, O]
+Created bounding box 3 (count, 0)
+Maximum bounding box_0 3
+Function_sum::6
+Maximum bounding box_0 4
+Function_sum::6
+Maximum bounding box_1 4
+Function_sum::6
+cross aggregate no valid
+not any box returns
+------------------------one dimension--------------------- 9.0_ms
+13 (1, 4) (1, 4)
+OneDimenFilter BaseIndex=13 (1996-03-22, 1996-05-16) (1996-03-22, 1996-05-16) [(sum, 5), (sum, 6), (count, 0)]
+6 (1, 4) (1, 4)
+OneDimenFilter BaseIndex=6 (21168.23, 45983.16) (21168.23, 45983.16) [(sum, 5), (sum, 6), (count, 0)]
+8 (0, 2) (0, 2)
+OneDimenFilter BaseIndex=8 (0.02, 0.06) (0.02, 0.06) [(sum, 5), (sum, 6), (count, 0)]
+3 (1, 4) (1, 4)
+OneDimenFilter BaseIndex=3 (2, 5) (2, 5) [(sum, 5), (sum, 6), (count, 0)]
+15 (0, 2) (0, 3)
+OneDimenFilter BaseIndex=15 (AIR, MAIL) (AIR, REG AIR) [(sum, 5), (sum, 6), (count, 0)]
+5 (1, 4) (1, 4)
+OneDimenFilter BaseIndex=5 (17.00, 36.00) (17.00, 36.00) [(sum, 5), (sum, 6), (count, 0)]
+11 (1, 4) (1, 4)
+OneDimenFilter BaseIndex=11 (1996-03-13, 1996-04-21) (1996-03-13, 1996-04-21) [(sum, 5), (sum, 6), (count, 0)]
+time for one/two/three dimensi_9.0_ms
+__________diff_filter 42.0 ms
+Used memory2 is megabytes: 19 MB

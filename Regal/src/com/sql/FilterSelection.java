@@ -111,7 +111,7 @@ public class FilterSelection {
 		
 		for (List<String> retuple : reorderRID.keySet()) { //groupings in query output table
 			long time_start = System.currentTimeMillis();
-			if (mapBID.keySet().contains(retuple) && !fromPhaseTwo.contains(retuple)) { //eliminate the whole range
+			if ((mapBID != null) && (fromPhaseTwo != null) && mapBID.keySet().contains(retuple) && !fromPhaseTwo.contains(retuple)) { //eliminate the whole range
 				long why = System.currentTimeMillis();
 				List<List<Integer>> listupleid = new ArrayList<>();
 				for (String reitem : retuple) {
@@ -359,7 +359,7 @@ public class FilterSelection {
 				}
 				
 			} 
-			else {
+			else if(renew.size() >= 2){
 				System.out.println("Failed one Dimension ! then start two Dimension");
 				//TwoDimension 
 				

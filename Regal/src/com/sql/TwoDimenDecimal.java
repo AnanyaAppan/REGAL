@@ -23,7 +23,9 @@ public class TwoDimenDecimal {
 		List<Integer> yaxis = new ArrayList<Integer>(yaxiset);
 		Collections.sort(xaxis);
 		Collections.sort(yaxis);
-		
+		System.out.println("xaxis");
+        for (int i = 0; i < xaxis.size(); i++) 
+            System.out.print(xaxis.get(i) + " "); 
 		int xmin = xaxis.get(0); int xmax = xaxis.get(xaxis.size()-1);
 		int ymin = yaxis.get(0); int ymax = yaxis.get(yaxis.size()-1);
 		

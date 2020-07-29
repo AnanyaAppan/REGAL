@@ -1,0 +1,111 @@
+select ps_availqty,ps_supplycost,ps_comment 
+from partsupp
+where ps_availqty > 5000 and ps_supplycost < 700
+;
+
+--------------------------------------------------------------------------------------------------------
+
+--------------Pre processing over--------------0.452544
+{'ps_availqty': ['partsupp.ps_availqty.0'], 'ps_supplycost': ['partsupp.ps_supplycost.0'], 'ps_comment': ['partsupp.ps_comment.0']}
+----Obtained CAND lists----0.646796
+----trying for depth 0----0.646822
+-------Exploring Instance Tree-------0.669716
+-------Update Star Centres-------0.669851
+-------Obtained merge list-------0.670055
+-------Obtained star set-------0.670073
+-------Obtained merged stars-------0.670321
+-------Initialized TID lists-------0.670342
+-------Gen Lattice-------0.672796
+SELECT * FROM  partsupp partsupp_0_1_2
+--------------Post processing over--------------0.695471
+Database connection established!
+SELECT * FROM  partsupp partsupp_0_1_2
+base cardinality
+PreproBase.makeDataStruct_cardinality 5
+PreproBase.makeDataStruct_attribute {5=PS_COMMENT, 4=PS_SUPPLYCOST, 3=PS_AVAILQTY, 2=PS_SUPPKEY, 1=PS_PARTKEY}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.Integer, 2=java.lang.Integer, 3=java.lang.Integer, 4=java.math.BigDecimal, 5=java.lang.String}
+__________Preprocessing base table 27.0 ms
+select ps_availqty,ps_supplycost,ps_comment  from partsupp where ps_availqty > 5000 and ps_supplycost < 700 ; 
+PreproBase.makeDataStruct_class_query {1=java.lang.Integer, 2=java.math.BigDecimal, 3=java.lang.String}
+{1=java.lang.Integer, 2=java.math.BigDecimal, 3=java.lang.String}
+PreproBase.result_cardinality 1
+PreproBase.result_column {3=ps_comment, 2=ps_supplycost, 1=ps_availqty}
+PreproBase.result_class {1=java.lang.Integer, 2=java.math.BigDecimal, 3=java.lang.String}
+MapBoth.pairs_{1=[3], 2=[4], 3=[5]}
+MapBoth.produce_lattice_root_[[3, 4, 5]]
+__________Query output table cum Mapping table 9.0 ms
+Used memory is megabytes: 7 MB
+lattice_root [ps_availqty, ps_supplycost, ps_comment]
+BuildLattice.lattice_size 7 keyness_count 3
+Keyness_[ps_availqty, ps_supplycost, ps_comment]
+Keyness_[ps_availqty, ps_supplycost]
+Keyness_[ps_availqty, ps_comment]
+Keyness_[ps_supplycost, ps_comment]
+Keyness_[ps_availqty]
+Keyness_[ps_supplycost]
+Keyness_[ps_comment]
+Containment_0.0 ms_[ps_availqty, ps_supplycost, ps_comment]_true
+Time_TD 2.0 Time_BU 0.0
+Phase1.lattice_root {ps_availqty=3, ps_comment=5, ps_supplycost=4} num_candidates 7
+[(ps_availqty ), (ps_supplycost ), (ps_comment ), (ps_availqty ps_supplycost ), (ps_availqty ps_comment ), (ps_supplycost ps_comment ), (ps_availqty ps_supplycost ps_comment )]
+__________diff_grpby 6.0 ms
+SingleConstraints.aggregation (3, {})
+SingleConstraints.aggregation (1, {min=[3], avg=[3], max=[3], sum=[3]})
+SingleConstraints.aggregation (2, {min=[4], avg=[4], max=[4], sum=[4]})
+Grouping_[ps_supplycost]_aggreColumns_[1]
+Read_partial_data_4.0_ms
+Column_id_1 Aggregations_{min=[3], avg=[3], max=[3], sum=[3]}
+Grouping_[ps_comment]_aggreColumns_[1, 2]
+Read_partial_data_0.0_ms
+Column_id_1 Aggregations_{min=[3], avg=[3], max=[3], sum=[3]}
+Column_id_2 Aggregations_{min=[4], avg=[4], max=[4], sum=[4]}
+Grouping_[ps_supplycost, ps_comment]_aggreColumns_[1]
+Read_partial_data_5.0_ms
+Column_id_1 Aggregations_{min=[3], avg=[3], max=[3], sum=[3]}
+Grouping_[ps_availqty]_aggreColumns_[2]
+Read_partial_data_1.0_ms
+Column_id_2 Aggregations_{min=[4], avg=[4], max=[4], sum=[4]}
+Grouping_[ps_availqty, ps_comment]_aggreColumns_[2]
+Read_partial_data_0.0_ms
+Column_id_2 Aggregations_{min=[4], avg=[4], max=[4], sum=[4]}
+Phase2.combnode [ps_supplycost] 
+aggregation(list of pair) [(1, {min=[3], avg=[3], max=[3], sum=[3]})]
+Phase2.combnode [ps_availqty, ps_comment] 
+aggregation(list of pair) [(2, {min=[4], avg=[4], max=[4], sum=[4]})]
+Phase2.combnode [ps_supplycost, ps_comment] 
+aggregation(list of pair) [(1, {min=[3], avg=[3], max=[3], sum=[3]})]
+Phase2.combnode [ps_availqty] 
+aggregation(list of pair) [(2, {min=[4], avg=[4], max=[4], sum=[4]})]
+Phase2.combnode [ps_comment] 
+aggregation(list of pair) [(1, {min=[3], avg=[3], max=[3], sum=[3]}), (2, {min=[4], avg=[4], max=[4], sum=[4]})]
+Phase2.treenode {ps_availqty=3, ps_comment=5, ps_supplycost=4}
+Phase2.combnode [ps_supplycost]
+aggregation 4 [{1=(min, 3)}, {1=(avg, 3)}, {1=(max, 3)}, {1=(sum, 3)}]
+Phase2.combnode [ps_availqty, ps_comment]
+aggregation 4 [{2=(min, 4)}, {2=(avg, 4)}, {2=(max, 4)}, {2=(sum, 4)}]
+Phase2.combnode [ps_supplycost, ps_comment]
+aggregation 4 [{1=(min, 3)}, {1=(avg, 3)}, {1=(max, 3)}, {1=(sum, 3)}]
+Phase2.combnode [ps_availqty]
+aggregation 4 [{2=(min, 4)}, {2=(avg, 4)}, {2=(max, 4)}, {2=(sum, 4)}]
+Phase2.combnode [ps_comment]
+aggregation 16 [{1=(min, 3), 2=(min, 4)}, {1=(min, 3), 2=(avg, 4)}, {1=(min, 3), 2=(max, 4)}, {1=(min, 3), 2=(sum, 4)}, {1=(avg, 3), 2=(min, 4)}, {1=(avg, 3), 2=(avg, 4)}, {1=(avg, 3), 2=(max, 4)}, {1=(avg, 3), 2=(sum, 4)}, {1=(max, 3), 2=(min, 4)}, {1=(max, 3), 2=(avg, 4)}, {1=(max, 3), 2=(max, 4)}, {1=(max, 3), 2=(sum, 4)}, {1=(sum, 3), 2=(min, 4)}, {1=(sum, 3), 2=(avg, 4)}, {1=(sum, 3), 2=(max, 4)}, {1=(sum, 3), 2=(sum, 4)}]
+__________diff_aggre 1.0 ms
+__________diff_granu 17.0 ms
+FilterSelection_latticeRoot_{ps_availqty=3, ps_comment=5, ps_supplycost=4}
+FilterSelection.grouping_(ps_supplycost )_multi-dimensions_[1, 2, 3, 5]_aggregation-combinations_4
+time1_0.0_time2_0.0_time3_0.0 = 0.0_ms
+No any filter on aggregate attributes for groupby [ps_supplycost]
+FilterSelection.grouping_(ps_availqty ps_comment )_multi-dimensions_[1, 2, 4]_aggregation-combinations_4
+time1_0.0_time2_0.0_time3_0.0 = 0.0_ms
+No any filter on aggregate attributes for groupby [ps_availqty, ps_comment]
+FilterSelection.grouping_(ps_supplycost ps_comment )_multi-dimensions_[1, 2, 3]_aggregation-combinations_4
+time1_0.0_time2_0.0_time3_0.0 = 0.0_ms
+No any filter on aggregate attributes for groupby [ps_supplycost, ps_comment]
+FilterSelection.grouping_(ps_availqty )_multi-dimensions_[1, 2, 4, 5]_aggregation-combinations_4
+time1_0.0_time2_0.0_time3_0.0 = 0.0_ms
+No any filter on aggregate attributes for groupby [ps_availqty]
+FilterSelection.grouping_(ps_comment )_multi-dimensions_[1, 2, 3, 4]_aggregation-combinations_16
+time1_0.0_time2_0.0_time3_0.0 = 0.0_ms
+No any filter on aggregate attributes for groupby [ps_comment]
+__________diff_filter 3.0 ms
+Used memory2 is megabytes: 4 MB
