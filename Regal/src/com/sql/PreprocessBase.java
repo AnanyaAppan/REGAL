@@ -44,7 +44,7 @@ public class PreprocessBase {
 	        for (int i=1 ; i <= columnsNumber ; ++i){
 	        	columnName.put(i, rsmd.getColumnLabel(i));
 	        	columnClass.put(i, rsmd.getColumnClassName(i));
-	        	allColumn.add(i);
+				allColumn.add(i);
 	        }
 			Integer[] columnArray = allColumn.toArray(new Integer[allColumn.size()]);
 			ArrayList<List<Integer>> treeCom = new ArrayList<>();

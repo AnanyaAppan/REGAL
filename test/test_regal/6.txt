@@ -1,0 +1,115 @@
+select l_linenumber, max(l_extendedprice), min(l_extendedprice),avg(l_extendedprice), sum(l_extendedprice), count(l_extendedprice)
+from LINEITEM, PART
+where l_partkey = p_partkey and p_size > 24 and p_size < 48
+group by l_linenumber
+
+------------------------------------------------------------------------------------------------------------------------
+
+select l_linenumber,l_extendedprice, p_size
+from LINEITEM, PART
+where l_partkey = p_partkey
+
+------------------------------------------------------------------------------------------------------------------------
+
+Database connection established!
+select l_linenumber,l_extendedprice, p_size from LINEITEM, PART where l_partkey = p_partkey 
+base cardinality
+PreproBase.makeDataStruct_cardinality 582536
+PreproBase.makeDataStruct_attribute {3=p_size, 2=l_extendedprice, 1=l_linenumber}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.Integer, 2=java.math.BigDecimal, 3=java.lang.Integer}
+__________Preprocessing base table 4708.0 ms
+select l_linenumber, max(l_extendedprice), min(l_extendedprice),avg(l_extendedprice), sum(l_extendedprice), count(l_extendedprice) from LINEITEM, PART where l_partkey = p_partkey and p_size > 24 and p_size < 48 group by l_linenumber  
+PreproBase.makeDataStruct_class_query {1=java.lang.Integer, 2=java.math.BigDecimal, 3=java.math.BigDecimal, 4=java.math.BigDecimal, 5=java.math.BigDecimal, 6=java.lang.Long}
+{1=java.lang.Integer, 2=java.math.BigDecimal, 3=java.math.BigDecimal, 4=java.math.BigDecimal, 5=java.math.BigDecimal, 6=java.lang.Long}
+PreproBase.result_cardinality 7
+PreproBase.result_column {5=sum(l_extendedprice), 4=avg(l_extendedprice), 3=min(l_extendedprice), 2=max(l_extendedprice), 1=l_linenumber, 6=count(l_extendedprice)}
+PreproBase.result_class {1=java.lang.Integer, 2=java.math.BigDecimal, 3=java.math.BigDecimal, 4=java.math.BigDecimal, 5=java.math.BigDecimal, 6=java.lang.Long}
+MapBoth.pairs_{1=[1, 3], 2=[2], 3=[2]}
+MapBoth.produce_lattice_root_[[1, 2, 2], [3, 2, 2]]
+__________Query output table cum Mapping table 889.0 ms
+Used memory is megabytes: 329 MB
+lattice_root [l_linenumber, max(l_extendedprice), min(l_extendedprice)]
+BuildLattice.lattice_size 7 keyness_count 4
+Keyness_[l_linenumber, max(l_extendedprice), min(l_extendedprice)]
+Keyness_[l_linenumber, max(l_extendedprice)]
+Keyness_[l_linenumber, min(l_extendedprice)]
+Keyness_[l_linenumber]
+BuildLattice.secondTreebeforePropagate [l_linenumber, max(l_extendedprice), min(l_extendedprice)]
+BuildLattice.secondTreebeforePropagate [l_linenumber, max(l_extendedprice)]
+BuildLattice.secondTreebeforePropagate [l_linenumber, min(l_extendedprice)]
+BuildLattice.secondTreebeforePropagate [l_linenumber]
+Time_TD 2.0 Time_BU 0.0
+Phase1.lattice_root {max(l_extendedprice)=2, min(l_extendedprice)=2, l_linenumber=3} num_candidates 3
+[(l_linenumber ), (l_linenumber max(l_extendedprice) ), (l_linenumber min(l_extendedprice) )]
+Phase1.lattice_root {max(l_extendedprice)=2, min(l_extendedprice)=2, l_linenumber=1} num_candidates 3
+[(l_linenumber ), (l_linenumber max(l_extendedprice) ), (l_linenumber min(l_extendedprice) )]
+__________diff_grpby 5.0 ms
+SingleConstraints.aggregation (5, {sum=[2]})
+SingleConstraints.aggregation (6, {count=[0]})
+SingleConstraints.aggregation (4, {avg=[2], sum=[2]})
+SingleConstraints.aggregation (2, {min=[2], avg=[2], max=[2], sum=[2]})
+SingleConstraints.aggregation (3, {min=[2], avg=[2], max=[2], sum=[2]})
+SingleConstraints.aggregation (1, {min=[1, 3], avg=[1, 3], max=[1, 3], count=[0], sum=[1, 3]})
+Grouping_[l_linenumber]_aggreColumns_[2, 3, 4, 5, 6]
+basePartialRow {[1]=[2, 3], [2]=[1, 3], [1, 2, 3]=null, [3]=[1, 2], [1, 2]=[3], [2, 3]=[1], [1, 3]=[2]}
+combinaBID [3]
+getBaseCols [1, 2]
+Read_partial_data_58.0_ms
+Column_id_5 Aggregations_{sum=[2]}
+Column_id_6 Aggregations_{count=[0]}
+Grouping_[l_linenumber]_aggreColumns_[2, 3, 4, 5, 6]
+basePartialRow {[1]=[2, 3], [2]=[1, 3], [1, 2, 3]=null, [3]=[1, 2], [1, 2]=[3], [2, 3]=[1], [1, 3]=[2]}
+combinaBID [1]
+getBaseCols [2, 3]
+Read_partial_data_78.0_ms
+Column_id_5 Aggregations_{sum=[2]}
+Column_id_6 Aggregations_{count=[0]}
+Column_id_4 Aggregations_{avg=[2], sum=[2]}
+overlap_aggregations_sum 2
+Column_id_2 Aggregations_{min=[2], avg=[2], max=[2], sum=[2]}
+overlap_aggregations_sum 2
+Column_id_3 Aggregations_{min=[2], avg=[2], max=[2], sum=[2]}
+overlap_aggregations_sum 2
+Grouping_[l_linenumber, min(l_extendedprice)]_aggreColumns_[2, 4, 5, 6]
+basePartialRow {[1]=[2, 3], [2]=[1, 3], [1, 2, 3]=null, [3]=[1, 2], [1, 2]=[3], [2, 3]=[1], [1, 3]=[2]}
+combinaBID [1, 2]
+getBaseCols [3]
+Read_partial_data_189.0_ms
+Column_id_5 Aggregations_{sum=[2]}
+Grouping_[l_linenumber, max(l_extendedprice)]_aggreColumns_[3, 4, 5, 6]
+Read_partial_data_0.0_ms
+Column_id_5 Aggregations_{sum=[2]}
+Phase2.combnode [l_linenumber] 
+aggregation(list of pair) [(5, {sum=[2]}), (6, {count=[0]}), (4, {avg=[2], sum=[2]}), (2, {min=[2], avg=[2], max=[2], sum=[2]}), (3, {min=[2], avg=[2], max=[2], sum=[2]})]
+Phase2.treenode {max(l_extendedprice)=2, min(l_extendedprice)=2, l_linenumber=1}
+Phase2.combnode [l_linenumber]
+aggregation 1 [{2=(max, 2), 3=(min, 2), 4=(avg, 2), 5=(sum, 2), 6=(count, 0)}]
+__________diff_aggre 1.0 ms
+__________diff_granu 593.0 ms
+FilterSelection_latticeRoot_{max(l_extendedprice)=2, min(l_extendedprice)=2, l_linenumber=1}
+[1]
+FilterSelection.grouping_(l_linenumber )_multi-dimensions_[2, 3]_aggregation-combinations_1
+combnode = (l_linenumber )
+FilterSelection.matrix_[1]_boundingValues_{2=95699.50, 3=909.00, 4=35848.310916, 5=2387174872.24, 6=66591}
+FilterSelection.matrix_[2]_boundingValues_{2=95799.50, 3=908.00, 4=35715.024962, 5=2039435070.39, 6=57103}
+FilterSelection.matrix_[3]_boundingValues_{2=95749.50, 3=903.00, 4=35687.180206, 5=1698495654.71, 6=47594}
+FilterSelection.matrix_[4]_boundingValues_{2=95749.50, 3=903.00, 4=35724.799230, 5=1359650133.89, 6=38059}
+FilterSelection.matrix_[5]_boundingValues_{2=95549.50, 3=905.00, 4=35907.124304, 5=1031791216.88, 6=28735}
+FilterSelection.matrix_[6]_boundingValues_{2=95749.50, 3=906.00, 4=35611.747764, 5=679116029.85, 6=19070}
+FilterSelection.matrix_[7]_boundingValues_{2=95449.50, 3=909.00, 4=36187.217470, 5=341281647.96, 6=9431}
+time1_1006.0_time2_1066.0_time3_184.0 = 2344.0_ms
+Start Experiment from One Dimensi
+Created bounding box 1 (count, 0)
+------------------------one dimension--------------------- 630.0_ms
+3 (24, 46) (23, 47)
+OneDimenFilter BaseIndex=3 (25, 47) (24, 48) [(max, 2), (min, 2), (avg, 2), (sum, 2), (count, 0)]
+time for one/two/three dimensi_632.0_ms
+__________diff_filter 2979.0 ms
+Used memory2 is megabytes: 351 MB
+
+------------------------------------------------------------------------------------------------------------------------
+
+select l_linenumber, max(l_extendedprice), min(l_extendedprice),avg(l_extendedprice), sum(l_extendedprice), count(l_extendedprice)
+from LINEITEM, PART
+where l_partkey = p_partkey and p_size > 24 and p_size < 48
+group by l_linenumber

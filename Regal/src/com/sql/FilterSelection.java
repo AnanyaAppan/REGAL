@@ -64,7 +64,11 @@ public class FilterSelection {
 					}
 					reorderRID.put(rerid, mapRID.get(ridTuple));
 				}
+				System.out.println(combid);
 				List<Integer> nongroupdimensi = basePartialRow.get(combid); //
+				// for(int i=0;i < nongroupdimensi.size();i++) {
+				// 	System.out.println(nongroupdimensi.get(i));
+				// }
 				
 				//List<Integer> nongroupdimensi = new ArrayList<Integer>(allBids); //basePartialRow
 				//nongroupdimensi.removeAll(combid);
@@ -99,6 +103,7 @@ public class FilterSelection {
 		
 		ArrayList<List<String>> fromPhaseTwo = new ArrayList<>(); //groupings that no any selection
 		if (combnode.isFrequency == true) {
+			System.out.println("combnode = " + combnode);
 			fromPhaseTwo = combnode.getInferFrequency();
 		}
 		
@@ -111,7 +116,13 @@ public class FilterSelection {
 		
 		for (List<String> retuple : reorderRID.keySet()) { //groupings in query output table
 			long time_start = System.currentTimeMillis();
-			if ((mapBID != null) && (fromPhaseTwo != null) && mapBID.keySet().contains(retuple) && !fromPhaseTwo.contains(retuple)) { //eliminate the whole range
+			// System.out.println("fromPhaseTwo " + fromPhaseTwo);
+			// System.out.println("retuple " + retuple);
+			// System.out.println("mapBID != null" + mapBID != null);
+			// System.out.println("from ph 2 = " + (fromPhaseTwo != null));
+			// System.out.println("mapBID.keySet().contains(retuple) = " + mapBID.keySet().contains(retuple));
+			// System.out.println("!fromPhaseTwo.contains(retuple) = "+!fromPhaseTwo.contains(retuple));
+			if ((mapBID != null) && (fromPhaseTwo != null) && mapBID.keySet().contains(retuple) /*&& !fromPhaseTwo.contains(retuple)*/) { //eliminate the whole range
 				long why = System.currentTimeMillis();
 				List<List<Integer>> listupleid = new ArrayList<>();
 				for (String reitem : retuple) {
@@ -502,7 +513,7 @@ public class FilterSelection {
 				
 				outer:
 				for (List<String> ridTuple : reshuffle) {
-					System.out.println("index_" + ib + "_combination_" + functioname + "_matrix_" + ridTuple);
+					// System.out.println("index_" + ib + "_combination_" + functioname + "_matrix_" + ridTuple);
 					long singlegroup = System.currentTimeMillis();
 					Map<Integer, Map<Integer, T>> comidValue = new HashMap<>();
 					ListMultimap<Integer, Integer> rangeId = ArrayListMultimap.create();
@@ -582,7 +593,7 @@ public class FilterSelection {
 					}
 					long singlegroup_end = System.currentTimeMillis();
 					double diff = (singlegroup_end - singlegroup)/1e0;
-					System.out.println("Time for grouping_" + ridTuple + " = " + diff + "_ms");
+					// System.out.println("Time for grouping_" + ridTuple + " = " + diff + "_ms");
 				}
 				if (!updateValid.isEmpty()) {
 					for (DoubleBox<Integer> cross : updateValid) {

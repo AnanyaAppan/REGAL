@@ -1,47 +1,160 @@
-select s_name, count(*) as numwait
+select s_acctbal, min(o_shippriority) as numwait
 from supplier, lineitem l1, orders, nation
 where s_suppkey = l1.l_suppkey and o_orderkey = l1.l_orderkey and s_nationkey = n_nationkey 
-group by s_name;
+group by s_acctbal;
 --------------------------------------------------------------------------------------------------------
 
+--------------Pre processing over--------------0.600183
+{'s_acctbal': ['supplier.s_acctbal.0'], 'numwait': ['orders.o_shippriority.0']}
+----Obtained CAND lists----0.785540
+----trying for depth 0----0.785567
+-------Exploring Instance Tree-------0.813585
+-------Obtained merge list-------0.813797
+----trying for depth 1----0.813817
+-------Exploring Instance Tree-------0.840087
+-------Update Star Centres-------0.840266
+-------Update Star Centres-------0.840404
+-------Obtained merge list-------0.840668
+-------Obtained star set-------0.840690
+-------Obtained merged stars-------0.841334
+-------Initialized TID lists-------0.841368
+-------Gen Lattice-------0.844131
+SELECT supplier_0.s_acctbal AS supplier_0_s_acctbal_0 , orders_0.o_shippriority AS orders_0_o_shippriority_0 FROM supplier supplier_0 , lineitem lineitem_0_1 , orders orders_0 WHERE lineitem_0_1.l_suppkey=supplier_0.s_suppkey and orders_0.o_orderkey=lineitem_0_1.l_orderkey
+--------------Post processing over--------------0.875179
 Database connection established!
-select s_name from supplier, lineitem l1, orders, nation where s_suppkey = l1.l_suppkey and o_orderkey = l1.l_orderkey and s_nationkey = n_nationkey ; 
+SELECT supplier_0.s_acctbal AS supplier_0_s_acctbal_0 , orders_0.o_shippriority AS orders_0_o_shippriority_0 FROM supplier supplier_0 , lineitem lineitem_0_1 , orders orders_0 WHERE lineitem_0_1.l_suppkey=supplier_0.s_suppkey and orders_0.o_orderkey=lineitem_0_1.l_orderkey
 base cardinality
 PreproBase.makeDataStruct_cardinality 5
-PreproBase.makeDataStruct_attribute {1=s_name}
-PreproBase.makeDataStruct_class {0=count, 1=java.lang.String}
-__________Preprocessing base table 24.0 ms
-select s_name, count(*) as numwait from supplier, lineitem l1, orders, nation where s_suppkey = l1.l_suppkey and o_orderkey = l1.l_orderkey and s_nationkey = n_nationkey  group by s_name; 
-PreproBase.makeDataStruct_class_query {1=java.lang.String, 2=java.lang.Long}
-{1=java.lang.String, 2=java.lang.Long}
+PreproBase.makeDataStruct_attribute {2=orders_0_o_shippriority_0, 1=supplier_0_s_acctbal_0}
+PreproBase.makeDataStruct_class {0=count, 1=java.math.BigDecimal, 2=java.lang.Integer}
+__________Preprocessing base table 25.0 ms
+select s_acctbal, min(o_shippriority) as numwait from supplier, lineitem l1, orders, nation where s_suppkey = l1.l_suppkey and o_orderkey = l1.l_orderkey and s_nationkey = n_nationkey  group by s_acctbal; 
+PreproBase.makeDataStruct_class_query {1=java.math.BigDecimal, 2=java.lang.Integer}
+{1=java.math.BigDecimal, 2=java.lang.Integer}
 PreproBase.result_cardinality 5
-PreproBase.result_column {2=numwait, 1=s_name}
-PreproBase.result_class {1=java.lang.String, 2=java.lang.Long}
-MapBoth.pairs_{1=[1]}
-MapBoth.produce_lattice_root_[[1]]
-__________Query output table cum Mapping table 9.0 ms
+PreproBase.result_column {2=numwait, 1=s_acctbal}
+PreproBase.result_class {1=java.math.BigDecimal, 2=java.lang.Integer}
+MapBoth.pairs_{1=[1], 2=[2]}
+MapBoth.produce_lattice_root_[[1, 2]]
+__________Query output table cum Mapping table 10.0 ms
 Used memory is megabytes: 7 MB
-lattice_root [s_name]
-BuildLattice.lattice_size 1 keyness_count 1
-Keyness_[s_name]
+lattice_root [s_acctbal, numwait]
+BuildLattice.lattice_size 3 keyness_count 2
+Keyness_[s_acctbal, numwait]
+Keyness_[s_acctbal]
+Containment_0.0 ms_[s_acctbal, numwait]_true
 Time_TD 1.0 Time_BU 0.0
-Phase1.lattice_root {s_name=1} num_candidates 1
-[(s_name )]
+Phase1.lattice_root {numwait=2, s_acctbal=1} num_candidates 2
+[(s_acctbal ), (s_acctbal numwait )]
 __________diff_grpby 8.0 ms
-SingleConstraints.aggregation (1, {})
-SingleConstraints.aggregation (2, {count=[0]})
-Grouping_[s_name]_aggreColumns_[2]
+SingleConstraints.aggregation (1, {min=[1], avg=[1], max=[1], sum=[1]})
+SingleConstraints.aggregation (2, {min=[2], avg=[2], max=[2], sum=[2]})
+Grouping_[s_acctbal]_aggreColumns_[2]
+MapRID = {[4032.68]={2=[0]}, [4641.08]={2=[0]}, [-283.84]={2=[0]}, [5755.94]={2=[0]}, [4192.40]={2=[0]}}
+combinaBID [1]
+getBaseCols [2]
 Read_partial_data_5.0_ms
-Column_id_2 Aggregations_{count=[0]}
-Phase2.combnode [s_name] 
-aggregation(list of pair) [(2, {count=[0]})]
-Phase2.treenode {s_name=1}
-Phase2.combnode [s_name]
-aggregation 1 [{2=(count, 0)}]
+Column_id_2 Aggregations_{min=[2], avg=[2], max=[2], sum=[2]}
+size of which tree key set = 
+1
+Phase2.combnode [s_acctbal] 
+aggregation(list of pair) [(2, {min=[2], avg=[2], max=[2], sum=[2]})]
+Phase2.treenode {numwait=2, s_acctbal=1}
+Phase2.combnode [s_acctbal]
+aggregation 4 [{2=(min, 2)}, {2=(avg, 2)}, {2=(max, 2)}, {2=(sum, 2)}]
 __________diff_aggre 1.0 ms
-__________diff_granu 7.0 ms
-FilterSelection_latticeRoot_{s_name=1}
-FilterSelection.grouping_(s_name )_multi-dimensions_null_aggregation-combinations_1
-time1_0.0_time2_0.0_time3_0.0 = 0.0_ms
-No any filter on aggregate attributes for groupby [s_name]
-__________diff_filter 2.0 ms
+__________diff_granu 10.0 ms
+FilterSelection_latticeRoot_{numwait=2, s_acctbal=1}
+[1]
+FilterSelection.grouping_(s_acctbal )_multi-dimensions_[2]_aggregation-combinations_4
+combnode = (s_acctbal )
+FilterSelection.matrix_[4032.68]_boundingValues_{2=0}
+FilterSelection.matrix_[4641.08]_boundingValues_{2=0}
+FilterSelection.matrix_[-283.84]_boundingValues_{2=0}
+FilterSelection.matrix_[5755.94]_boundingValues_{2=0}
+FilterSelection.matrix_[4192.40]_boundingValues_{2=0}
+time1_0.0_time2_1.0_time3_0.0 = 1.0_ms
+Start Experiment from One Dimensi
+index_2_combination_[(min, 2)]_matrix_[4032.68]
+Created bounding box 1 (min, 2)
+Time for grouping_[4032.68] = 2.0_ms
+index_2_combination_[(min, 2)]_matrix_[4641.08]
+Maximum bounding box_0 0
+Function_min::2
+0 1
+Time for grouping_[4641.08] = 2.0_ms
+index_2_combination_[(min, 2)]_matrix_[-283.84]
+Maximum bounding box_0 0
+Function_min::2
+0 1
+Time for grouping_[-283.84] = 0.0_ms
+index_2_combination_[(min, 2)]_matrix_[5755.94]
+Maximum bounding box_0 0
+Function_min::2
+0 1
+Time for grouping_[5755.94] = 1.0_ms
+index_2_combination_[(min, 2)]_matrix_[4192.40]
+Maximum bounding box_0 0
+Function_min::2
+0 1
+Time for grouping_[4192.40] = 0.0_ms
+index_2_combination_[(avg, 2)]_matrix_[4032.68]
+Created bounding box 1 (avg, 2)
+Time for grouping_[4032.68] = 0.0_ms
+index_2_combination_[(avg, 2)]_matrix_[4641.08]
+Maximum bounding box_0 0
+Function_avg::2
+cross aggregate no valid
+not any box returns
+index_2_combination_[(max, 2)]_matrix_[4032.68]
+Created bounding box 1 (max, 2)
+Time for grouping_[4032.68] = 0.0_ms
+index_2_combination_[(max, 2)]_matrix_[4641.08]
+Maximum bounding box_0 0
+Function_max::2
+0 1
+Time for grouping_[4641.08] = 1.0_ms
+index_2_combination_[(max, 2)]_matrix_[-283.84]
+Maximum bounding box_0 0
+Function_max::2
+0 1
+Time for grouping_[-283.84] = 0.0_ms
+index_2_combination_[(max, 2)]_matrix_[5755.94]
+Maximum bounding box_0 0
+Function_max::2
+0 1
+Time for grouping_[5755.94] = 0.0_ms
+index_2_combination_[(max, 2)]_matrix_[4192.40]
+Maximum bounding box_0 0
+Function_max::2
+0 1
+Time for grouping_[4192.40] = 0.0_ms
+index_2_combination_[(sum, 2)]_matrix_[4032.68]
+Created bounding box 1 (sum, 2)
+Time for grouping_[4032.68] = 0.0_ms
+index_2_combination_[(sum, 2)]_matrix_[4641.08]
+Maximum bounding box_0 0
+Function_sum::2
+Time for grouping_[4641.08] = 0.0_ms
+index_2_combination_[(sum, 2)]_matrix_[-283.84]
+Maximum bounding box_0 0
+Function_sum::2
+Time for grouping_[-283.84] = 0.0_ms
+index_2_combination_[(sum, 2)]_matrix_[5755.94]
+Maximum bounding box_0 0
+Function_sum::2
+Time for grouping_[5755.94] = 0.0_ms
+index_2_combination_[(sum, 2)]_matrix_[4192.40]
+Maximum bounding box_0 0
+Function_sum::2
+Time for grouping_[4192.40] = 0.0_ms
+------------------------one dimension--------------------- 7.0_ms
+2 (0, 0) (0, 0)
+OneDimenFilter BaseIndex=2 (0, 0) (0, 0) [(sum, 2)]
+2 (0, 0) (0, 0)
+OneDimenFilter BaseIndex=2 (0, 0) (0, 0) [(max, 2)]
+2 (0, 0) (0, 0)
+OneDimenFilter BaseIndex=2 (0, 0) (0, 0) [(min, 2)]
+time for one/two/three dimensi_8.0_ms
+__________diff_filter 12.0 ms
+Used memory2 is megabytes: 4 MB

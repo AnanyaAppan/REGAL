@@ -1,0 +1,101 @@
+select l_linestatus, sum(l_discount)
+from LINEITEM
+where l_tax > 0.01 and l_tax < 0.04 and l_discount > 0.03
+group by l_linestatus
+
+---------------------------------------------------------------------------------------------------------------------
+
+select l_linestatus, l_discount, l_tax
+from LINEITEM
+
+---------------------------------------------------------------------------------------------------------------------
+
+Database connection established!
+select l_linestatus, l_discount, l_tax from LINEITEM 
+base cardinality
+PreproBase.makeDataStruct_cardinality 582536
+PreproBase.makeDataStruct_attribute {3=l_tax, 2=l_discount, 1=l_linestatus}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.Integer, 2=java.math.BigDecimal, 3=java.math.BigDecimal}
+__________Preprocessing base table 5191.0 ms
+select l_linestatus, sum(l_discount) from LINEITEM where l_tax >0.01 and l_tax < 0.04 and l_discount > 0.03 group by l_linestatus 
+PreproBase.makeDataStruct_class_query {1=java.lang.Integer, 2=java.math.BigDecimal}
+{1=java.lang.Integer, 2=java.math.BigDecimal}
+PreproBase.result_cardinality 2
+PreproBase.result_column {2=sum(l_discount), 1=l_linestatus}
+PreproBase.result_class {1=java.lang.Integer, 2=java.math.BigDecimal}
+MapBoth.pairs_{1=[1]}
+MapBoth.produce_lattice_root_[[1]]
+__________Query output table cum Mapping table 311.0 ms
+Used memory is megabytes: 335 MB
+lattice_root [l_linestatus]
+BuildLattice.lattice_size 1 keyness_count 1
+Keyness_[l_linestatus]
+Time_TD 1.0 Time_BU 0.0
+Phase1.lattice_root {l_linestatus=1} num_candidates 1
+[(l_linestatus )]
+__________diff_grpby 5.0 ms
+SingleConstraints.aggregation (2, {sum=[2, 3]})
+SingleConstraints.aggregation (1, {min=[1], avg=[1], max=[1], sum=[1]})
+Grouping_[l_linestatus]_aggreColumns_[2]
+basePartialRow {[1]=[2, 3], [2]=[1, 3], [1, 2, 3]=null, [3]=[1, 2], [1, 2]=[3], [2, 3]=[1], [1, 3]=[2]}
+combinaBID [1]
+getBaseCols [2, 3]
+Read_partial_data_149.0_ms
+Column_id_2 Aggregations_{sum=[2, 3]}
+Phase2.combnode [l_linestatus] 
+aggregation(list of pair) [(2, {sum=[2, 3]})]
+Phase2.treenode {l_linestatus=1}
+Phase2.combnode [l_linestatus]
+aggregation 2 [{2=(sum, 2)}, {2=(sum, 3)}]
+__________diff_aggre 1.0 ms
+__________diff_granu 264.0 ms
+FilterSelection_latticeRoot_{l_linestatus=1}
+[1]
+FilterSelection.grouping_(l_linestatus )_multi-dimensions_[2, 3]_aggregation-combinations_2
+combnode = (l_linestatus )
+FilterSelection.matrix_[1]_boundingValues_{2=2880.50}
+FilterSelection.matrix_[0]_boundingValues_{2=2912.41}
+time1_25.0_time2_110.0_time3_320.0 = 456.0_ms
+Start Experiment from One Dimensi
+fill_matrix_cost_268.0_ms
+this aggregate returns empty
+not any box returns
+fill_matrix_cost_98.0_ms
+this aggregate returns empty
+not any box returns
+fill_matrix_cost_100.0_ms
+this aggregate returns empty
+not any box returns
+fill_matrix_cost_88.0_ms
+this aggregate returns empty
+not any box returns
+------------------------one dimension--------------------- 557.0_ms
+Failed one Dimension ! then start two Dimension
+AfterOneDimension 2
+[2, 3] [(sum, 2)] [1] (sum, 2) 2880.50 11 9
+----------------------------plane building-------------------------929.0 ms
+xaxis
+0 1 2 3 4 5 6 7 8 9 10 Created bounding box 1
+Created bounding box [4 2] [10 3] [4 2] [10 3]
+[2, 3] [(sum, 2)] [0] (sum, 2) 2912.41 11 9
+Updated bounding box 1
+Updated bounding box [4 2] [10 3] [4 2] [10 3]
+stored [4 2] [10 3] [4 2] [10 3]
+[2, 3] [(sum, 3)] [1] (sum, 3) 2880.50 11 9
+----------------------------plane building-------------------------768.0 ms
+xaxis
+0 1 2 3 4 5 6 7 8 9 10 this aggregate returns empty
+not any box returns
+------------------------two dimension--------------------- 1963.0 ms
+Aggregation [(sum, 2)]
+[0.04 0.10] [0.02 0.03]
+time for one/two/three dimensi_2522.0_ms
+__________diff_filter 2982.0 ms
+Used memory2 is megabytes: 369 MB
+
+---------------------------------------------------------------------------------------------------------------------
+
+select l_linestatus, sum(l_discount)
+from LINEITEM
+where l_tax >=0.02 and l_tax <= 0.03 and l_discount >= 0.04 and l_discount <= 0.10
+group by l_linestatus

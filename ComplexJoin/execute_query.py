@@ -5,7 +5,7 @@ import sys
 
 def main () :
     try:
-        conn = psycopg2.connect("dbname=tpch host='localhost' user='ananya' password='*Rasika0507'")
+        conn = psycopg2.connect("dbname=tpch100mb host='localhost' user='ananya' password='*Rasika0507'")
         sql = ""
         f_out = open("input_query.txt","r")
         for line in f_out :

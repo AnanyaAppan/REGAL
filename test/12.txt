@@ -3,32 +3,56 @@ from partsupp, supplier, nation, region
 where s_suppkey = ps_suppkey and s_nationkey = n_nationkey and n_regionkey = r_regionkey;
 --------------------------------------------------------------------------------------------------------
 
+--------------Pre processing over--------------0.639547
+{'min': ['partsupp.ps_supplycost.0']}
+----Obtained CAND lists----0.825318
+----trying for depth 0----0.825345
+-------Exploring Instance Tree-------0.852742
+-------Update Star Centres-------0.852827
+-------Obtained merge list-------0.852940
+-------Obtained star set-------0.852960
+-------Obtained merged stars-------0.853106
+-------Initialized TID lists-------0.853129
+-------Gen Lattice-------0.854661
+----trying for depth 1----0.854683
+-------Exploring Instance Tree-------0.880423
+-------Update Star Centres-------0.880543
+-------Update Star Centres-------0.880644
+-------Update Star Centres-------0.880725
+-------Update Star Centres-------0.880803
+-------Obtained merge list-------0.880977
+-------Obtained star set-------0.881008
+-------Obtained merged stars-------0.881695
+-------Initialized TID lists-------0.881722
+-------Gen Lattice-------0.883184
+SELECT * FROM  partsupp partsupp_0 , part part_0 WHERE part_0.p_partkey=partsupp_0.ps_partkey
+--------------Post processing over--------------0.906590
 Database connection established!
-select ps_supplycost, ps_availqty, ps_comment from partsupp, supplier, nation, region where s_suppkey = ps_suppkey and s_nationkey = n_nationkey and n_regionkey = r_regionkey; 
+SELECT * FROM  partsupp partsupp_0 , part part_0 WHERE part_0.p_partkey=partsupp_0.ps_partkey
 base cardinality
 PreproBase.makeDataStruct_cardinality 5
-PreproBase.makeDataStruct_attribute {3=ps_comment, 2=ps_availqty, 1=ps_supplycost}
-PreproBase.makeDataStruct_class {0=count, 1=java.math.BigDecimal, 2=java.lang.Integer, 3=java.lang.String}
-__________Preprocessing base table 24.0 ms
+PreproBase.makeDataStruct_attribute {5=P_PARTKEY, 4=PS_SUPPLYCOST, 3=PS_AVAILQTY, 2=PS_SUPPKEY, 7=P_RETAILPRICE, 1=PS_PARTKEY, 6=P_SIZE}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.Integer, 2=java.lang.Integer, 3=java.lang.Integer, 4=java.math.BigDecimal, 5=java.lang.Integer, 6=java.lang.Integer, 7=java.math.BigDecimal}
+__________Preprocessing base table 29.0 ms
 select min(ps_supplycost) from partsupp, supplier, nation, region where s_suppkey = ps_suppkey and s_nationkey = n_nationkey and n_regionkey = r_regionkey; 
 PreproBase.makeDataStruct_class_query {1=java.math.BigDecimal}
 {1=java.math.BigDecimal}
 PreproBase.result_cardinality 1
 PreproBase.result_column {1=min(ps_supplycost)}
 PreproBase.result_class {1=java.math.BigDecimal}
-MapBoth.pairs_{1=[1]}
-MapBoth.produce_lattice_root_[[1]]
-__________Query output table cum Mapping table 8.0 ms
+MapBoth.pairs_{1=[4]}
+MapBoth.produce_lattice_root_[[4]]
+__________Query output table cum Mapping table 9.0 ms
 Used memory is megabytes: 7 MB
 lattice_root [min(ps_supplycost)]
 BuildLattice.lattice_size 1 keyness_count 1
 Keyness_[min(ps_supplycost)]
-Time_TD 0.0 Time_BU 0.0
-Phase1.lattice_root {min(ps_supplycost)=1} num_candidates 1
+Time_TD 1.0 Time_BU 0.0
+Phase1.lattice_root {min(ps_supplycost)=4} num_candidates 1
 [(min(ps_supplycost) )]
-__________diff_grpby 4.0 ms
-SingleConstraints.aggregation (1, {min=[1], avg=[1], max=[1], sum=[1]})
-__________diff_aggre 0.0 ms
-__________diff_granu 3.0 ms
-__________diff_filter 1.0 ms
+__________diff_grpby 5.0 ms
+SingleConstraints.aggregation (1, {min=[4], avg=[4], max=[4], sum=[4]})
+__________diff_aggre 1.0 ms
+__________diff_granu 2.0 ms
+__________diff_filter 2.0 ms
 Used memory2 is megabytes: 4 MB

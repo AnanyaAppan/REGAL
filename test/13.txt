@@ -1,7 +1,7 @@
-SELECT COUNT(region.r_comment) , region.r_comment 
+SELECT l_linenumber, sum(l_quantity), min(l_discount), s_acctbal
 FROM lineitem,supplier,nation,region 
 WHERE lineitem.l_suppkey = supplier.s_suppkey AND nation.n_nationkey = supplier.s_nationkey AND region.r_regionkey = nation.n_regionkey AND supplier.s_acctbal > 4500
-GROUP BY lineitem.l_commitdate,region.r_comment 
+GROUP BY l_linenumber, s_acctbal
 
 --------------------------------------------------------------------------------------------------------
 

@@ -1,0 +1,77 @@
+select l_shipmode, sum(l_quantity)
+from LINEITEM
+group by l_shipmode
+
+------------------------------------------------------------------------------------------------------------------------
+
+select l_shipmode, l_quantity
+from LINEITEM
+
+------------------------------------------------------------------------------------------------------------------------
+
+Database connection established!
+select l_shipmode, l_quantity from LINEITEM 
+base cardinality
+PreproBase.makeDataStruct_cardinality 582536
+PreproBase.makeDataStruct_attribute {2=l_quantity, 1=l_shipmode}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.String, 2=java.math.BigDecimal}
+__________Preprocessing base table 3832.0 ms
+select l_shipmode, sum(l_quantity) from LINEITEM group by l_shipmode 
+PreproBase.makeDataStruct_class_query {1=java.lang.String, 2=java.math.BigDecimal}
+{1=java.lang.String, 2=java.math.BigDecimal}
+PreproBase.result_cardinality 7
+PreproBase.result_column {2=sum(l_quantity), 1=l_shipmode}
+PreproBase.result_class {1=java.lang.String, 2=java.math.BigDecimal}
+MapBoth.pairs_{1=[1]}
+MapBoth.produce_lattice_root_[[1]]
+__________Query output table cum Mapping table 538.0 ms
+Used memory is megabytes: 287 MB
+lattice_root [l_shipmode]
+BuildLattice.lattice_size 1 keyness_count 1
+Keyness_[l_shipmode]
+Time_TD 1.0 Time_BU 0.0
+Phase1.lattice_root {l_shipmode=1} num_candidates 1
+[(l_shipmode )]
+__________diff_grpby 5.0 ms
+SingleConstraints.aggregation (1, {})
+SingleConstraints.aggregation (2, {sum=[2]})
+Grouping_[l_shipmode]_aggreColumns_[2]
+basePartialRow {[1]=[2], [2]=[1], [1, 2]=null}
+combinaBID [1]
+getBaseCols [2]
+Read_partial_data_122.0_ms
+Column_id_2 Aggregations_{sum=[2]}
+Phase2.combnode [l_shipmode] 
+aggregation(list of pair) [(2, {sum=[2]})]
+Phase2.treenode {l_shipmode=1}
+Phase2.combnode [l_shipmode]
+aggregation 1 [{2=(sum, 2)}]
+__________diff_aggre 1.0 ms
+__________diff_granu 199.0 ms
+FilterSelection_latticeRoot_{l_shipmode=1}
+[1]
+FilterSelection.grouping_(l_shipmode )_multi-dimensions_[2]_aggregation-combinations_1
+combnode = (l_shipmode )
+FilterSelection.matrix_[MAIL]_boundingValues_{2=2124733.00}
+FilterSelection.matrix_[RAIL]_boundingValues_{2=2122348.00}
+FilterSelection.matrix_[TRUCK]_boundingValues_{2=2130689.00}
+FilterSelection.matrix_[REG AIR]_boundingValues_{2=2120858.00}
+FilterSelection.matrix_[FOB]_boundingValues_{2=2122028.00}
+FilterSelection.matrix_[AIR]_boundingValues_{2=2116701.00}
+FilterSelection.matrix_[SHIP]_boundingValues_{2=2136513.00}
+time1_37.0_time2_170.0_time3_248.0 = 455.0_ms
+Start Experiment from One Dimensi
+fill_matrix_cost_46.0_ms
+Created bounding box 1 (sum, 2)
+------------------------one dimension--------------------- 1356.0_ms
+2 (0, 49) (0, 49)
+OneDimenFilter BaseIndex=2 (1.00, 50.00) (1.00, 50.00) [(sum, 2)]
+time for one/two/three dimensi_1357.0_ms
+__________diff_filter 1815.0 ms
+Used memory2 is megabytes: 320 MB
+
+------------------------------------------------------------------------------------------------------------------------
+
+select l_shipmode, sum(l_quantity)
+from LINEITEM
+group by l_shipmode

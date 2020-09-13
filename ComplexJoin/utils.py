@@ -439,6 +439,7 @@ def gen_instance_trees(connection,cand_dict,joinGraph,depth) :
         for col in cand_dict[col_out]:
             table_count,tree = get_instance_tree(table_count,col,joinGraph,depth)
             tree_dict[col_out][col] = tree
+            draw_tree(tree)
     
     star_ctrs = set([table for table in table_dict])
 
@@ -682,8 +683,9 @@ def merge_stars(star_list,tree_dict) :
                 return None
         else : 
             path = nx.Graph(tree.subgraph(root))
-            if(merged_star in merged_tree_cols): merged_tree_cols[merged_star] += tree_cols[root].copy()
-            else : merged_tree_cols[merged_star] = tree_cols[root].copy()
+            if(len(keys) > 1):
+                if(merged_star in merged_tree_cols): merged_tree_cols[merged_star] += tree_cols[root].copy()
+                else : merged_tree_cols[merged_star] = tree_cols[root].copy()
         if(len(keys)>1): substitute_node(path,star,merged_star)
         merged_tree.add_nodes_from(path.nodes())
         merged_tree.add_edges_from(path.edges())
@@ -769,7 +771,7 @@ def get_query_from_graph (graph,limit,flag) :
     query = query.strip(", ")
     query += " FROM "
     for node in nodes :
-        query += node.split('_')[0] + " " + node + " , "
+        query += node.split('_')[0].upper() + " " + node + " , "
     query = query.strip(", ")
     if(len(list(graph.edges()))):
         query += " WHERE "
@@ -787,25 +789,44 @@ def get_query_from_graph (graph,limit,flag) :
     return query
 
 def df_equals(query,conn,df,flag) :
+    # print("query" , query)
     df1 = pd.read_sql_query(query , conn)
     df2 = df
     df1 = df1.sort_index(axis=1)
     df2 = df2.sort_index(axis=1)
-    vals_df1 = [set([str(j) for j in i]) for i in df1.values]
-    vals_df2 = [set([str(j) for j in i]) for i in df2.values]
+    vals_df1 = [sorted([str(j) for j in i]) for i in df1.values]
+    vals_df2 = [sorted([str(j) for j in i]) for i in df2.values]
+    vals_df1.sort()
+    vals_df2.sort()
     if(len(df1.columns) != len(df2.columns)) : return flag,False
     if(len(df1.index) < len(df2.index)) : return flag,False
     if(len(df1.index) != len(df2.index)) : flag = True
-    for row in vals_df2 :
-        if row in vals_df1 :
-            vals_df1.remove(row)
+    # for row in vals_df2 :
+    #     if row in vals_df1 :
+    #         vals_df1.remove(row)
+    #     else :
+    #         del vals_df1
+    #         del vals_df2
+    #         return flag,False
+    # del vals_df1
+    # del vals_df2
+    # return flag,True
+    i=0
+    j=0
+    while(i<len(vals_df1) and j<len(vals_df2)):
+        if(vals_df1[i]==vals_df2[j]): 
+            i += 1
+            j += 1
         else :
-            del vals_df1
-            del vals_df2
-            return flag,False
+            i += 1
+    # print("j = " + str(j))
+    if(j==len(vals_df2)):
+        del vals_df1
+        del vals_df2
+        return flag,True
     del vals_df1
     del vals_df2
-    return flag,True
+    return flag,False
     # for i in range(len(vals_df1)) :
     #     for j in range(len(vals_df1[0])):
     #         if(str(vals_df1[i][j]) != str(vals_df2[i][j])):
@@ -852,11 +873,12 @@ def gen_lattice(star_graph,merge_list,df,conn,flag):
         lattice = new_lattice
     queries.reverse()
     for queries_for_level in queries :
-        flag, is_equal = df_equals(query,conn,df,flag)
-        if is_equal:
-            if(flag) :
-                query = "SELECT * FROM " + query.split("SELECT")[1].split("FROM")[1]
-            return query
+        for query in queries_for_level:
+            flag, is_equal = df_equals(query,conn,df,flag)
+            if is_equal:
+                if(flag) :
+                    query = "SELECT * FROM " + query.split("SELECT")[1].split("FROM")[1]
+                return query
 
 def initialize_black_list(cand_dict) :
     blacklist = {}

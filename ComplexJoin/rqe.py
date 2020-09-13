@@ -9,7 +9,7 @@ import networkx.algorithms.isomorphism as iso
 def main () :
     start = time.time()
     try:
-        conn = psycopg2.connect("dbname=tpch host='localhost' user='ananya' password='*Rasika0507'")
+        conn = psycopg2.connect("dbname=tpch100mb host='localhost' user='ananya' password='*Rasika0507'")
         df = pd.read_csv("query_out.csv",header=0,index_col=0)
         df = df.sort_values(df.columns.tolist())
         tables = get_tables(conn)

@@ -49,6 +49,9 @@ public class GroupGranular {
 		Map<Map<String, Integer>, Map<CombNode, List<Map<Integer, Pair<Object, Integer>>>>> groupaggregations = 
 				new HashMap<>();
 		List<Map<String, Integer>> listOfTree = new ArrayList<>(whichtree.keySet());
+
+		// System.out.println("size of which tree key set = ");
+		// System.out.println(listOfTree.size());
 		
 		for (Map<String,Integer> sgtree : listOfTree) {
 			Map<CombNode, List<Pair<Integer, Multimap<Object, Integer>>>> whosenode = whichtree.get(sgtree);
@@ -148,9 +151,9 @@ public class GroupGranular {
 			Map<Integer, Map<String, List<Integer>>> resultFreq) 
 	{
 		//Set<Integer> treeBaseID = new HashSet<Integer>(treenode.values());
-		
 		//Generate resultIndex---the query table columns that are possibly aggregated
 		BiMap<String, Integer> columnIndex = columnName.inverse();
+
 		List<Integer> resultIndex = new ArrayList<Integer>(columnName.keySet());
 		Collections.sort(resultIndex);
 		for (Pair<Integer, Multimap<Object, Integer>> checkrid : aggregation) {
@@ -198,7 +201,7 @@ public class GroupGranular {
 				}
 			}
 		}
-		
+
 		for (Iterator<CombNode> w = candnode.iterator(); w.hasNext();) {
 			CombNode cn = w.next();
 			// System.out.println("deleteNode_" + deleteNode + " currentNode_" + candnode + " runNode_" + cn);	
@@ -252,6 +255,7 @@ public class GroupGranular {
 			ReadDatabase.readDatabase(querySPGA, rowStore, combinaRID, getQueryCols, resultColumn, resultFreq);
 		}
 		Map<List<String>, Multimap<Integer, T>> mapRID = querySPGA.get(combinaRID);
+		// System.out.println("MapRID = " + mapRID);
 		//reorder the mapRID to complement mapBID			
 		Map<List<String>, Multimap<Integer, T>> reorderRID = new HashMap<>();
 		for (List<String> ruple : mapRID.keySet()) {
@@ -266,9 +270,11 @@ public class GroupGranular {
 		}
 		List<List<String>> skipBase = new ArrayList<>(reorderRID.keySet());
 		if (!baseSPGA.keySet().contains(combinaBID)) {
+			System.out.println("basePartialRow" + " " + basePartialRow);
 			List<Integer> getBaseCols = basePartialRow.get(combinaBID); //@@@@
+			System.out.println("combinaBID " +combinaBID);
 			//List<Integer> getBaseCols = new ArrayList<>(removeKey);
-			// System.out.println("getBaseCols " +getBaseCols);
+			System.out.println("getBaseCols " +getBaseCols);
 			if(getBaseCols != null){
 				ReadDatabase.readSkipDatabase(baseSPGA, baseRowStore, combinaBID, 
 					getBaseCols, baseColumn, baseFreq, skipBase);
@@ -499,8 +505,8 @@ public class GroupGranular {
 						} /** else if (value.compareTo(BigDecimal.ZERO) == 0) {
 							inferFreq.add(tupleRID);
 						} */
-					} else if (String.valueOf(ridval).compareTo(String.valueOf((Collections.min(bidValue)))) > 0 || 
-							String.valueOf(ridval).compareTo(String.valueOf(Collections.max(bidValue))) > 0) 
+					} else if (String.valueOf(Collections.min(bidValue)).compareTo(String.valueOf(ridval)) > 0 || 
+							String.valueOf(ridval).compareTo(String.valueOf(Collections.max(bidValue))) > 0)
 					{
 						valid = false;
 						break outer;
@@ -541,7 +547,9 @@ public class GroupGranular {
 		outer:
 		while (iterListRID.hasNext()) {
 			List<String> tupleRID = iterListRID.next();
-			if (mapBID.keySet().contains(tupleRID) && mapBID.get(tupleRID) != null) {
+			// if(mapBID == null)
+			// 	System.out.println("mapBID " + mapBID);
+			if (mapBID != null && mapBID.keySet().contains(tupleRID) && mapBID.get(tupleRID) != null) {
 				List<T> ridValue = (List<T>) mapRID.get(tupleRID).get(rid);
 				T ridval = ridValue.get(0);
 				List<T> bidValue = (List<T>) mapBID.get(tupleRID).get(bid);

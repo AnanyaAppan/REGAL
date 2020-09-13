@@ -1,0 +1,123 @@
+select p_brand, max(l_extendedprice), min(l_extendedprice),avg(l_extendedprice), sum(l_extendedprice), count(l_extendedprice)
+from LINEITEM, PART
+where l_partkey = p_partkey and l_tax>0.04 
+group by p_brand
+
+------------------------------------------------------------------------------------------------------------------------
+
+select p_brand, l_extendedprice, l_tax
+from LINEITEM, PART
+where l_partkey = p_partkey
+
+------------------------------------------------------------------------------------------------------------------------
+
+Database connection established!
+select p_brand, l_extendedprice, l_tax from LINEITEM, PART where l_partkey = p_partkey 
+base cardinality
+PreproBase.makeDataStruct_cardinality 582536
+PreproBase.makeDataStruct_attribute {3=l_tax, 2=l_extendedprice, 1=p_brand}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.String, 2=java.math.BigDecimal, 3=java.math.BigDecimal}
+__________Preprocessing base table 4930.0 ms
+select p_brand, max(l_extendedprice), min(l_extendedprice),avg(l_extendedprice), sum(l_extendedprice), count(l_extendedprice) from LINEITEM, PART where l_partkey = p_partkey and l_tax>0.04 group by p_brand 
+PreproBase.makeDataStruct_class_query {1=java.lang.String, 2=java.math.BigDecimal, 3=java.math.BigDecimal, 4=java.math.BigDecimal, 5=java.math.BigDecimal, 6=java.lang.Long}
+{1=java.lang.String, 2=java.math.BigDecimal, 3=java.math.BigDecimal, 4=java.math.BigDecimal, 5=java.math.BigDecimal, 6=java.lang.Long}
+PreproBase.result_cardinality 25
+PreproBase.result_column {5=sum(l_extendedprice), 4=avg(l_extendedprice), 3=min(l_extendedprice), 2=max(l_extendedprice), 1=p_brand, 6=count(l_extendedprice)}
+PreproBase.result_class {1=java.lang.String, 2=java.math.BigDecimal, 3=java.math.BigDecimal, 4=java.math.BigDecimal, 5=java.math.BigDecimal, 6=java.lang.Long}
+MapBoth.pairs_{1=[1], 2=[2], 3=[2]}
+MapBoth.produce_lattice_root_[[1, 2, 2]]
+__________Query output table cum Mapping table 669.0 ms
+Used memory is megabytes: 387 MB
+lattice_root [p_brand, max(l_extendedprice), min(l_extendedprice)]
+BuildLattice.lattice_size 7 keyness_count 4
+Keyness_[p_brand, max(l_extendedprice), min(l_extendedprice)]
+Keyness_[p_brand, max(l_extendedprice)]
+Keyness_[p_brand, min(l_extendedprice)]
+Keyness_[p_brand]
+Time_TD 2.0 Time_BU 0.0
+Phase1.lattice_root {max(l_extendedprice)=2, min(l_extendedprice)=2, p_brand=1} num_candidates 3
+[(p_brand ), (p_brand max(l_extendedprice) ), (p_brand min(l_extendedprice) )]
+__________diff_grpby 6.0 ms
+SingleConstraints.aggregation (1, {})
+SingleConstraints.aggregation (5, {sum=[2]})
+SingleConstraints.aggregation (6, {count=[0]})
+SingleConstraints.aggregation (4, {avg=[2], sum=[2]})
+SingleConstraints.aggregation (2, {min=[2], avg=[2], max=[2], sum=[2]})
+SingleConstraints.aggregation (3, {min=[2], avg=[2], max=[2], sum=[2, 3]})
+Grouping_[p_brand]_aggreColumns_[2, 3, 4, 5, 6]
+basePartialRow {[1]=[2, 3], [2]=[1, 3], [1, 2, 3]=null, [3]=[1, 2], [1, 2]=[3], [2, 3]=[1], [1, 3]=[2]}
+combinaBID [1]
+getBaseCols [2, 3]
+Read_partial_data_124.0_ms
+Column_id_5 Aggregations_{sum=[2]}
+Column_id_6 Aggregations_{count=[0]}
+Column_id_4 Aggregations_{avg=[2], sum=[2]}
+overlap_aggregations_sum 2
+Column_id_2 Aggregations_{min=[2], avg=[2], max=[2], sum=[2]}
+overlap_aggregations_sum 2
+Column_id_3 Aggregations_{min=[2], avg=[2], max=[2], sum=[2, 3]}
+overlap_aggregations_sum 2
+Grouping_[p_brand, min(l_extendedprice)]_aggreColumns_[2, 4, 5, 6]
+basePartialRow {[1]=[2, 3], [2]=[1, 3], [1, 2, 3]=null, [3]=[1, 2], [1, 2]=[3], [2, 3]=[1], [1, 3]=[2]}
+combinaBID [1, 2]
+getBaseCols [3]
+Read_partial_data_164.0_ms
+Column_id_5 Aggregations_{sum=[2]}
+Grouping_[p_brand, max(l_extendedprice)]_aggreColumns_[3, 4, 5, 6]
+Read_partial_data_2.0_ms
+Column_id_5 Aggregations_{sum=[2]}
+Phase2.combnode [p_brand] 
+aggregation(list of pair) [(5, {sum=[2]}), (6, {count=[0]}), (4, {avg=[2], sum=[2]}), (2, {min=[2], avg=[2], max=[2], sum=[2]}), (3, {min=[2], avg=[2], max=[2], sum=[2, 3]})]
+Phase2.treenode {max(l_extendedprice)=2, min(l_extendedprice)=2, p_brand=1}
+Phase2.combnode [p_brand]
+aggregation 2 [{2=(max, 2), 3=(min, 2), 4=(avg, 2), 5=(sum, 2), 6=(count, 0)}, {2=(max, 2), 3=(sum, 3), 4=(avg, 2), 5=(sum, 2), 6=(count, 0)}]
+__________diff_aggre 2.0 ms
+__________diff_granu 488.0 ms
+FilterSelection_latticeRoot_{max(l_extendedprice)=2, min(l_extendedprice)=2, p_brand=1}
+[1]
+FilterSelection.grouping_(p_brand )_multi-dimensions_[2, 3]_aggregation-combinations_2
+combnode = (p_brand )
+FilterSelection.matrix_[Brand#51]_boundingValues_{2=94949.00, 3=910.00, 4=35526.910109, 5=348590041.99, 6=9812}
+FilterSelection.matrix_[Brand#14]_boundingValues_{2=95399.50, 3=924.02, 4=36064.266528, 5=384481145.45, 6=10661}
+FilterSelection.matrix_[Brand#15]_boundingValues_{2=94999.50, 3=917.01, 4=35925.637235, 5=364752994.85, 6=10153}
+FilterSelection.matrix_[Brand#12]_boundingValues_{2=95099.50, 3=910.00, 4=35935.041884, 5=379941197.84, 6=10573}
+FilterSelection.matrix_[Brand#34]_boundingValues_{2=95549.50, 3=931.01, 4=35816.750650, 5=383346682.21, 6=10703}
+FilterSelection.matrix_[Brand#35]_boundingValues_{2=95699.50, 3=909.00, 4=35613.481339, 5=368492691.41, 6=10347}
+FilterSelection.matrix_[Brand#13]_boundingValues_{2=95799.50, 3=901.00, 4=35653.471284, 5=385057489.87, 6=10800}
+FilterSelection.matrix_[Brand#32]_boundingValues_{2=95449.50, 3=925.01, 4=35114.842270, 5=368811188.36, 6=10503}
+FilterSelection.matrix_[Brand#54]_boundingValues_{2=95499.50, 3=909.00, 4=36177.899316, 5=375454239.10, 6=10378}
+FilterSelection.matrix_[Brand#33]_boundingValues_{2=95749.50, 3=912.00, 4=35679.093628, 5=387082486.77, 6=10849}
+FilterSelection.matrix_[Brand#55]_boundingValues_{2=94449.00, 3=913.01, 4=35687.241085, 5=375536837.94, 6=10523}
+FilterSelection.matrix_[Brand#11]_boundingValues_{2=94449.00, 3=907.00, 4=36177.329663, 5=375122731.28, 6=10369}
+FilterSelection.matrix_[Brand#52]_boundingValues_{2=95199.00, 3=915.00, 4=34711.118288, 5=354435228.84, 6=10211}
+FilterSelection.matrix_[Brand#53]_boundingValues_{2=95699.50, 3=917.00, 4=36107.723381, 5=378192294.69, 6=10474}
+FilterSelection.matrix_[Brand#31]_boundingValues_{2=95299.50, 3=903.00, 4=36146.568280, 5=366490055.79, 6=10139}
+FilterSelection.matrix_[Brand#25]_boundingValues_{2=95449.50, 3=910.00, 4=35882.261756, 5=382289616.75, 6=10654}
+FilterSelection.matrix_[Brand#45]_boundingValues_{2=94599.00, 3=927.01, 4=35358.335563, 5=359877139.36, 6=10178}
+FilterSelection.matrix_[Brand#23]_boundingValues_{2=95299.50, 3=913.00, 4=36400.292677, 5=358433681.99, 6=9847}
+FilterSelection.matrix_[Brand#24]_boundingValues_{2=95249.50, 3=909.00, 4=35320.036125, 5=365209173.53, 6=10340}
+FilterSelection.matrix_[Brand#43]_boundingValues_{2=95199.00, 3=911.01, 4=35598.241410, 5=369011370.46, 6=10366}
+FilterSelection.matrix_[Brand#21]_boundingValues_{2=95749.50, 3=912.00, 4=35614.047213, 5=372772232.18, 6=10467}
+FilterSelection.matrix_[Brand#44]_boundingValues_{2=95649.50, 3=913.00, 4=36090.065467, 5=362308167.22, 6=10039}
+FilterSelection.matrix_[Brand#22]_boundingValues_{2=95149.50, 3=905.00, 4=35645.086554, 5=357306347.62, 6=10024}
+FilterSelection.matrix_[Brand#41]_boundingValues_{2=95749.50, 3=916.01, 4=36424.731900, 5=363482399.63, 6=9979}
+FilterSelection.matrix_[Brand#42]_boundingValues_{2=95399.50, 3=911.00, 4=35563.656702, 5=380957890.59, 6=10712}
+time1_28.0_time2_4083.0_time3_116.0 = 4280.0_ms
+Start Experiment from One Dimensi
+Created bounding box 1 (count, 0)
+Created bounding box 1 (count, 0)
+cross aggregate no valid
+not any box returns
+------------------------one dimension--------------------- 492.0_ms
+3 (4, 8) (4, 8)
+OneDimenFilter BaseIndex=3 (0.04, 0.08) (0.04, 0.08) [(max, 2), (min, 2), (avg, 2), (sum, 2), (count, 0)]
+time for one/two/three dimensi_493.0_ms
+__________diff_filter 4775.0 ms
+Used memory2 is megabytes: 411 MB
+
+----------------------------------------------------------------------------------------------------------
+
+select p_brand, max(l_extendedprice), min(l_extendedprice),avg(l_extendedprice), sum(l_extendedprice), count(l_extendedprice)
+from LINEITEM, PART
+where l_partkey = p_partkey and l_tax>0.04 and l_tax <= 0.08
+group by p_brand

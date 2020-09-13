@@ -1,0 +1,78 @@
+select l_linenumber, avg(l_extendedprice) 
+from LINEITEM
+where l_tax > 0.04
+group by l_linenumber
+
+-----------------------------------------------------------------------------------------------------------
+
+select l_linenumber, l_extendedprice, l_tax
+from LINEITEM
+
+-----------------------------------------------------------------------------------------------------------
+
+Database connection established!
+select l_linenumber, l_extendedprice, l_tax from LINEITEM 
+base cardinality
+PreproBase.makeDataStruct_cardinality 582536
+PreproBase.makeDataStruct_attribute {3=l_tax, 2=l_extendedprice, 1=l_linenumber}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.Integer, 2=java.math.BigDecimal, 3=java.math.BigDecimal}
+__________Preprocessing base table 5148.0 ms
+select l_linenumber, avg(l_extendedprice)  from LINEITEM where l_tax > 0.04 group by l_linenumber 
+PreproBase.makeDataStruct_class_query {1=java.lang.Integer, 2=java.math.BigDecimal}
+{1=java.lang.Integer, 2=java.math.BigDecimal}
+PreproBase.result_cardinality 7
+PreproBase.result_column {2=avg(l_extendedprice), 1=l_linenumber}
+PreproBase.result_class {1=java.lang.Integer, 2=java.math.BigDecimal}
+MapBoth.pairs_{1=[1]}
+MapBoth.produce_lattice_root_[[1]]
+__________Query output table cum Mapping table 274.0 ms
+Used memory is megabytes: 351 MB
+lattice_root [l_linenumber]
+BuildLattice.lattice_size 1 keyness_count 1
+Keyness_[l_linenumber]
+Time_TD 1.0 Time_BU 0.0
+Phase1.lattice_root {l_linenumber=1} num_candidates 1
+[(l_linenumber )]
+__________diff_grpby 4.0 ms
+SingleConstraints.aggregation (2, {avg=[2], sum=[2]})
+SingleConstraints.aggregation (1, {min=[1], avg=[1], max=[1], count=[0], sum=[1]})
+Grouping_[l_linenumber]_aggreColumns_[2]
+basePartialRow {[1]=[2, 3], [2]=[1, 3], [1, 2, 3]=null, [3]=[1, 2], [1, 2]=[3], [2, 3]=[1], [1, 3]=[2]}
+combinaBID [1]
+getBaseCols [2, 3]
+Read_partial_data_154.0_ms
+Column_id_2 Aggregations_{avg=[2], sum=[2]}
+Phase2.combnode [l_linenumber] 
+aggregation(list of pair) [(2, {sum=[2]})]
+Phase2.treenode {l_linenumber=1}
+Phase2.combnode [l_linenumber]
+aggregation 1 [{2=(sum, 2)}]
+__________diff_aggre 1.0 ms
+__________diff_granu 245.0 ms
+FilterSelection_latticeRoot_{l_linenumber=1}
+[1]
+FilterSelection.grouping_(l_linenumber )_multi-dimensions_[2, 3]_aggregation-combinations_1
+combnode = (l_linenumber )
+FilterSelection.matrix_[1]_boundingValues_{2=35741.478588}
+FilterSelection.matrix_[2]_boundingValues_{2=35874.546143}
+FilterSelection.matrix_[3]_boundingValues_{2=35690.691029}
+FilterSelection.matrix_[4]_boundingValues_{2=35651.083663}
+FilterSelection.matrix_[5]_boundingValues_{2=35930.242520}
+FilterSelection.matrix_[6]_boundingValues_{2=35663.631563}
+FilterSelection.matrix_[7]_boundingValues_{2=35876.687492}
+time1_32.0_time2_1085.0_time3_1344.0 = 2550.0_ms
+Start Experiment from One Dimensi
+fill_matrix_cost_11.0_ms
+this aggregate returns empty
+not any box returns
+------------------------one dimension--------------------- 13.0_ms
+time for one/two/three dimensi_13.0_ms
+__________diff_filter 2565.0 ms
+Used memory2 is megabytes: 358 MB
+
+-----------------------------------------------------------------------------------------------------------
+
+select l_linenumber, sum(l_extendedprice) 
+from LINEITEM
+group by l_linenumber (incorrect query)
+

@@ -1,4 +1,4 @@
-select max(O_ORDERDATE), o_orderpriority
-from orders
-where o_totalprice > 50000
-group by o_orderpriority
+select l_discount, avg(l_extendedprice) 
+from LINEITEM
+where l_tax > 0.04
+group by l_discount

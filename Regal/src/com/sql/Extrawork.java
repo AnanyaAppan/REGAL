@@ -26,8 +26,8 @@ public class Extrawork {
 		//int compareDigit = Integer.parseInt(ridValue.toString());
 		int xa = maxplane.getFirst();
 		int xb = maxplane.getSecond();	
-		System.out.println("Maximum bounding box_" + xa + " " + xb);
-		System.out.println("Function_" + fungsi.getFirst() + "::" + fungsi.getSecond());
+		// System.out.println("Maximum bounding box_" + xa + " " + xb);
+		// System.out.println("Function_" + fungsi.getFirst() + "::" + fungsi.getSecond());
 		if (fungsi.getFirst() == "count") {
 			Map<Integer, Integer> linecount = new HashMap<>();
 			int changeint = Integer.parseInt(ridValue.toString());

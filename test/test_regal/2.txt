@@ -1,0 +1,14 @@
+select l_suppkey, l_discount, max(l_orderkey), max(l_extendedprice)
+from LINEITEM
+group by l_suppkey, l_discount
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+select l_suppkey, l_discount, l_orderkey, l_extendedprice
+from LINEITEM
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+took too long...did not give output after around 5 minutes as well

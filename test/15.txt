@@ -1,58 +1,102 @@
-SELECT part.p_name,part.p_retailprice,part.p_size 
+SELECT part.p_size, ps_availqty
 FROM part,partsupp 
 WHERE part.p_partkey = partsupp.ps_partkey 
-GROUP BY partsupp.ps_suppkey,part.p_mfgr,part.p_name,part.p_retailprice,part.p_size   ;
+GROUP BY part.p_retailprice,part.p_size, ps_availqty   ;
 
 --------------------------------------------------------------------------------------------------------
 
---------------Pre processing over--------------0.517505
-{'p_name': ['part.p_name.0'], 'p_retailprice': ['part.p_retailprice.0'], 'p_size': ['part.p_size.0']}
-----Obtained CAND lists----0.731687
-----trying for depth 0----0.731709
--------Exploring Instance Tree-------0.754077
--------Update Star Centres-------0.754182
--------Obtained merge list-------0.754357
--------Obtained star set-------0.754374
--------Obtained merged stars-------0.754608
--------Initialized TID lists-------0.754624
--------Gen Lattice-------0.756284
-----trying for depth 1----0.756303
--------Exploring Instance Tree-------0.779983
--------Update Star Centres-------0.780241
--------Update Star Centres-------0.780389
--------Update Star Centres-------0.780507
--------Obtained merge list-------0.780780
--------Obtained star set-------0.780818
--------Obtained merged stars-------0.781669
--------Initialized TID lists-------0.781698
--------Gen Lattice-------0.804771
-SELECT part_2_0_1.p_size AS part_2_0_1_p_size_0 , part_2_0_1.p_name AS part_2_0_1_p_name_0 , part_2_0_1.p_retailprice AS part_2_0_1_p_retailprice_0 FROM lineitem lineitem_0_1_2 , part part_2_0_1 WHERE lineitem_0_1_2.l_partkey=part_2_0_1.p_partkey
---------------Post processing over--------------0.848372
+--------------Pre processing over--------------0.747516
+{'p_size': ['part.p_size.0'], 'ps_availqty': ['partsupp.ps_availqty.0']}
+----Obtained CAND lists----0.938649
+----trying for depth 0----0.938675
+-------Exploring Instance Tree-------0.966914
+-------Obtained merge list-------0.967104
+----trying for depth 1----0.967116
+-------Exploring Instance Tree-------0.992870
+-------Update Star Centres-------0.993025
+-------Update Star Centres-------0.993155
+-------Update Star Centres-------0.993289
+-------Obtained merge list-------0.993541
+-------Obtained star set-------0.993576
+-------Obtained merged stars-------0.994719
+-------Initialized TID lists-------0.994752
+-------Gen Lattice-------0.996399
+SELECT part_0_1.p_size AS part_0_1_p_size_0 , partsupp_1.ps_availqty AS partsupp_1_ps_availqty_0 FROM part part_0_1 , partsupp partsupp_1 WHERE part_0_1.p_partkey=partsupp_1.ps_partkey
+--------------Post processing over--------------1.032993
 Database connection established!
-SELECT part_2_0_1.p_size AS part_2_0_1_p_size_0 , part_2_0_1.p_name AS part_2_0_1_p_name_0 , part_2_0_1.p_retailprice AS part_2_0_1_p_retailprice_0 FROM lineitem lineitem_0_1_2 , part part_2_0_1 WHERE lineitem_0_1_2.l_partkey=part_2_0_1.p_partkey
+SELECT part_0_1.p_size AS part_0_1_p_size_0 , partsupp_1.ps_availqty AS partsupp_1_ps_availqty_0 FROM part part_0_1 , partsupp partsupp_1 WHERE part_0_1.p_partkey=partsupp_1.ps_partkey
 base cardinality
 PreproBase.makeDataStruct_cardinality 5
-PreproBase.makeDataStruct_attribute {3=part_2_0_1_p_retailprice_0, 2=part_2_0_1_p_name_0, 1=part_2_0_1_p_size_0}
-PreproBase.makeDataStruct_class {0=count, 1=java.lang.Integer, 2=java.lang.String, 3=java.math.BigDecimal}
-__________Preprocessing base table 25.0 ms
-SELECT part.p_name,part.p_retailprice,part.p_size  FROM part,partsupp  WHERE part.p_partkey = partsupp.ps_partkey  GROUP BY partsupp.ps_suppkey,part.p_mfgr,part.p_name,part.p_retailprice,part.p_size   ; 
-PreproBase.makeDataStruct_class_query {1=java.lang.String, 2=java.math.BigDecimal, 3=java.lang.Integer}
-{1=java.lang.String, 2=java.math.BigDecimal, 3=java.lang.Integer}
+PreproBase.makeDataStruct_attribute {2=partsupp_1_ps_availqty_0, 1=part_0_1_p_size_0}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.Integer, 2=java.lang.Integer}
+__________Preprocessing base table 23.0 ms
+SELECT part.p_size, ps_availqty FROM part,partsupp  WHERE part.p_partkey = partsupp.ps_partkey  GROUP BY part.p_retailprice,part.p_size, ps_availqty   ; 
+PreproBase.makeDataStruct_class_query {1=java.lang.Integer, 2=java.lang.Integer}
+{1=java.lang.Integer, 2=java.lang.Integer}
 PreproBase.result_cardinality 5
-PreproBase.result_column {3=p_size, 2=p_retailprice, 1=p_name}
-PreproBase.result_class {1=java.lang.String, 2=java.math.BigDecimal, 3=java.lang.Integer}
-MapBoth.pairs_{1=[2], 2=[3], 3=[1]}
-MapBoth.produce_lattice_root_[[2, 3, 1]]
-__________Query output table cum Mapping table 11.0 ms
+PreproBase.result_column {2=ps_availqty, 1=p_size}
+PreproBase.result_class {1=java.lang.Integer, 2=java.lang.Integer}
+MapBoth.pairs_{1=[1], 2=[2]}
+MapBoth.produce_lattice_root_[[1, 2]]
+__________Query output table cum Mapping table 9.0 ms
 Used memory is megabytes: 7 MB
-lattice_root [p_name, p_retailprice, p_size]
-BuildLattice.lattice_size 7 keyness_count 7
-Time_TD 1.0 Time_BU 1.0
+lattice_root [p_size, ps_availqty]
+BuildLattice.lattice_size 3 keyness_count 2
+Keyness_[p_size, ps_availqty]
+Keyness_[ps_availqty]
+Containment_0.0 ms_[p_size, ps_availqty]_true
+Time_TD 2.0 Time_BU 0.0
+Phase1.lattice_root {ps_availqty=2, p_size=1} num_candidates 2
+[(ps_availqty ), (p_size ps_availqty )]
 __________diff_grpby 6.0 ms
-SingleConstraints.aggregation (1, {})
-SingleConstraints.aggregation (2, {min=[3], avg=[3], max=[3], sum=[3]})
-SingleConstraints.aggregation (3, {min=[1], avg=[1], max=[1], sum=[1]})
-__________diff_aggre 1.0 ms
-__________diff_granu 1.0 ms
-__________diff_filter 2.0 ms
+SingleConstraints.aggregation (1, {min=[1], avg=[1], max=[1], sum=[1]})
+SingleConstraints.aggregation (2, {min=[2], avg=[2], max=[2], sum=[2]})
+Grouping_[ps_availqty]_aggreColumns_[1]
+MapRID = {[8895]={1=[1]}, [3325]={1=[7]}, [4069]={1=[7]}, [8076]={1=[7]}, [3956]={1=[7]}}
+combinaBID [2]
+getBaseCols [1]
+Read_partial_data_5.0_ms
+Column_id_1 Aggregations_{min=[1], avg=[1], max=[1], sum=[1]}
+Phase2.combnode [ps_availqty] 
+aggregation(list of pair) [(1, {min=[1], avg=[1], max=[1], sum=[1]})]
+Phase2.treenode {ps_availqty=2, p_size=1}
+Phase2.combnode [ps_availqty]
+aggregation 4 [{1=(min, 1)}, {1=(avg, 1)}, {1=(max, 1)}, {1=(sum, 1)}]
+__________diff_aggre 2.0 ms
+__________diff_granu 10.0 ms
+FilterSelection_latticeRoot_{ps_availqty=2, p_size=1}
+[2]
+FilterSelection.grouping_(ps_availqty )_multi-dimensions_[1]_aggregation-combinations_4
+combnode = (ps_availqty )
+FilterSelection.matrix_[8895]_boundingValues_{1=1}
+FilterSelection.matrix_[3325]_boundingValues_{1=7}
+FilterSelection.matrix_[4069]_boundingValues_{1=7}
+FilterSelection.matrix_[8076]_boundingValues_{1=7}
+FilterSelection.matrix_[3956]_boundingValues_{1=7}
+time1_1.0_time2_0.0_time3_0.0 = 1.0_ms
+Start Experiment from One Dimensi
+Created bounding box 1 (min, 1)
+1 1
+1 1
+1 1
+1 1
+Created bounding box 1 (avg, 1)
+cross aggregate no valid
+not any box returns
+Created bounding box 1 (max, 1)
+1 1
+1 1
+1 1
+1 1
+Created bounding box 1 (sum, 1)
+------------------------one dimension--------------------- 7.0_ms
+1 (0, 0) (0, 1)
+OneDimenFilter BaseIndex=1 (1, 1) (1, 7) [(sum, 1)]
+1 (0, 1) (0, 1)
+OneDimenFilter BaseIndex=1 (1, 7) (1, 7) [(max, 1)]
+1 (0, 1) (0, 1)
+OneDimenFilter BaseIndex=1 (1, 7) (1, 7) [(min, 1)]
+time for one/two/three dimensi_8.0_ms
+__________diff_filter 11.0 ms
 Used memory2 is megabytes: 4 MB
+

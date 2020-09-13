@@ -1,0 +1,96 @@
+select o_shippriority, max(l_extendedprice), min(l_extendedprice),avg(l_extendedprice), sum(l_extendedprice), count(l_extendedprice)
+from LINEITEM, ORDERS
+where l_orderkey = o_orderkey
+group by o_shippriority
+
+------------------------------------------------------------------------------------------------------------------------
+
+select o_shippriority, l_extendedprice
+from LINEITEM, ORDERS
+where l_orderkey = o_orderkey
+
+------------------------------------------------------------------------------------------------------------------------
+
+Database connection established!
+select o_shippriority, l_extendedprice from LINEITEM, ORDERS where l_orderkey = o_orderkey 
+base cardinality
+PreproBase.makeDataStruct_cardinality 582536
+PreproBase.makeDataStruct_attribute {2=l_extendedprice, 1=o_shippriority}
+PreproBase.makeDataStruct_class {0=count, 1=java.lang.Integer, 2=java.math.BigDecimal}
+__________Preprocessing base table 4015.0 ms
+select o_shippriority, max(l_extendedprice), min(l_extendedprice),avg(l_extendedprice), sum(l_extendedprice), count(l_extendedprice) from LINEITEM, ORDERS where l_orderkey = o_orderkey group by o_shippriority   
+PreproBase.makeDataStruct_class_query {1=java.lang.Integer, 2=java.math.BigDecimal, 3=java.math.BigDecimal, 4=java.math.BigDecimal, 5=java.math.BigDecimal, 6=java.lang.Long}
+{1=java.lang.Integer, 2=java.math.BigDecimal, 3=java.math.BigDecimal, 4=java.math.BigDecimal, 5=java.math.BigDecimal, 6=java.lang.Long}
+PreproBase.result_cardinality 1
+PreproBase.result_column {5=sum(l_extendedprice), 4=avg(l_extendedprice), 3=min(l_extendedprice), 2=max(l_extendedprice), 1=o_shippriority, 6=count(l_extendedprice)}
+PreproBase.result_class {1=java.lang.Integer, 2=java.math.BigDecimal, 3=java.math.BigDecimal, 4=java.math.BigDecimal, 5=java.math.BigDecimal, 6=java.lang.Long}
+MapBoth.pairs_{1=[1], 2=[2], 3=[2]}
+MapBoth.produce_lattice_root_[[1, 2, 2]]
+__________Query output table cum Mapping table 1035.0 ms
+Used memory is megabytes: 271 MB
+lattice_root [o_shippriority, max(l_extendedprice), min(l_extendedprice)]
+BuildLattice.lattice_size 7 keyness_count 3
+Keyness_[o_shippriority, max(l_extendedprice), min(l_extendedprice)]
+Keyness_[o_shippriority, max(l_extendedprice)]
+Keyness_[o_shippriority, min(l_extendedprice)]
+Keyness_[max(l_extendedprice), min(l_extendedprice)]
+Keyness_[o_shippriority]
+Keyness_[max(l_extendedprice)]
+Keyness_[min(l_extendedprice)]
+Time_TD 0.0 Time_BU 0.0
+Phase1.lattice_root {max(l_extendedprice)=2, min(l_extendedprice)=2, o_shippriority=1} num_candidates 5
+[(o_shippriority ), (max(l_extendedprice) ), (min(l_extendedprice) ), (o_shippriority max(l_extendedprice) ), (o_shippriority min(l_extendedprice) )]
+__________diff_grpby 6.0 ms
+SingleConstraints.aggregation (5, {sum=[2]})
+SingleConstraints.aggregation (6, {count=[0]})
+SingleConstraints.aggregation (4, {avg=[2], sum=[2]})
+SingleConstraints.aggregation (1, {min=[1], avg=[1], max=[1], sum=[1]})
+SingleConstraints.aggregation (2, {min=[2], avg=[2], max=[2], sum=[2]})
+SingleConstraints.aggregation (3, {min=[2], avg=[2], max=[2], sum=[2]})
+Grouping_[max(l_extendedprice)]_aggreColumns_[1, 3, 4, 5, 6]
+basePartialRow {[1]=[2], [2]=[1], [1, 2]=null}
+combinaBID [2]
+getBaseCols [1]
+Read_partial_data_4.0_ms
+Column_id_5 Aggregations_{sum=[2]}
+Grouping_[min(l_extendedprice)]_aggreColumns_[1, 2, 4, 5, 6]
+Read_partial_data_0.0_ms
+Column_id_5 Aggregations_{sum=[2]}
+Grouping_[o_shippriority]_aggreColumns_[2, 3, 4, 5, 6]
+basePartialRow {[1]=[2], [2]=[1], [1, 2]=null}
+combinaBID [1]
+getBaseCols [2]
+Read_partial_data_96.0_ms
+Column_id_5 Aggregations_{sum=[2]}
+Column_id_6 Aggregations_{count=[0]}
+Column_id_4 Aggregations_{avg=[2], sum=[2]}
+overlap_aggregations_sum 2
+Column_id_2 Aggregations_{min=[2], avg=[2], max=[2], sum=[2]}
+overlap_aggregations_sum 2
+Column_id_3 Aggregations_{min=[2], avg=[2], max=[2], sum=[2]}
+overlap_aggregations_sum 2
+Phase2.combnode [o_shippriority] 
+aggregation(list of pair) [(5, {sum=[2]}), (6, {count=[0]}), (4, {avg=[2]}), (2, {max=[2]}), (3, {min=[2]})]
+Phase2.treenode {max(l_extendedprice)=2, min(l_extendedprice)=2, o_shippriority=1}
+Phase2.combnode [o_shippriority]
+aggregation 1 [{2=(max, 2), 3=(min, 2), 4=(avg, 2), 5=(sum, 2), 6=(count, 0)}]
+__________diff_aggre 1.0 ms
+__________diff_granu 395.0 ms
+FilterSelection_latticeRoot_{max(l_extendedprice)=2, min(l_extendedprice)=2, o_shippriority=1}
+[1]
+FilterSelection.grouping_(o_shippriority )_multi-dimensions_[2]_aggregation-combinations_1
+combnode = (o_shippriority )
+FilterSelection.matrix_[0]_boundingValues_{2=95799.50, 3=901.00, 4=35827.608914, 5=20870871986.15, 6=582536}
+time1_31.0_time2_185.0_time3_0.0 = 305.0_ms
+Start Experiment from One Dimensi
+------------------------one dimension--------------------- 0.0_ms
+time for one/two/three dimensi_0.0_ms
+__________diff_filter 309.0 ms
+Used memory2 is megabytes: 274 MB
+
+------------------------------------------------------------------------------------------------------------------------
+
+select o_shippriority, max(l_extendedprice), min(l_extendedprice),avg(l_extendedprice), sum(l_extendedprice), count(l_extendedprice)
+from LINEITEM, ORDERS
+where l_orderkey = o_orderkey
+group by o_shippriority

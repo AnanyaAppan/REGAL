@@ -30,7 +30,10 @@ public class BeginTree {
 
 		File file = new File("../../extracted_join_query.txt");
 		Scanner sc = new Scanner(file); 
-		String baseTable = sc.nextLine();
+		String baseTable = "";
+		while(sc.hasNextLine()) {
+			baseTable += sc.nextLine() + " ";
+		}
 		System.out.println(baseTable);
 			
 		long start_pre = System.currentTimeMillis();

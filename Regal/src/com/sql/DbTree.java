@@ -15,7 +15,7 @@ public class DbTree {
             //String password = "root";
             // String url = "jdbc:mysql://localhost/tpch_10m";       
             //String url = "jdbc:mysql://localhost/tpch_100m";
-            String url = "jdbc:mysql://localhost/tpch_mini";
+            String url = "jdbc:mysql://localhost/tpch100MB";
             Class.forName ("com.mysql.cj.jdbc.Driver").newInstance ();
             conn = DriverManager.getConnection (url, userName, password);
             System.out.println ("Database connection established!");

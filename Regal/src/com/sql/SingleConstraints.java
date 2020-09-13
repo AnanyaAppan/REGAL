@@ -23,10 +23,9 @@ public class SingleConstraints {
 		for (int i : resultkeys) {
 			
 			Multimap<Object, Integer> function = ArrayListMultimap.create();
-			
 			if (columnClass.get(i).contains("Integer") || columnClass.get(i).contains("BigDecimal") 
 					|| columnClass.get(i).contains("Long")) {
-				//System.out.println("rule_1_" + i + "_" + resTobase.get(i));
+				// System.out.println("rule_1_" + i + "_" + resTobase.get(i));
 				for (int j : resTobase.get(i)) {
 					if (checkBothFrequencies(resultFreq.get(i), baseFreq.get(j)) == true) {
 						function.put("max", j);

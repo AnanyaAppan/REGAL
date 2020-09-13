@@ -1,1 +1,1 @@
-SELECT * FROM  orders orders_0_1
+SELECT * FROM  LINEITEM lineitem_0
